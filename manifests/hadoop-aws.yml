@@ -1,0 +1,166 @@
+<% num_yarn_masters = 1 %>
+<% num_hdfs_masters = 2 %>
+<% num_slaves = 5 %>
+<% num_clients = 1 %>
+<% client_public_ip =  %>
+<% deployment_name = "hadoop-aws" %>
+<% os = "ubuntu" %>
+<% tld = "microbosh" %>
+<% release_name = "insightfactory" %>
+<% director_uuid = "87e046f4-527d-487f-b41e-b4b49bfe1554" %>
+---
+
+compilation:
+  cloud_properties:
+    instance_type: m1.xlarge
+  network: default
+  reuse_compilation_vms: true
+  workers: 6
+name:  <%= deployment_name %>
+director_uuid: <%= director_uuid %>
+
+jobs:
+
+- name: hdfs-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: namenode
+  instances: 1
+
+- name: yarn-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: yarn-master
+  template:
+    - yarn-resourcemanager
+    - mapreduce-jobhistory
+  instances: <%= num_yarn_masters %>
+
+- name: hdfs-secondary-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: secondarynamenode
+  instances: 1
+
+- name: slave
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: slave
+  template:
+    - yarn-nodemanager
+    - datanode
+  instances: <%= num_slaves %>
+
+- name: client
+  networks:
+  - name: default
+    default: [dns, gateway]
+  - name: elastic
+    static_ips:
+      - <%= client_public_ip %>
+  resource_pool: client
+  template: client
+  instances: <%= num_clients %>
+
+meta:
+  environment: <%= deployment_name %>
+  stemcell:
+    name: bosh-aws-xen-<%= os %>
+    version: latest
+
+networks:
+- cloud_properties: {}
+  name: elastic
+  type: vip
+- cloud_properties:
+    security_groups:
+    - hadoop
+  name: default
+  type: dynamic
+
+
+releases:
+- name: <%= release_name %>
+  version: latest
+
+resource_pools:
+
+  - name: hdfs-master
+    network: default
+    size: <%= num_hdfs_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: yarn-master
+    network: default
+    size: <%= num_yarn_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: slave
+    network: default
+    size: <%= num_slaves %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m2.2xlarge
+
+  - name: client
+    network: default
+    size: <%= num_clients %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
+
+properties:
+  hadoop:
+    namenode:
+      host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
+      port: 8020
+    yarn:
+      resourcemanager:
+        resourcetracker:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        admin:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        scheduler:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        webapp:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      mapreduce:
+        jobhistory:
+          webapp:
+            address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      log:
+        server:
+          url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
+

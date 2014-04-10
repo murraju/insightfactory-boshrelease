@@ -1,0 +1,5 @@
+---
+name: marathon
+dependencies: {}
+files:
+  - marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar

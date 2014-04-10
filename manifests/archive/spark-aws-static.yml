@@ -1,0 +1,72 @@
+name: spark-aws-ec2
+
+# Execute the "bosh status" command to obtain the director_uuid.
+director_uuid: 87e046f4-527d-487f-b41e-b4b49bfe1554
+
+release:
+  name: spark
+  version: latest
+
+compilation:
+  workers: 3
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties:
+    instance_type: m1.large
+
+update:
+  canaries: 1
+  canary_watch_time: 3000-120000
+  update_watch_time: 3000-120000
+  max_in_flight: 4
+  max_errors: 1
+
+networks:
+  - name: elastic
+    type: vip
+    cloud_properties: {}
+  - name: default
+    type: dynamic
+    cloud_properties:
+      security_groups:
+        - hadoop
+
+resource_pools:
+  - name: large
+    network: default
+    size: 25
+    stemcell:
+      name: bosh-aws-xen-ubuntu
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
+jobs:
+  - name: spark-master
+    template:
+    - spark-master
+    instances: 1
+    resource_pool: large
+    persistent_disk: 20480
+    networks:
+      - name: default
+        default: [dns, gateway]
+      - name: elastic
+        static_ips:
+          - 54.83.30.194
+
+  - name: spark-slave
+    template:
+    - spark-slave
+    instances: 2
+    resource_pool: large
+    persistent_disk: 20480
+    networks:
+      - name: default
+        default: [dns, gateway]
+
+properties:
+    spark:
+      master:
+        host: 54.83.30.194
+        port: 7077

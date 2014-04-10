@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+#
+# Jenkins properties
+#
+
+# Directory to store the Jenkins configuration files
+export JENKINS_CONF_DIR=$JOB_DIR/config
+
+# Directory to store the Jenkins log files
+export JENKINS_LOG_DIR=$LOG_DIR
+
+# Directory to store the Jenkins process IDs
+export JENKINS_PID_DIR=$RUN_DIR
+
+# Directory to store the Jenkins data files
+export JENKINS_STORE_DIR=$STORE_DIR
+
+# Directory to store the Jenkins temp files
+export JENKINS_TMP_DIR=$TMP_DIR
+
+# Jenkins home directory
+export JENKINS_HOME=$JENKINS_STORE_DIR
+
+# Jenkins plugins directory
+export JENKINS_PLUGINS_DIR=$JENKINS_STORE_DIR/plugins
+
+# User which will own the Jenkins services
+export JENKINS_USER="<%= p('jenkins.user') %>"
+
+# Group which will own the Jenkins services
+export JENKINS_GROUP="<%= p('jenkins.group') %>"
+
+# Java Heap Size for Jenkinss
+export JENKINS_JAVA_HEAP_SIZE="<%= p('jenkins.java_heap_size') %>"
+
+# Port Jenkins will listen using standard http protocol
+export JENKINS_PORT="<%= p('jenkins.port') %>"
+
+# IP address where to bind Jenkins using standard http protocol
+export JENKINS_LISTEN_ADDRESS="<%= p('jenkins.listen_address') %>"
+
+# Port Jenkins will listen using standard AJP13 protocol
+export JENKINS_AJP_PORT="<%= p('jenkins.ajp_port') %>"
+
+# IP address where to bind Jenkins using standard AJP13 protocol
+export JENKINS_AJP_LISTEN_ADDRESS="<%= p('jenkins.ajp_listen_address') %>"
+
+# Jenkins admin user
+export JENKINS_ADMIN_USER="<%= p('jenkins.admin_user') %>"
+
+# Jenkins admin password
+export JENKINS_ADMIN_PASSWORD="<%= p('jenkins.admin_password') %>"
+
+# Prefix to append to Jenkins URL
+export JENKINS_PREFIX="<%= p('jenkins.prefix') %>"
+
+# Apache Mesos Native Library
+export MESOS_NATIVE_LIBRARY=/var/vcap/packages/mesos/lib/libmesos.so
+
+#
+# Nginx properties
+#
+
+# Directory to store the Nginx configuration files
+export NGINX_CONF_DIR=$JOB_DIR/config
+
+# Directory to store the Nginx log files
+export NGINX_LOG_DIR=$LOG_DIR
+
+# Directory to store the Nginx process IDs
+export NGINX_PID_DIR=$RUN_DIR
+
+# Directory to store the Nginx data files
+export NGINX_STORE_DIR=$STORE_DIR
+
+# Directory to store the Nginx temp files
+export NGINX_TMP_DIR=$TMP_DIR
+
+# Directory to store the Nginx SSL certificates
+export NGINX_CERTS_DIR=$NGINX_CONF_DIR/ssl
+
+# User which will own the Nginx services
+export NGINX_USER="<%= p('jenkins.nginx.user') %>"
+
+# Group which will own the Nginx services
+export NGINX_GROUP="<%= p('jenkins.nginx.group') %>"

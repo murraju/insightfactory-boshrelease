@@ -1,0 +1,88 @@
+user vcap;
+worker_processes     <%= p('jenkins.nginx.worker_processes') %>;
+daemon off;
+
+error_log            /var/vcap/sys/log/jenkins/nginx_error.log;
+pid                  /var/vcap/sys/run/jenkins/nginx.pid;
+
+events {
+  use epoll;
+  multi_accept on;
+  worker_connections <%= p('jenkins.nginx.worker_connections') %>;
+}
+
+http {
+  include            /var/vcap/jobs/jenkins/config/mime.types;
+  default_type       text/html;
+  server_tokens      off;
+
+  access_log         /var/vcap/sys/log/jenkins/nginx_access.log;
+
+  sendfile           on;
+  tcp_nopush         on;
+  tcp_nodelay        on;
+
+  types_hash_max_size 2048;
+
+  send_timeout 2;
+
+  client_max_body_size    <%= p('jenkins.nginx.max_upload_size') %>;
+  client_body_buffer_size 128k;
+  client_body_timeout     10;
+  client_header_timeout   30;
+
+  keepalive_timeout         <%= p('jenkins.nginx.keepalive_timeout') %>;
+  keepalive_requests        10000;
+  reset_timedout_connection on;
+
+  open_file_cache          max=1000 inactive=120s;
+  open_file_cache_valid    120s;
+  open_file_cache_min_uses 1;
+  open_file_cache_errors   on;
+
+  gzip                 on;
+  gzip_http_version    1.1;
+  gzip_vary            on;
+  gzip_comp_level      6;
+  gzip_proxied         any;
+  gzip_types           text/plain text/css application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+  gzip_buffers         16 8k;
+  gzip_disable         "MSIE [1-6]\.(?!.*SV1)";
+
+  ssl_session_cache shared:SSL:10m;
+
+  upstream jenkins {
+    server 127.0.0.1:<%= p('jenkins.port') %> fail_timeout=0;
+  }
+
+  server {
+    listen <%= p('jenkins.nginx.http.port') %>;
+    server_name  _;
+    server_name_in_redirect off;
+
+    ssl off;
+
+    <% if p('jenkins.nginx.ssl_only') %>
+    return 301 https://$host$request_uri;
+    <% else %>
+    include /var/vcap/jobs/jenkins/config/jenkins_location.conf;
+    <% end %>
+  }
+
+  server {
+    listen <%= p('jenkins.nginx.https.port') %>;
+    server_name  _;
+    server_name_in_redirect off;
+
+    ssl on;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers               ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:HIGH:!MD5:!aNULL:!EDH;
+    ssl_certificate           /var/vcap/jobs/jenkins/config/ssl/jenkins.pem;
+    ssl_certificate_key       /var/vcap/jobs/jenkins/config/ssl/jenkins.key;
+    ssl_session_timeout       <%= p('jenkins.nginx.https.ssl_timeout') %>;
+    add_header                Strict-Transport-Security max-age=15768000;
+
+    include /var/vcap/jobs/jenkins/config/jenkins_location.conf;
+  }
+}

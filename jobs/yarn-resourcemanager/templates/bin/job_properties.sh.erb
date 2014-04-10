@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+#
+# Hadoop YARN Resource Manager Properties
+#
+
+JOB_NAME=yarn-resourcemanager
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+
+export HADOOP_HOME=/var/vcap/packages/hadoop
+export HADOOP_CONF_DIR=/var/vcap/jobs/yarn-resourcemanager/config
+export HADOOP_LOG_DIR=$LOG_DIR
+export HADOOP_PID_DIR=$RUN_DIR
+export YARN_LOG_DIR=$LOG_DIR
+export YARN_PID_DIR=$RUN_DIR
+export HADOOP_YARN_USER=vcap
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export YARN_CONF_DIR=/var/vcap/jobs/yarn-resourcemanager/config
+export HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH

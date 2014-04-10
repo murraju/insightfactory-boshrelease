@@ -1,0 +1,40 @@
+---
+name: secondarynamenode
+packages:
+- hadoop
+- java
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/secondarynamenode_ctl.erb: bin/secondarynamenode_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/hadoop-env.sh.erb: config/hadoop-env.sh
+  config/hdfs-site.xml.erb: config/hdfs-site.xml
+  config/core-site.xml.erb: config/core-site.xml
+properties:
+  hadoop.namenode.host:
+    description: The Hostname or address of the Hadoop Namenode
+  hadoop.namenode.port:
+    description: The port to listen on
+    default: 8020
+  hadoop.namenode.safemode_min_datanodes:
+    description: Minimum number of data node
+    default: 3
+  hadoop.namenode.num_dfs_replicas:
+    description: Number of dfs replicas
+    default: 3
+  hadoop.namenode.dfs_name_dir:
+    description: dfs name directory
+    default: /cache/hadoop/dfs/name
+  hadoop.namenode.hadoop_tmp_dir:
+    description: hdfs user tmp directory
+    default: /var/vcap/data/hadoop/tmp
+  hadoop.namenode.dfs_name_dir_root:
+    description: dfs root
+    default: /var/vcap/data/hadoop
+  hadoop.datanode.dfs_data_dir:
+    description: dfs data directory
+    default: /cache/hdfs/dfs/data
+

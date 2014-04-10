@@ -1,0 +1,20 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+ZOOKEEPER_VERSION=`ls -r zookeeper/zookeeper-*.tar.gz | sed 's/zookeeper\/zookeeper-\(.*\)\.tar\.gz/\1/' | head -1`
+
+# Extract Apache ZooKeeper package
+echo "Extracting Apache ZooKeeper ${ZOOKEEPER_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/zookeeper/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Apache ZooKeeper ${ZOOKEEPER_VERSION}"
+  exit 1
+fi
+
+# Copy Apache ZooKeeper package
+echo "Copying Apache ZooKeeper ${ZOOKEEPER_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/zookeeper-${ZOOKEEPER_VERSION}/* ${BOSH_INSTALL_TARGET}/

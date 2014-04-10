@@ -1,0 +1,20 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+SCALA_VERSION=`ls -r scala/scala-*.tgz | sed 's/scala\/scala-\(.*\)\.tgz/\1/' | head -1`
+
+# Extract Scala package
+echo "Extracting Scala ${SCALA_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/scala/scala-${SCALA_VERSION}.tgz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Scala ${SCALA_VERSION}"
+  exit 1
+fi
+
+# Copy Scala package
+echo "Copying Scala ${SCALA_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/scala-${SCALA_VERSION}/* ${BOSH_INSTALL_TARGET}/

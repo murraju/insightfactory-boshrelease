@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'zookeeper'
+export ZOOPIDFILE=$ZOOKEEPER_PID_DIR/zookeeper.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $ZOOPIDFILE $JOB_NAME
+
+    # Create Apache Zookeeper user & group
+    create_group $ZOOKEEPER_GROUP
+    create_user $ZOOKEEPER_USER $ZOOKEEPER_GROUP
+
+    # Create Apache Zookeeper data directory
+    mkdir -p $ZOOKEEPER_DATA_DIR
+    cp $ZOOKEEPER_CONF_DIR/myid $ZOOKEEPER_DATA_DIR/
+    chown -R $ZOOKEEPER_USER:$ZOOKEEPER_GROUP $ZOOKEEPER_DATA_DIR/
+
+    # Start Apache Zookeeper service
+    exec chpst -u $ZOOKEEPER_USER:$ZOOKEEPER_GROUP \
+         zkServer.sh start \
+         >>$ZOOKEEPER_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+         2>>$ZOOKEEPER_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Apache Zookeeper service
+    exec zkServer.sh stop
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

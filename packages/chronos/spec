@@ -1,0 +1,5 @@
+---
+name: chronos
+dependencies: {}
+files:
+  - chronos/chronos-2.1.0_mesos-0.14.0-rc4.jar

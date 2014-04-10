@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'jenkins'
+export JENKINS_PID_FILE=$JENKINS_PID_DIR/jenkins.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $JENKINS_PID_FILE $JOB_NAME
+    echo $$ > $JENKINS_PID_FILE
+
+    # Increase the default number of open file descriptors
+    ulimit -n 8192
+
+    # Create Jenkins user & group
+    create_group $JENKINS_GROUP
+    create_user $JENKINS_USER $JENKINS_GROUP
+
+    # Copy Jenkins configuration file (Don't override if a newer version exists)
+    cp -u $JENKINS_CONF_DIR/config.xml $JENKINS_HOME
+    chown -R $JENKINS_USER:$JENKINS_GROUP $JENKINS_CONF_DIR
+
+    # Copy Jenkins plugins (Don't override if a newer version exists)
+    mkdir -p $JENKINS_PLUGINS_DIR
+    cp -a -u /var/vcap/packages/jenkins/plugins/* $JENKINS_PLUGINS_DIR
+    chown -R $JENKINS_USER:$JENKINS_GROUP $JENKINS_PLUGINS_DIR
+
+    # Start Jenkins service
+    exec chpst -u $JENKINS_USER:$JENKINS_GROUP java \
+           -Xmx"$JENKINS_JAVA_HEAP_SIZE" \
+           -Xms"$JENKINS_JAVA_HEAP_SIZE" \
+           -Dfile.encoding=UTF-8 \
+           -Djava.io.tmpdir=$JENKINS_TMP_DIR \
+           -jar /var/vcap/packages/jenkins/jenkins.war  \
+           --httpPort="$JENKINS_PORT" \
+           --httpListenAddress="$JENKINS_LISTEN_ADDRESS" \
+           --ajp13Port="$JENKINS_AJP_PORT" \
+           --ajp13ListenAddress="$JENKINS_AJP_LISTEN_ADDRESS" \
+           --argumentsRealm.passwd.$JENKINS_ADMIN_USER="$JENKINS_ADMIN_PASSWORD" \
+           --argumentsRealm.roles.$JENKINS_ADMIN_USER=admin \
+           --prefix="$JENKINS_PREFIX" \
+           >>$JENKINS_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$JENKINS_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Jenkins service
+    kill_and_wait $JENKINS_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

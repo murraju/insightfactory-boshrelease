@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+#
+# Apache Mesos Slave properties
+#
+
+# Directory to store the Apache Mesos Slave configuration files
+export MESOS_SLAVE_CONF_DIR=$JOB_DIR/config
+
+# Directory to store the Apache Mesos Slave log files
+export MESOS_SLAVE_LOG_DIR=$LOG_DIR
+
+# Directory to store the Apache Mesos Slave process IDs
+export MESOS_SLAVE_PID_DIR=$RUN_DIR
+
+# Directory to store the Apache Mesos Slave data files
+export MESOS_SLAVE_STORE_DIR=$STORE_DIR
+
+# Directory to store the Apache Mesos Slave temp files
+export MESOS_SLAVE_TMP_DIR=$TMP_DIR
+
+# User which will own the Apache Mesos Slave services
+export MESOS_SLAVE_USER="<%= p('mesos.slave.user') %>"
+
+# Group which will own the Apache Mesos Slave services
+export MESOS_SLAVE_GROUP="<%= p('mesos.slave.user') %>"
+
+# Apache Mesos Home directory
+export MESOS_HOME=/var/vcap/packages/mesos
+
+# Attributes of machine
+export MESOS_SLAVE_ATTRIBUTES="<%= p('mesos.slave.attributes') %>"
+
+# Cgroups feature flag to enable hard limits on CPU resources via the CFS bandwidth limiting subfeature
+export MESOS_SLAVE_CGROUPS_ENABLE_CFS="<%= p('mesos.slave.cgroups_enable_cfs') %>"
+
+# The path to the cgroups hierarchy root
+export MESOS_SLAVE_CGROUPS_HIERARCHY="<%= p('mesos.slave.cgroups_hierarchy') %>"
+
+# Name of the root cgroup
+export MESOS_SLAVE_CGROUPS_ROOT="<%= p('mesos.slave.cgroups_root') %>"
+
+# List of subsystems to enable (e.g., 'cpu,freezer')
+export MESOS_SLAVE_CGROUPS_SUBSYSTEMS="<%= p('mesos.slave.cgroups_subsystems') %>"
+
+# Whether to checkpoint Apache Mesos Slaves and Frameworks information to disk
+export MESOS_SLAVE_CHECKPOINT="<%= p('mesos.slave.checkpoint') %>"
+
+# Default role
+export MESOS_SLAVE_DEFAULT_ROLE="<%= p('mesos.slave.default_role') %>"
+
+# Periodic time interval (e.g., 10secs, 2mins, etc) to check the disk usage
+export MESOS_SLAVE_DISK_WATCH_INTERVAL="<%= p('mesos.slave.disk_watch_interval') %>"
+
+# Amount of time to wait for an executor to register with the slave before considering it hung and shutting it down
+export MESOS_SLAVE_EXECUTOR_REGISTRATION_TIMEOUT="<%= p('mesos.slave.executor_registration_timeout') %>"
+
+# Amount of time to wait for an executor to shut down
+export MESOS_SLAVE_EXECUTOR_SHUTDOWN_GRACE_PERIOD="<%= p('mesos.slave.executor_shutdown_grace_period') %>"
+
+# Maximum amount of time to wait before cleaning up executor directories
+export MESOS_SLAVE_GC_DELAY="<%= p('mesos.slave.gc_delay') %>"
+
+# IP address where Apache Mesos Slave will listen on
+export MESOS_SLAVE_IP_ADDRESS="<%= p('mesos.slave.listen_address') %>"
+
+# Apache Mesos Slave isolation mechanism (process, cgroups)
+export MESOS_SLAVE_ISOLATION="<%= p('mesos.slave.isolation') %>"
+
+# How many seconds to buffer log messages for
+export MESOS_SLAVE_LOGBUFSECS="<%= p('mesos.slave.logbufsecs') %>"
+
+# Port where Apache Mesos Slave will listen on
+export MESOS_SLAVE_PORT="<%= p('mesos.slave.port') %>"
+
+# Whether to recover Apache Mesos Slaves status updates and reconnect with old executors (reconnect, cleanup)
+export MESOS_SLAVE_RECOVER="<%= p('mesos.slave.recover') %>"
+
+# Amount of time alloted for the Apache Mesos Slaves to recover
+export MESOS_SLAVE_RECOVERY_TIMEOUT="<%= p('mesos.slave.recovery_timeout') %>"
+
+# Periodic time interval for monitoring executor resource usage
+export MESOS_SLAVE_RESOURCE_MONITORING_INTERVAL="<%= p('mesos.slave.resource_monitoring_interval') %>"
+
+# Total consumable resources per slave, in the form 'name(role):value;name(role):value...'
+export MESOS_SLAVE_RESOURCES="<%= p('mesos.slave.resources') %>"
+
+# Whether to do Apache Mesos Slaves recovery in strict mode
+export MESOS_SLAVE_STRICT="<%= p('mesos.slave.strict') %>"
+
+# Whether to run tasks as the user who submitted them rather than the user running the slave
+export MESOS_SWITCH_USER="<%= p('mesos.slave.switch_user') %>"

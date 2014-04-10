@@ -1,0 +1,7 @@
+---
+name: ruby
+dependencies: {}
+files:
+  - ruby/bundler-1.5.3.gem
+  - ruby/ruby-2.1.1.tar.gz
+  - ruby/rubygems-2.2.2.tgz

@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+#
+# Marathon properties
+#
+
+# Directory to store the Marathon configuration files
+export MARATHON_CONF_DIR=$JOB_DIR/config
+
+# Directory to store the Marathon log files
+export MARATHON_LOG_DIR=$LOG_DIR
+
+# Directory to store the Marathon process IDs
+export MARATHON_PID_DIR=$RUN_DIR
+
+# Directory to store the Marathon data files
+export MARATHON_STORE_DIR=$STORE_DIR
+
+# Directory to store the Marathon temp files
+export MARATHON_TMP_DIR=$TMP_DIR
+
+# User which will own the Marathon services
+export MARATHON_USER="<%= p('marathon.user') %>"
+
+# Group which will own the Marathon services
+export MARATHON_GROUP="<%= p('marathon.group') %>"
+
+# Java Heap Size for Marathon
+export MARATHON_JAVA_HEAP_SIZE="<%= p('marathon.java_heap_size') %>"
+
+<% if_p('marathon.enable_checkpoint') do |enable_checkpoint| %>
+# Enable checkpointing of tasks
+export MARATHON_CHECKPOINT="--checkpoint"
+<% end %>
+
+# The failover_timeout for Apache Mesos in seconds
+export MARATHON_FAILOVER_TIMEOUT="<%= p('marathon.failover_timeout') %>"
+
+<% if_p('marathon.enable_ha') do |enable_ha| %>
+# Enable running Marathon in HA mode with leader election
+export MARATHON_HA="--ha"
+<% end %>
+
+# Credentials for accessing the Marathon http service
+export MARATHON_HTTP_CREDENTIALS="<%= p('marathon.http_credentials') %>"
+
+# The port Marathon will listen on for HTTP requests
+export MARATHON_HTTP_PORT="<%= p('marathon.http_port') %>"
+
+# The port Marathon will listen on for HTTPS requests
+export MARATHON_HTTPS_PORT="<%= p('marathon.https_port') %>"
+
+# Min port number to use when Marathon assigns ports to apps
+export MARATHON_LOCAL_PORT_MIN="<%= p('marathon.local_port_min') %>"
+
+# Max port number to use when Marathon assigns ports to apps
+export MARATHON_LOCAL_PORT_MAX="<%= p('marathon.local_port_max') %>"
+
+# Mesos role for this framework
+export MARATHON_MESOS_ROLE="<%= p('marathon.mesos_role') %>"
+
+# This is the length of time, in milliseconds, between task reconciliation operations
+export MARATHON_RECONCILIATION_FREQUENCY="<%= p('marathon.reconciliation_frequency') %>"
+
+# This is the length of time, in milliseconds, before Marathon begins to periodically perform task reconciliation operations
+export MARATHON_RECONCILIATION_INITIAL_DELAY="<%= p('marathon.reconciliation_initial_delay') %>"
+
+# Time, in milliseconds, to wait for a task to enter the TASK_RUNNING state before killing it
+export MARATHON_TASK_LAUNCH_TIMEOUT="<%= p('marathon.task_launch_timeout') %>"
+
+# This is the time window within which instances may be launched for a given app
+export MARATHON_TASK_RATE_LIMIT="<%= p('marathon.task_rate_limit') %>"
+
+# Path in ZooKeeper for storing Marathon state
+export MARATHON_ZK_STATE="/<%= p('marathon.zk_state') %>"
+
+# The timeout for ZooKeeper in milliseconds
+export MARATHON_ZK_TIMEOUT="<%= p('marathon.zk_timeout') %>"
+
+# Apache Mesos Native Library
+export MESOS_NATIVE_LIBRARY=/var/vcap/packages/mesos/lib/libmesos.so

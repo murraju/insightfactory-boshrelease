@@ -1,0 +1,23 @@
+autopurge.purgeInterval=<%= p('zookeeper.purge_interval') %>
+autopurge.snapRetainCount=<%= p('zookeeper.autopurge_snap_retain_count') %>
+clientPort=<%= p('zookeeper.client_port') %>
+clientPortAddress=<%= p('zookeeper.listen_address') %>
+cnxTimeout=<%= p('zookeeper.cnx_timeout') %>
+dataDir=/var/vcap/store/zookeeper
+dataLogDir=/var/vcap/sys/log/zookeeper
+electionAlg=<%= p('zookeeper.election_algorim') %>
+fsync.warningthresholdms=<%= p('zookeeper.warning_threshold_ms') %>
+globalOutstandingLimit=<%= p('zookeeper.global_outstanding_limit') %>
+initLimit=<%= p('zookeeper.init_limit') %>
+leaderServes=<%= p('zookeeper.leader_serves') %>
+maxClientCnxns=<%= p('zookeeper.max_client_connections') %>
+maxSessionTimeout=<%= p('zookeeper.max_session_timeout') %>
+minSessionTimeout=<%= p('zookeeper.min_session_timeout') %>
+preAllocSize=<%= p('zookeeper.pre_allocation_size') %>
+snapCount=<%= p('zookeeper.snap_count') %>
+syncLimit=<%= p('zookeeper.sync_limit') %>
+tickTime=<%= p('zookeeper.tick_time') %>
+
+<% p('zookeeper.servers').each_with_index do |server, index| %>
+server.<%= index + 1 %>=<%= server %>:<%= p('zookeeper.quorum_port') %>:<%= p('zookeeper.leader_election_port') %>
+<% end %>

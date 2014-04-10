@@ -1,0 +1,75 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'marathon'
+export MARATHON_PID_FILE=$MARATHON_PID_DIR/marathon.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $MARATHON_PID_FILE $JOB_NAME
+    echo $$ > $MARATHON_PID_FILE
+
+    # Increase the default number of open file descriptors
+    ulimit -n 8192
+
+    # Create Marathon user & group
+    create_group $MARATHON_GROUP
+    create_user $MARATHON_USER $MARATHON_GROUP
+
+    # Read ZooKeeper Hosts
+    ZK_HOSTS=`cat $MARATHON_CONF_DIR/zoo_hosts.cfg`
+
+    # Set public Marathon hostname
+    if hostname=$(public_hostname); then
+      MARATHON_HOSTNAME=$hostname
+    else
+      MARATHON_HOSTNAME=`hostname`
+    fi
+
+    # Start Marathon service
+    exec chpst -u $MARATHON_USER:$MARATHON_GROUP java \
+           -Xmx"$MARATHON_JAVA_HEAP_SIZE" \
+           -Xms"$MARATHON_JAVA_HEAP_SIZE" \
+           -Dfile.encoding=UTF-8 \
+           -Djava.io.tmpdir=$MARATHON_TMP_DIR \
+           -cp /var/vcap/packages/marathon/marathon.jar mesosphere.marathon.Main \
+           ${MARATHON_CHECKPOINT:-} \
+           --failover_timeout "$MARATHON_FAILOVER_TIMEOUT" \
+           ${MARATHON_HA:-} \
+           --hostname "$MARATHON_HOSTNAME" \
+           --http_credentials "$MARATHON_HTTP_CREDENTIALS" \
+           --http_port "$MARATHON_HTTP_PORT" \
+           --https_port "$MARATHON_HTTPS_PORT" \
+           --local_port_min "$MARATHON_LOCAL_PORT_MIN" \
+           --local_port_max "$MARATHON_LOCAL_PORT_MAX" \
+           --master file://$MARATHON_CONF_DIR/zoo_mesos.cfg \
+           --mesos_role "$MARATHON_MESOS_ROLE" \
+           --reconciliation_frequency "$MARATHON_RECONCILIATION_FREQUENCY" \
+           --reconciliation_initial_delay "$MARATHON_RECONCILIATION_INITIAL_DELAY" \
+           --task_launch_timeout "$MARATHON_TASK_LAUNCH_TIMEOUT" \
+           --task_rate_limit "$MARATHON_TASK_RATE_LIMIT" \
+           --zk_hosts $ZK_HOSTS \
+           --zk_state "$MARATHON_ZK_STATE" \
+           --zk_timeout "$MARATHON_ZK_TIMEOUT" \
+           >>$MARATHON_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$MARATHON_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Marathon service
+    kill_and_wait $MARATHON_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

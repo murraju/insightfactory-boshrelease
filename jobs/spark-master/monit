@@ -1,0 +1,5 @@
+check process spark-master
+  with pidfile /var/vcap/sys/run/spark-master/spark-master.pid
+  start program "/var/vcap/jobs/spark-master/bin/monit_debugger spark-master_ctl '/var/vcap/jobs/spark-master/bin/spark-master_ctl start'"
+  stop program "/var/vcap/jobs/spark-master/bin/monit_debugger spark-master_ctl '/var/vcap/jobs/spark-master/bin/spark-master_ctl stop'"
+  group vcap

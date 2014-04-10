@@ -1,0 +1,6 @@
+---
+name: nginx
+dependencies: {}
+files:
+  - nginx/nginx-1.4.5.tar.gz
+  - nginx/pcre-8.34.tar.gz

@@ -1,0 +1,23 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+SASL_VERSION=`ls -r sasl/cyrus-sasl-*.tar.gz | sed 's/sasl\/cyrus-sasl-\(.*\)\.tar\.gz/\1/' | head -1`
+
+# Extract SASL package
+echo "Extracting SASL ${SASL_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/sasl/cyrus-sasl-${SASL_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting SASL ${SASL_VERSION}"
+  exit 1
+fi
+
+# Build SASL package
+echo "Building SASL ${SASL_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/cyrus-sasl-${SASL_VERSION}
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make -j${CPUS}
+make install

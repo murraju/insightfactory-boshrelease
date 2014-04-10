@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+#
+# Chronos properties
+#
+
+# Directory to store the Chronos configuration files
+export CHRONOS_CONF_DIR=$JOB_DIR/config
+
+# Directory to store the Chronos log files
+export CHRONOS_LOG_DIR=$LOG_DIR
+
+# Directory to store the Chronos process IDs
+export CHRONOS_PID_DIR=$RUN_DIR
+
+# Directory to store the Chronos data files
+export CHRONOS_STORE_DIR=$STORE_DIR
+
+# Directory to store the Chronos temp files
+export CHRONOS_TMP_DIR=$TMP_DIR
+
+# User which will own the Chronos services
+export CHRONOS_USER="<%= p('chronos.user') %>"
+
+# Group which will own the Chronos services
+export CHRONOS_GROUP="<%= p('chronos.group') %>"
+
+# Java Heap Size for Chronos
+export CHRONOS_JAVA_HEAP_SIZE="<%= p('chronos.java_heap_size') %>"
+
+# Job Owner
+export CHRONOS_DEFAULT_JOB_OWNER="<%= p('chronos.default_job_owner') %>"
+
+# Disables a job after this many failures have occurred
+export CHRONOS_DISABLE_AFTER_FAILURES="<%= p('chronos.disable_after_failures') %>"
+
+# The failover timeout in seconds for Mesos
+export CHRONOS_FAILOVER_TIMEOUT="<%= p('chronos.failover_timeout') %>"
+
+# Number of ms between retries
+export CHRONOS_FAILURE_RETRY="<%= p('chronos.failure_retry') %>"
+
+<% if_p('chronos.ganglia_group_prefix', 'ganglia_host_port', 'ganglia_reporting_interval') do |ganglia_group_prefix, ganglia_host_port, mail_server, mail_user| %>
+# Ganglia options
+export CHRONOS_GANGLIA_OPTIONS="--ganglia_group_prefix "<%= ganglia_group_prefix %>" --ganglia_host_port "<%= ganglia_host_port %>" --ganglia_reporting_interval "<%= ganglia_reporting_interval %>""
+<% end %>
+
+# Credentials for accessing the Chronos http service
+export CHRONOS_HTTP_CREDENTIALS="<%= p('chronos.http_credentials') %>"
+
+# The port Chronos will listen on for HTTP requests
+export CHRONOS_HTTP_PORT="<%= p('chronos.http_port') %>"
+
+# The port Chronos will listen on for HTTPS requests
+export CHRONOS_HTTPS_PORT="<%= p('chronos.https_port') %>"
+
+# The look-ahead time for scheduling tasks in milliseconds
+export CHRONOS_LEADER_MAX_IDLE_TIME="<%= p('chronos.leader_max_idle_time') %>"
+
+<% if_p('chronos.mail_from', 'chronos.mail_password', 'chronos.mail_server', 'chronos.mail_user') do |mail_from, mail_password, mail_server, mail_user| %>
+# Mail options
+export CHRONOS_MAIL_OPTIONS="--mail_from "<%= mail_from %>" --mail_password "<%= mail_password %>" --mail_server "<%= mail_server %>" --mail_user "<%= mail_user %>""
+<% if_p('chronos.mail_ssl') do |mail_ssl| %>
+export CHRONOS_MAIL_OPTIONS="$CHRONOS_MAIL_OPTIONS --mail_ssl"
+<% end %>
+<% end %>
+
+<% if_p('chronos.enable_checkpoint') do |enable_checkpoint| %>
+# Enable checkpointing
+export CHRONOS_CHECKPOINT="--mesos_checkpoint"
+<% end %>
+
+# The framework name
+export CHRONOS_MESOS_FRAMEWORK_NAME="<%= p('chronos.mesos_framework_name') %>"
+
+# The Mesos role to run tasks under
+export CHRONOS_MESOS_ROLE="<%= p('chronos.mesos_role') %>"
+
+# Number of CPUs to request from Mesos for each task
+export CHRONOS_MESOS_TASK_CPU="<%= p('chronos.mesos_task_cpu') %>"
+
+# Amount of disk capacity to request from Mesos for each task (MB)
+export CHRONOS_MESOS_TASK_DISK="<%= p('chronos.mesos_task_disk') %>"
+
+# Amount of memory to request from Mesos for each task (MB)
+export CHRONOS_MESOS_TASK_MEM="<%= p('chronos.mesos_task_mem') %>"
+
+# The look-ahead time for scheduling tasks in seconds
+export CHRONOS_SCHEDULE_HORIZON="<%= p('chronos.schedule_horizon') %>"
+
+# The mesos user to run the processes under
+export CHRONOS_MESOS_USER="<%= p('chronos.mesos_user') %>"
+
+# Path in ZooKeeper for storing Chronos state
+export CHRONOS_ZK_STATE="/<%= p('chronos.zk_state') %>"
+
+# The timeout for ZooKeeper in milliseconds
+export CHRONOS_ZK_TIMEOUT="<%= p('chronos.zk_timeout') %>"
+
+# Apache Mesos Native Library
+export MESOS_NATIVE_LIBRARY=/var/vcap/packages/mesos/lib/libmesos.so

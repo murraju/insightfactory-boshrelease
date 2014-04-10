@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'cassandra'
+export CASSANDRA_PID_FILE=$CASSANDRA_PID_DIR/cassandra.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $CASSANDRA_PID_FILE $JOB_NAME
+    echo $$ > $CASSANDRA_PID_FILE
+
+    # Increase the default number of open file descriptors
+    ulimit -n 8192
+
+    # Create Apache Cassandra user & group
+    create_group $CASSANDRA_GROUP
+    create_user $CASSANDRA_USER $CASSANDRA_GROUP
+
+    # Set Apache Cassandra classpath
+    CASSANDRA_CLASSPATH=""
+    for jar in /var/vcap/packages/cassandra/lib/*.jar; do
+      CASSANDRA_CLASSPATH="$CLASSPATH:$jar"
+    done
+
+    # Start Apache Cassandra service
+    ### START HACK
+    ### cassandra-mesos doesn't allow to set the conf dir, so cd'ing into cassandra job directory in order for
+    ### cassandra-mesos to find the conf files
+    cd $JOB_DIR
+    ### END HACK
+    exec chpst -u $CASSANDRA_USER:$CASSANDRA_GROUP java \
+           -Xmx"$CASSANDRA_JAVA_HEAP_SIZE" \
+           -Xms"$CASSANDRA_JAVA_HEAP_SIZE" \
+           -Dfile.encoding=UTF-8 \
+           -Djava.io.tmpdir=$CASSANDRA_TMP_DIR \
+           -cp $CASSANDRA_CLASSPATH mesosphere.cassandra.Main \
+           >>$CASSANDRA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$CASSANDRA_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Apache Cassandra service
+    kill_and_wait $CASSANDRA_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

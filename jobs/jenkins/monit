@@ -1,0 +1,11 @@
+check process jenkins
+  with pidfile /var/vcap/sys/run/jenkins/jenkins.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger jenkins_ctl '/var/vcap/jobs/jenkins/bin/jenkins_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger jenkins_ctl '/var/vcap/jobs/jenkins/bin/jenkins_ctl stop'"
+  group vcap
+
+check process nginx_jenkins
+  with pidfile /var/vcap/sys/run/jenkins/nginx.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger nginx_jenkins_ctl '/var/vcap/jobs/jenkins/bin/nginx_jenkins_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger nginx_jenkins_ctl '/var/vcap/jobs/jenkins/bin/nginx_jenkins_ctl stop'"
+  group vcap

@@ -1,0 +1,5 @@
+---
+name: cassandra
+dependencies: {}
+files:
+  - cassandra/cassandra-mesos-2.0.5-1.tgz

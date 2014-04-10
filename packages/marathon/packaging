@@ -1,0 +1,12 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+MARATHON_VERSION=`ls -r marathon/marathon-*-SNAPSHOT-jar-with-dependencies.jar | sed 's/marathon\/marathon-\(.*\)-SNAPSHOT-jar-with-dependencies\.jar/\1/' | head -1`
+
+# Copy Marathon package
+echo "Copying Marathon ${MARATHON_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/marathon/marathon-${MARATHON_VERSION}-SNAPSHOT-jar-with-dependencies.jar ${BOSH_INSTALL_TARGET}/marathon.jar

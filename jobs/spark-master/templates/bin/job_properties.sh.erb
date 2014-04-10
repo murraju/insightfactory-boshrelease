@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+#
+# Spark Master Properties
+#
+
+JOB_NAME=spark-master
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+
+export SPARK_MASTER_IP=<%= spec.networks.default.ip %>
+export SPARK_LOCAL_IP=<%= spec.networks.default.ip %>
+export ZOOKEEPER_DIR=<%= p("spark.deploy.zookeeper.dir") %>
+export SPARK_DAEMON_JAVA_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=<%= servers.join(',') %> -Dspark.deploy.zookeeper.dir=<%= p("spark.deploy.zookeeper.dir") %>"
+
+export SPARK_HOME=/var/vcap/packages/spark
+export SPARK_MASTER_PORT=7077
+export SPARK_MASTER_WEBUI_PORT=8080
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH

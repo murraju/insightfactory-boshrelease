@@ -1,0 +1,93 @@
+---
+name: mesos-slave
+
+packages:
+  - bosh-helpers
+  - java
+  - scala
+  - sasl
+  - mesos
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/slave_ctl.erb: bin/slave_ctl
+  config/zoo_mesos.cfg.erb: config/zoo_mesos.cfg
+
+properties:
+  mesos.slave.user:
+    description: "User which will own the Apache Mesos Slave services"
+    default: "root"
+  mesos.slave.group:
+    description: "Group which will own the Apache Mesos Slave services"
+    default: "vcap"
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Apache Mesos state"
+    default: "mesos"
+  mesos.slave.attributes:
+    description: "Attributes of machine"
+    default: ""
+  mesos.slave.cgroups_enable_cfs:
+    description: "Cgroups feature flag to enable hard limits on CPU resources via the CFS bandwidth limiting subfeature"
+    default: false
+  mesos.slave.cgroups_hierarchy:
+    description: "The path to the cgroups hierarchy root"
+    default: "/cgroup"
+  mesos.slave.cgroups_root:
+    description: "Name of the root cgroup"
+    default: "mesos"
+  mesos.slave.cgroups_subsystems:
+    description: "List of subsystems to enable (e.g., 'cpu,freezer')"
+    default: "cpu,memory,freezer"
+  mesos.slave.checkpoint:
+    description: "Whether to checkpoint Apache Mesos Slaves and Frameworks information to disk"
+    default: true
+  mesos.slave.default_role:
+    description: "Default role"
+    default: "*"
+  mesos.slave.disk_watch_interval:
+    description: "Periodic time interval (e.g., 10secs, 2mins, etc) to check the disk usage"
+    default: "1mins"
+  mesos.slave.executor_registration_timeout:
+    description: "Amount of time to wait for an executor to register with the slave before considering it hung and shutting it down"
+    default: "1mins"
+  mesos.slave.executor_shutdown_grace_period:
+    description: "Amount of time to wait for an executor to shut down"
+    default: "5secs"
+  mesos.slave.gc_delay:
+    description: "Maximum amount of time to wait before cleaning up executor directories"
+    default: "1weeks"
+  mesos.slave.listen_address:
+    description: "IP address where Apache Mesos Slave will listen on"
+    default: 0.0.0.0
+  mesos.slave.isolation:
+    description: "Apache Mesos Slave isolation mechanism (process, cgroups)"
+    default: "process"
+  mesos.slave.logbufsecs:
+    description: "How many seconds to buffer log messages for"
+    default: 0
+  mesos.slave.port:
+    description: "Port where Apache Mesos Slave will listen on"
+    default: 5051
+  mesos.slave.recover:
+    description: "Whether to recover Apache Mesos Slaves status updates and reconnect with old executors (reconnect, cleanup)"
+    default: "reconnect"
+  mesos.slave.recovery_timeout:
+    description: "Amount of time alloted for the Apache Mesos Slaves to recover"
+    default: "15mins"
+  mesos.slave.resource_monitoring_interval:
+    description: "Periodic time interval for monitoring executor resource usage"
+    default: "1secs"
+  mesos.slave.resources:
+    description: "Total consumable resources per slave, in the form 'name(role):value;name(role):value...'"
+    default: ""
+  mesos.slave.strict:
+    description: "Whether to do Apache Mesos Slaves recovery in strict mode"
+    default: true
+  mesos.slave.switch_user:
+    description: "Whether to run tasks as the user who submitted them rather than the user running the slave"
+    default: false
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

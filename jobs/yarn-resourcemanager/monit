@@ -1,0 +1,5 @@
+check process yarn-resourcemanager
+  with pidfile /var/vcap/sys/run/yarn-resourcemanager/yarn-resourcemanager.pid
+  start program "/var/vcap/jobs/yarn-resourcemanager/bin/monit_debugger yarn-resourcemanager_ctl '/var/vcap/jobs/yarn-resourcemanager/bin/yarn-resourcemanager_ctl start'"
+  stop program "/var/vcap/jobs/yarn-resourcemanager/bin/monit_debugger yarn-resourcemanager_ctl '/var/vcap/jobs/yarn-resourcemanager/bin/yarn-resourcemanager_ctl stop'"
+  group vcap

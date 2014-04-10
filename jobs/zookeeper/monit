@@ -1,0 +1,5 @@
+check process zookeeper
+  with pidfile /var/vcap/sys/run/zookeeper/zookeeper.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger zookeeper_ctl '/var/vcap/jobs/zookeeper/bin/zookeeper_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger zookeeper_ctl '/var/vcap/jobs/zookeeper/bin/zookeeper_ctl stop'"
+  group vcap

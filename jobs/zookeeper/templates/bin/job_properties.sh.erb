@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+#
+# Apache ZooKeeper properties
+#
+
+# Directory to store the Apache ZooKeeper configuration files
+export ZOOKEEPER_CONF_DIR=$JOB_DIR/config
+export ZOOCFGDIR=$ZOOKEEPER_CONF_DIR
+
+# Directory to store the Apache ZooKeeper log files
+export ZOOKEEPER_LOG_DIR=$LOG_DIR
+export ZOO_LOG_DIR=$ZOOKEEPER_LOG_DIR
+export ZOO_LOG4J_PROP="INFO,CONSOLE,ROLLINGFILE"
+
+# Directory to store the Apache ZooKeeper process IDs
+export ZOOKEEPER_PID_DIR=$RUN_DIR
+
+# Directory to store the Apache ZooKeeper data files
+export ZOOKEEPER_STORE_DIR=$STORE_DIR
+export ZOOKEEPER_DATA_DIR=$ZOOKEEPER_STORE_DIR
+
+# Directory to store the Apache ZooKeeper temp filess
+export ZOOKEEPER_TEMP_DIR=$TMP_DIR
+
+# User which will own the Apache ZooKeeper services
+export ZOOKEEPER_USER="<%= p('zookeeper.user') %>"
+
+# Group which will own the Apache ZooKeeper services
+export ZOOKEEPER_GROUP="<%= p('zookeeper.group') %>"

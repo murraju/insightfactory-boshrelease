@@ -1,0 +1,5 @@
+check process namenode
+  with pidfile /var/vcap/sys/run/namenode/namenode.pid
+  start program "/var/vcap/jobs/namenode/bin/monit_debugger namenode_ctl '/var/vcap/jobs/namenode/bin/namenode_ctl start'"
+  stop program "/var/vcap/jobs/namenode/bin/monit_debugger namenode_ctl '/var/vcap/jobs/namenode/bin/namenode_ctl stop'"
+  group vcap

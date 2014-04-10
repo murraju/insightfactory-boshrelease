@@ -1,0 +1,23 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+GIT_VERSION=`ls -r git/git-*.tar.gz | sed 's/git\/git-\(.*\)\.tar\.gz/\1/' | head -1`
+
+# Extract Git package
+echo "Extracting Git ${GIT_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/git/git-${GIT_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Git ${GIT_VERSION}"
+  exit 1
+fi
+
+# Build Git package
+echo "Building Git ${GIT_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/git-${GIT_VERSION}
+./configure --prefix=${BOSH_INSTALL_TARGET}
+NO_TCLTK=yes make -j${CPUS}
+NO_TCLTK=yes make install

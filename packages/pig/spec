@@ -1,0 +1,6 @@
+---
+name: pig
+dependencies:
+- hadoop
+files:
+- pig/pig-0.12.0.2.0.6.1-102.tar.gz

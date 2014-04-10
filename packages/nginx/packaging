@@ -1,0 +1,36 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+NGINX_VERSION=`ls -r nginx/nginx-*.tar.gz | sed 's/nginx\/nginx-\(.*\)\.tar\.gz/\1/' | head -1`
+PCRE_VERSION=`ls -r nginx/pcre-*.tar.gz | sed 's/nginx\/pcre-\(.*\)\.tar\.gz/\1/' | head -1`
+
+# Extract Nginx package
+echo "Extracting Nginx ${NGINX_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/nginx/nginx-${NGINX_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Nginx ${NGINX_VERSION}"
+  exit 1
+fi
+
+# Extract PCRE package
+echo "Extracting PCRE ${PCRE_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/nginx/pcre-${PCRE_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting PCRE ${PCRE_VERSION}"
+  exit 1
+fi
+
+# Build Nginx package
+echo "Building Nginx ${NGINX_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/nginx-${NGINX_VERSION}
+./configure \
+  --prefix=${BOSH_INSTALL_TARGET} \
+  --with-pcre=${BOSH_COMPILE_TARGET}/pcre-${PCRE_VERSION} \
+  --with-http_ssl_module \
+  --with-file-aio
+make -j${CPUS}
+make install

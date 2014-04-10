@@ -1,0 +1,66 @@
+---
+name: mesos-master
+
+packages:
+  - bosh-helpers
+  - java
+  - sasl
+  - mesos
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/master_ctl.erb: bin/master_ctl
+  config/framework_credentials.cfg.erb: config/framework_credentials.cfg
+  config/zoo_mesos.cfg.erb: config/zoo_mesos.cfg
+
+properties:
+  mesos.master.user:
+    description: "User which will own the Apache Mesos Master services"
+    default: "root"
+  mesos.master.group:
+    description: "Group which will own the Apache Mesos Master services"
+    default: "vcap"
+  mesos.cluster_name:
+    description: "Human readable name for the Apache Mesos cluster"
+    default: "Mesos Cluster"
+  mesos.framework_credentials:
+    description: "Array of credentials. Each item contains a 'principal' and 'secret' separated by whitespace"
+    default: []
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Apache Mesos state"
+    default: "mesos"
+  mesos.master.allocation_interval:
+    description: "Amount of time to wait between performing (batch) allocations"
+    default: "1secs"
+  mesos.master.authenticate:
+    description: "Only authenticated frameworks are allowed to register?"
+    default: false
+  mesos.master.framework_sorter:
+    description: "Policy to use for allocating resources between a given user's frameworks"
+    default: "drf"
+  mesos.master.listen_address:
+    description: "IP address where Apache Mesos Master will listen on"
+    default: 0.0.0.0
+  mesos.master.logbufsecs:
+    description: "How many seconds to buffer log messages for"
+    default: 0
+  mesos.master.port:
+    description: "Port where Apache Mesos Master will listen on"
+    default: 80
+  mesos.master.roles:
+    description: "A comma seperated list of the allocation roles that frameworks in this cluster may belong to"
+    default: ""
+  mesos.master.root_submissions:
+    description: "Can root submit frameworks?"
+    default: true
+  mesos.master.user_sorter:
+    description: "Policy to use for allocating resources between users"
+    default: "drf"
+  mesos.master.weights:
+    description: "A comma seperated list of role/weight pairs of the form 'role=weight,role=weight'"
+    default: ""
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

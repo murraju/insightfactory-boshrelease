@@ -1,0 +1,82 @@
+---
+name: zookeeper
+
+packages:
+  - bosh-helpers
+  - java
+  - zookeeper
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/zookeeper_ctl.erb: bin/zookeeper_ctl
+  config/configuration.xsl: config/configuration.xsl
+  config/log4j.properties: config/log4j.properties
+  config/myid.erb: config/myid
+  config/zoo.cfg.erb: config/zoo.cfg
+
+properties:
+  zookeeper.user:
+    description: "User which will own the Apache ZooKeeper services"
+    default: "zookeeper"
+  zookeeper.group:
+    description: "Group which will own the Apache ZooKeeper services"
+    default: "vcap"
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "The port to listen for client connections"
+    default: 2181
+  zookeeper.quorum_port:
+    description: "Apache Zookeeper Client quorum port"
+    default: 2888
+  zookeeper.leader_election_port:
+    description: "Apache Zookeeper Client leader election port"
+    default: 3888
+  zookeeper.purge_interval:
+    description: "The time interval in hours for which the purge task has to be triggered"
+    default: 24
+  zookeeper.autopurge_snap_retain_count:
+    description: "Number of most recent snapshots to retain"
+    default: 3
+  zookeeper.listen_address:
+    description: "The address to listen for client connections"
+    default: "0.0.0.0"
+  zookeeper.cnx_timeout:
+    description: "Sets the timeout value for opening connections for leader election notifications"
+    default: 5
+  zookeeper.election_algorim:
+    description: "Election implementation to use"
+    default: 3
+  zookeeper.warning_threshold_ms:
+    description: "A warning message will be output to the log whenever an fsync in the Transactional Log (WAL) takes longer than this value"
+    default: 1000
+  zookeeper.global_outstanding_limit:
+    description: "Throttle outstanding client requests"
+    default: 1000
+  zookeeper.init_limit:
+    description: "Amount of time, in ticks, to allow followers to connect and sync to a leader"
+    default: 5
+  zookeeper.leader_serves:
+    description: "Leader accepts client connections"
+    default: "yes"
+  zookeeper.max_client_connections:
+    description: "Limits the number of concurrent connections that a single client may make to a single member of the ZooKeeper ensemble"
+    default: 60
+  zookeeper.max_session_timeout:
+    description: "the maximum session timeout in milliseconds that the server will allow the client to negotiate"
+    default: 40000
+  zookeeper.min_session_timeout:
+    description: "the minimum session timeout in milliseconds that the server will allow the client to negotiate"
+    default: 4000
+  zookeeper.pre_allocation_size:
+    description: "preAllocSize kilobytes for transaction log blocks"
+    default: "64M"
+  zookeeper.snap_count:
+    description: "Number of transactions before a snapshot is started and a new transaction log file is created"
+    default: 100000
+  zookeeper.sync_limit:
+    description: "Amount of time, in ticks, to allow followers to sync with ZooKeeper"
+    default: 2
+  zookeeper.tick_time:
+    description: "The length of a single tick, which is the basic time unit used by ZooKeeper, as measured in milliseconds"
+    default: 2000

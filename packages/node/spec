@@ -1,0 +1,5 @@
+---
+name: node
+dependencies: {}
+files:
+  - node/node-v0.10.26-linux-x64.tar.gz

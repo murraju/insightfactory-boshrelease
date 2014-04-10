@@ -1,0 +1,20 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+CASSANDRA_VERSION=`ls -r cassandra/cassandra-mesos-*.tgz | sed 's/cassandra\/cassandra-mesos-\(.*\)\.tgz/\1/' | head -1`
+
+# Extract Cassandra package
+echo "Extracting Cassandra ${CASSANDRA_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/cassandra/cassandra-mesos-${CASSANDRA_VERSION}.tgz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Cassandra ${CASSANDRA_VERSION}"
+  exit 1
+fi
+
+# Copy Cassandra package
+echo "Copying Cassandra ${CASSANDRA_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/cassandra-mesos-${CASSANDRA_VERSION}/* ${BOSH_INSTALL_TARGET}/

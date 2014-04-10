@@ -1,0 +1,104 @@
+---
+name: chronos
+
+packages:
+  - bosh-helpers
+  - java
+  - sasl
+  - mesos
+  - chronos
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/chronos_ctl.erb: bin/chronos_ctl
+  config/zoo_hosts.cfg.erb: config/zoo_hosts.cfg
+  config/zoo_mesos.cfg.erb: config/zoo_mesos.cfg
+
+properties:
+  chronos.user:
+    description: "User which will own the Chronos services"
+    default: "root"
+  chronos.group:
+    description: "Group which will own the Chronos services"
+    default: "vcap"
+  chronos.java_heap_size:
+    description: "Java Heap Size for Chronos"
+    default: "2048m"
+  chronos.default_job_owner:
+    description: "Job Owner"
+    default: "bosh@cloudfoundry.com"
+  chronos.disable_after_failures:
+    description: "Disables a job after this many failures have occurred"
+    default: 0
+  chronos.failover_timeout:
+    description: "The failover timeout in seconds for Mesos"
+    default: 1200
+  chronos.failure_retry:
+    description: "Number of ms between retries"
+    default: 60000
+  chronos.ganglia_group_prefix:
+    description: "Group prefix for Ganglia"
+  chronos.ganglia_host_port:
+    description: "Host and port for Ganglia"
+  chronos.ganglia_reporting_interval:
+    description: "Ganglia reporting interval (seconds)"
+  chronos.http_credentials:
+    description: "Credentials for accessing the Chronos http service (username:password format)"
+    default: "chronos:chronos"
+  chronos.http_port:
+    description: "The port Chronos will listen on for HTTP requests"
+    default: 80
+  chronos.https_port:
+    description: "The port Chronos will listen on for HTTPS requests"
+    default: 443
+  chronos.leader_max_idle_time:
+    description: "The look-ahead time for scheduling tasks in milliseconds"
+    default: 5000
+  chronos.mail_from:
+    description: "Mail from field"
+  chronos.mail_password:
+    description: "Mail password (for auth)"
+  chronos.mail_server:
+    description: "Address of the mailserver"
+  chronos.mail_ssl:
+    description: "Mail SSL"
+  chronos.mail_user:
+    description: "Mail user (for auth)"
+  chronos.enable_checkpoint:
+    description: "Enable checkpointing"
+    default: true
+  chronos.mesos_framework_name:
+    description: "The framework name"
+    default: "Chronos"
+  chronos.mesos_role:
+    description: "The Mesos role to run tasks under"
+    default: "*"
+  chronos.mesos_task_cpu:
+    description: "Number of CPUs to request from Mesos for each task"
+    default: 0.1
+  chronos.mesos_task_disk:
+    description: "Amount of disk capacity to request from Mesos for each task (MB)"
+    default: 256
+  chronos.mesos_task_mem:
+    description: "Amount of memory to request from Mesos for each task (MB)"
+    default: 128
+  chronos.schedule_horizon:
+    description: "The look-ahead time for scheduling tasks in seconds"
+    default: 60
+  chronos.mesos_user:
+    description: "The mesos user to run the processes under"
+    default: "vcap"
+  chronos.zk_state:
+    description: "Path in ZooKeeper for storing Chronos state"
+    default: "chronos"
+  chronos.zk_timeout:
+    description: "The timeout for ZooKeeper in milliseconds"
+    default: 10000
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Mesos state"
+    default: "mesos"
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

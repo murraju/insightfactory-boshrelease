@@ -1,0 +1,80 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'chronos'
+export CHRONOS_PID_FILE=$CHRONOS_PID_DIR/chronos.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $CHRONOS_PID_FILE $JOB_NAME
+    echo $$ > $CHRONOS_PID_FILE
+
+    # Increase the default number of open file descriptors
+    ulimit -n 8192
+
+    # Create Chronos user & group
+    create_group $CHRONOS_GROUP
+    create_user $CHRONOS_USER $CHRONOS_GROUP
+
+    # Read ZooKeeper Hosts
+    ZK_HOSTS=`cat $CHRONOS_CONF_DIR/zoo_hosts.cfg`
+
+    # Set public Chronos hostname
+    if hostname=$(public_hostname); then
+      CHRONOS_HOSTNAME=$hostname
+    else
+      CHRONOS_HOSTNAME=`hostname`
+    fi
+
+    # Start Chronos service
+    exec chpst -u $CHRONOS_USER:$CHRONOS_GROUP java \
+           -Xmx"$CHRONOS_JAVA_HEAP_SIZE" \
+           -Xms"$CHRONOS_JAVA_HEAP_SIZE" \
+           -Dfile.encoding=UTF-8 \
+           -Djava.io.tmpdir=$CHRONOS_TMP_DIR \
+           -cp /var/vcap/packages/chronos/chronos.jar com.airbnb.scheduler.Main \
+           --default_job_owner "$CHRONOS_DEFAULT_JOB_OWNER" \
+           --disable_after_failures "$CHRONOS_DISABLE_AFTER_FAILURES" \
+           --failover_timeout "$CHRONOS_FAILOVER_TIMEOUT" \
+           --failure_retry "$CHRONOS_FAILURE_RETRY" \
+           ${CHRONOS_GANGLIA_OPTIONS:-} \
+           --hostname "$CHRONOS_HOSTNAME" \
+           --http_credentials "$CHRONOS_HTTP_CREDENTIALS" \
+           --http_port "$CHRONOS_HTTP_PORT" \
+           --https_port "$CHRONOS_HTTPS_PORT" \
+           --leader_max_idle_time "$CHRONOS_LEADER_MAX_IDLE_TIME" \
+           ${CHRONOS_MAIL_OPTIONS:-} \
+           --master file://$CHRONOS_CONF_DIR/zoo_mesos.cfg \
+           ${CHRONOS_CHECKPOINT:-} \
+           --mesos_framework_name "$CHRONOS_MESOS_FRAMEWORK_NAME" \
+           --mesos_role "$CHRONOS_MESOS_ROLE" \
+           --mesos_task_cpu "$CHRONOS_MESOS_TASK_CPU" \
+           --mesos_task_disk "$CHRONOS_MESOS_TASK_DISK" \
+           --mesos_task_mem "$CHRONOS_MESOS_TASK_MEM" \
+           --schedule_horizon "$CHRONOS_SCHEDULE_HORIZON" \
+           --user "$CHRONOS_MESOS_USER" \
+           --zk_hosts $ZK_HOSTS \
+           --zk_path "$CHRONOS_ZK_STATE" \
+           --zk_timeout "$CHRONOS_ZK_TIMEOUT" \
+           >>$CHRONOS_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$CHRONOS_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Chronos service
+    kill_and_wait $CHRONOS_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

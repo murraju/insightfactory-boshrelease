@@ -1,0 +1,5 @@
+check process cassandra
+  with pidfile /var/vcap/sys/run/cassandra/cassandra.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger cassandra_ctl '/var/vcap/jobs/cassandra/bin/cassandra_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger cassandra_ctl '/var/vcap/jobs/cassandra/bin/cassandra_ctl stop'"
+  group vcap

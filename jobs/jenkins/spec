@@ -1,0 +1,131 @@
+---
+name: jenkins
+
+packages:
+  - bosh-helpers
+  - java
+  - sasl
+  - mesos
+  - nginx
+  - jenkins
+
+templates:
+  bin/jenkins_ctl.erb: bin/jenkins_ctl
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/nginx_jenkins_ctl.erb: bin/nginx_jenkins_ctl
+  config/config.xml.erb: config/config.xml
+  config/jenkins.key.erb: config/jenkins.key
+  config/jenkins.pem.erb: config/jenkins.pem
+  config/jenkins_location.conf.erb: config/jenkins_location.conf
+  config/mime.types: config/mime.types
+  config/nginx.conf.erb: config/nginx.conf
+
+properties:
+  jenkins.user:
+    description: "User which will own the Jenkins services"
+    default: "root"
+  jenkins.group:
+    description: "Group which will own the Jenkins services"
+    default: "vcap"
+  jenkins.java_heap_size:
+    description: "Java Heap Size for Jenkins"
+    default: "2048m"
+  jenkins.port:
+    description: "Port Jenkins will listen using standard http protocol"
+    default: 8080
+  jenkins.listen_address:
+    description: "IP address where to bind Jenkins using standard http protocol"
+    default: "127.0.0.1"
+  jenkins.ajp_port:
+    description: "Port Jenkins will listen using standard AJP13 protocol"
+    default: 8009
+  jenkins.ajp_listen_address:
+    description: "IP address where to bind Jenkins using standard AJP13 protocol"
+    default: "127.0.0.1"
+  jenkins.admin_user:
+    description: "Jenkins admin user"
+    default: "jenkins"
+  jenkins.admin_password:
+    description: "Jenkins admin password"
+    default: "jenkins"
+  jenkins.prefix:
+    description: "Prefix to append to Jenkins URL"
+    default: ""
+  jenkins.mesos.cluster_name:
+    description: "Human readable name for the Jenkins Mesos cluster"
+    default: "Jenkins on Mesos Cluster"
+  jenkins.mesos.framework_name:
+    description: "Mesos Framework name"
+    default: "Jenkins Scheduler"
+  jenkins.mesos.enable_checkpoint:
+    description: "Enable checkpointing of Jenkins tasks"
+    default: true
+  jenkins.mesos.slave_cpus:
+    description: "Jenkins Slave CPUs"
+    default: 0.1
+  jenkins.mesos.slave_mem:
+    description: "Jenkins Slave Memory in MB"
+    default: 512
+  jenkins.mesos.max_executors:
+    description: "Maximum number of Executors per Slave"
+    default: 2
+  jenkins.mesos.executor_cpus:
+    description: "Jenkins Executor CPUs"
+    default: 0.1
+  jenkins.mesos.executor_mem:
+    description: "Jenkins Executor Memory in MB"
+    default: 128
+  jenkins.mesos.idle_termination:
+    description: "Idle Termination Minutes"
+    default: 3
+  jenkins.nginx.user:
+    description: "User which will own the Nginx services"
+    default: "root"
+  jenkins.nginx.group:
+    description: "Group which will own the Nginx services"
+    default: "vcap"
+  jenkins.nginx.worker_processes:
+    description: "Number of nginx workers"
+    default: 2
+  jenkins.nginx.worker_connections:
+    description: "Number of nginx connections per worker"
+    default: 8192
+  jenkins.nginx.max_upload_size:
+    description: "File upload maximum size"
+    default: 5000m
+  jenkins.nginx.keepalive_timeout:
+    description: 'Timeout for keep-alive connections'
+    default: 7200
+  jenkins.nginx.http.port:
+    description: "Port that proxy listen on for HTTP connections"
+    default: 80
+  jenkins.nginx.https.port:
+    description: "Port that proxy listen on for HTTPS connections"
+    default: 443
+  jenkins.nginx.https.ssl_timeout:
+    description: "Timeout for reusing the previously negotiated cryptographic parameters"
+    default: 7200
+  jenkins.nginx.proxy_connect_timeout:
+    description: "Timeout for the connection to the upstream server"
+    default: 300
+  jenkins.nginx.proxy_read_timeout:
+    description: "Timeout for read queries to the upstream server"
+    default: 120
+  jenkins.nginx.proxy_send_timeout:
+    description: "Timeout for send queries to the upstream server"
+    default: 120
+  jenkins.nginx.https.ssl_key:
+    description: "SSL private key (PEM encoded)"
+  jenkins.nginx.https.ssl_cert:
+    description: "SSL Certificate (PEM encoded)"
+  jenkins.nginx.ssl_only:
+    description: "Enable only HTTPS requests"
+    default: true
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Mesos state"
+    default: "mesos"
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

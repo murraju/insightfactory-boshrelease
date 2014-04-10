@@ -1,0 +1,54 @@
+---
+name: cassandra
+
+packages:
+  - bosh-helpers
+  - java
+  - sasl
+  - mesos
+  - cassandra
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/cassandra_ctl.erb: bin/cassandra_ctl
+  conf/cassandra.yaml.erb: conf/cassandra.yaml
+  conf/cassandra-env.sh: conf/cassandra-env.sh
+  conf/log4j-server.properties: conf/log4j-server.properties
+  conf/mesos.yaml.erb: conf/mesos.yaml
+
+properties:
+  cassandra.user:
+    description: "User which will own the Apache Cassandra services"
+    default: "root"
+  cassandra.group:
+    description: "Group which will own the Apache Cassandra services"
+    default: "vcap"
+  cassandra.java_heap_size:
+    description: "Java Heap Size for Apache Cassandra"
+    default: "2048m"
+  cassandra.cluster_name:
+    description: "Human readable name for the Apache Cassandra cluster"
+    default: "Cassandra Cluster"
+  cassandra.hw_nodes:
+    description: "No of HW nodes we want it to run on"
+    default: 1
+  cassandra.mesos.executor_uri:
+    description: "Apache Cassandra on Mesos download location"
+    default: "http://downloads.mesosphere.io/cassandra/cassandra-mesos-2.0.5-1.tgz"
+  cassandra.mesos.resource_cpus:
+    description: "Mesos cpus consumable resources"
+    default: 0.1
+  cassandra.mesos.resource_mem:
+    description: "Mesos memory consumable resources"
+    default: 2048
+  cassandra.mesos.resource_disk:
+    description: "Mesos disk consumable resources"
+    default: 1000
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Mesos state"
+    default: "mesos"
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+#
+# Data Science Client Machine properties
+#
+
+export SPARK_HOME=/var/vcap/packages/spark
+export MESOS_NATIVE_LIBRARY=/var/vcap/packages/mesos/lib/libmesos.so
+export SPARK_EXECUTOR_URI=hdfs://0.hdfs-master.default.mesos-ha-hdfs-aws.bosh/spark-0.9.1-hadoop_2.3.0-bin.tar.gz
+export HADOOP_HOME=/var/vcap/packages/hadoop
+export HADOOP_CONF_DIR=/var/vcap/jobs/client/config
+export SCALA_HOME=/var/vcap/packages/scala
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SCALA_HOME/bin:$HADOOP_HOME/bin:/var/vcap/packages/git/bin:/var/vcap/packages/sbt/bin:/var/vcap/packages/pig/bin:/var/vcap/packages/hive/bin:$PATH

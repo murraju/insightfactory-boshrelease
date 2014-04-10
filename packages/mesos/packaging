@@ -1,0 +1,30 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+MESOS_VERSION=`ls -r mesos/mesos-*.tar.gz | sed 's/mesos\/mesos-\(.*\)\.tar\.gz/\1/' | head -1`
+
+# Extract Apache Mesos package
+echo "Extracting Apache Mesos ${MESOS_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/mesos/mesos-${MESOS_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Apache Mesos ${MESOS_VERSION}"
+  exit 1
+fi
+
+# Java package must be a dependency
+export JAVA_HOME=/var/vcap/packages/java/jdk
+
+# Sasl package must be a dependency
+export LDFLAGS="-L/var/vcap/packages/sasl/lib"
+export CPPFLAGS="-I/var/vcap/packages/sasl/include"
+
+# Build Apache Mesos package
+echo "Building Apache Mesos ${MESOS_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/mesos-${MESOS_VERSION}
+./configure --prefix=${BOSH_INSTALL_TARGET} --with-webui --disable-python
+make -j${CPUS}
+make install

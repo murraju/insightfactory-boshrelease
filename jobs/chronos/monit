@@ -1,0 +1,5 @@
+check process chronos
+  with pidfile /var/vcap/sys/run/chronos/chronos.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger chronos_ctl '/var/vcap/jobs/chronos/bin/chronos_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger chronos_ctl '/var/vcap/jobs/chronos/bin/chronos_ctl stop'"
+  group vcap

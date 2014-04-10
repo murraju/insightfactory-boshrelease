@@ -1,0 +1,71 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the namenode_ctl script
+source /var/vcap/jobs/namenode/helpers/ctl_setup.sh 'namenode'
+
+mkdir -p $HADOOP_NAMENODE_ROOT
+mkdir -p $LOG_DIR
+mkdir -p $RUN_DIR
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+
+    chown --recursive vcap:vcap $HADOOP_HOME
+    chown --recursive vcap:vcap $HADOOP_CONF_DIR
+    chown --recursive vcap:vcap $HADOOP_NAMENODE_ROOT
+    chown --recursive vcap:vcap $LOG_DIR
+
+    if [ ! -d "$HADOOP_NAMENODE_DIR" ]; then
+
+      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hdfs namenode -format \
+        1>>$LOG_DIR/$JOB_NAME.stdout.log \
+        2>>$LOG_DIR/$JOB_NAME.stderr.log &
+
+    fi
+
+      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode \
+        1>>$LOG_DIR/$JOB_NAME.stdout.log \
+        2>>$LOG_DIR/$JOB_NAME.stderr.log &
+
+
+
+    # store pid in $PIDFILE
+    echo $! > $PIDFILE
+    ;;
+
+  stop)
+
+
+    if [ -f $PIDFILE ]; then
+      TARGET_PID=`cat $PIDFILE`
+      if kill -0 $TARGET_PID > /dev/null 2>&1; then
+        kill $TARGET_PID
+        if kill -0 $TARGET_PID > /dev/null 2>&1; then
+          echo "$JOB_NAME did not stop gracefully: killing with kill -9"
+          kill -9 $TARGET_PID
+        fi
+      else
+        echo no $JOB_NAME to stop
+      fi
+    else
+      echo no $JOB_NAME to stop
+    fi
+    ;;
+
+
+  *)
+    echo "Usage: namenode_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0
+
+

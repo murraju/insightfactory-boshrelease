@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+#
+# Cassandra properties
+#
+
+# Directory to store the Apache Cassandra configuration files
+export CASSANDRA_CONF_DIR=$JOB_DIR/conf
+export CASSANDRA_CONF=$CASSANDRA_CONF_DIR
+
+# Directory to store the Apache Cassandra log files
+export CASSANDRA_LOG_DIR=$LOG_DIR
+
+# Directory to store the Apache Cassandra process IDs
+export CASSANDRA_PID_DIR=$RUN_DIR
+
+# Directory to store the Apache Cassandra data files
+export CASSANDRA_STORE_DIR=$STORE_DIR
+
+# Directory to store the Apache Cassandra temp files
+export CASSANDRA_TMP_DIR=$TMP_DIR
+
+# User which will own the Apache Cassandra services
+export CASSANDRA_USER="<%= p('cassandra.user') %>"
+
+# Group which will own the Apache Cassandra services
+export CASSANDRA_GROUP="<%= p('cassandra.group') %>"
+
+# Java Heap Size for Apache Cassandra
+export CASSANDRA_JAVA_HEAP_SIZE="<%= p('cassandra.java_heap_size') %>"
+
+# Apache Mesos Native Library
+export MESOS_NATIVE_LIBRARY=/var/vcap/packages/mesos/lib/libmesos.so

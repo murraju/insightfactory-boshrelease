@@ -1,0 +1,19 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+JENKINS_VERSION=`ls -r jenkins/jenkins-*.war | sed 's/jenkins\/jenkins-\(.*\)\.war/\1/' | head -1`
+MESOS_PLUGIN_VERSION=`ls -r jenkins/mesos-*.hpi | sed 's/jenkins\/mesos-\(.*\)\.hpi/\1/' | head -1`
+
+# Copy Jenkins package
+echo "Copying Jenkins ${JENKINS_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/jenkins/jenkins-${JENKINS_VERSION}.war ${BOSH_INSTALL_TARGET}/jenkins.war
+
+# Copy Jenkins plugins
+mkdir -p ${BOSH_INSTALL_TARGET}/plugins
+
+echo "Copying Jenkins Mesos plugin ${MESOS_PLUGIN_VERSION}..."
+cp -a ${BOSH_COMPILE_TARGET}/jenkins/mesos-${MESOS_PLUGIN_VERSION}.hpi ${BOSH_INSTALL_TARGET}/plugins/mesos.hpi

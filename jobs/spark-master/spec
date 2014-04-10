@@ -1,0 +1,34 @@
+---
+name: spark-master
+packages:
+- java
+- spark
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/spark-master_ctl.erb: bin/spark-master_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/spark-env.sh.erb: config/spark-env.sh
+properties:
+  spark.master.host:
+    description: The Hostname or address of the Spark master
+    default: 0.spark-master.default.spark-aws-ec2.bosh
+  spark.masters:
+    description: List of all Spark Masters
+    default: 0.spark-master.default.spark-aws-ec2.bosh:7077
+  spark.master.port:
+    description: The port to listen on
+    default: 7077
+  spark.deploy.zookeeper.dir:
+    description: The directory in ZooKeeper to store recovery state
+    default: /spark
+  spark.cluster.name:
+    description: The name of the cluster as shown in the Spark admin ui
+    default: bosh-spark-cluster
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

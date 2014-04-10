@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'jenkins' 'nginx_jenkins'
+export NGINX_PID_FILE=$NGINX_PID_DIR/nginx.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $NGINX_PID_FILE $JOB_NAME
+    echo $$ > $NGINX_PID_FILE
+
+    # Create Nginx user & group
+    create_group $NGINX_GROUP
+    create_user $NGINX_USER $JNGINX_GROUP
+
+    # Copy or generate SSL certificates
+    mkdir -p $NGINX_CERTS_DIR
+    if [ -s $NGINX_CONF_DIR/jenkins.key -a -s $NGINX_CONF_DIR/jenkins.pem ]; then
+      cp $NGINX_CONF_DIR/jenkins.key $NGINX_CERTS_DIR
+      cp $NGINX_CONF_DIR/jenkins.pem $NGINX_CERTS_DIR
+    elif [ ! -f $NGINX_CERTS_DIR/jenkins.key -o ! -f $NGINX_CERTS_DIR/jenkins.pem ]; then
+      openssl req -nodes -new -newkey rsa:1024 -out $NGINX_CERTS_DIR/jenkins.csr \
+        -keyout $NGINX_CERTS_DIR/jenkins.key -subj '/O=Bosh/CN=*'
+      openssl x509 -req -days 3650 -in $NGINX_CERTS_DIR/jenkins.csr \
+        -signkey $NGINX_CERTS_DIR/jenkins.key -out $NGINX_CERTS_DIR/jenkins.pem
+    fi
+    chown -R $NGINX_USER:$NGINX_GROUP $NGINX_CERTS_DIR
+
+    # Start Nginx service
+    exec chpst -u $NGINX_USER:$NGINX_GROUP nginx \
+          -p $NGINX_TMP_DIR \
+          -c $NGINX_CONF_DIR/nginx.conf \
+           >>$NGINX_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$NGINX_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Nginx service
+    kill_and_wait $NGINX_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

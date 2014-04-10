@@ -1,0 +1,79 @@
+---
+name: marathon
+
+packages:
+  - bosh-helpers
+  - java
+  - sasl
+  - mesos
+  - marathon
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/marathon_ctl.erb: bin/marathon_ctl
+  config/zoo_hosts.cfg.erb: config/zoo_hosts.cfg
+  config/zoo_mesos.cfg.erb: config/zoo_mesos.cfg
+
+properties:
+  marathon.user:
+    description: "User which will own the Marathon services"
+    default: "root"
+  marathon.group:
+    description: "Group which will own the Marathon services"
+    default: "vcap"
+  marathon.java_heap_size:
+    description: "Java Heap Size for Marathon"
+    default: "512m"
+  marathon.enable_checkpoint:
+    description: "Enable checkpointing of tasks"
+    default: true
+  marathon.failover_timeout:
+    description: "The failover_timeout for Apache Mesos in seconds"
+    default: 604800
+  marathon.enable_ha:
+    description: "Enable running Marathon in HA mode with leader election"
+    default: true
+  marathon.http_credentials:
+    description: "Credentials for accessing the Marathon http service (username:password format)"
+    default: "marathon:marathon"
+  marathon.http_port:
+    description: "The port Marathon will listen on for HTTP requests"
+    default: 80
+  marathon.https_port:
+    description: "The port Marathon will listen on for HTTPS requests"
+    default: 443
+  marathon.local_port_min:
+    description: "Min port number to use when Marathon assigns ports to apps"
+    default: 10000
+  marathon.local_port_max:
+    description: "Max port number to use when Marathon assigns ports to apps"
+    default: 20000
+  marathon.mesos_role:
+    description: "Mesos role for this framework"
+    default: "*"
+  marathon.reconciliation_frequency:
+    description: "This is the length of time, in milliseconds, between task reconciliation operations"
+    default: 30000
+  marathon.reconciliation_initial_delay:
+    description: "This is the length of time, in milliseconds, before Marathon begins to periodically perform task reconciliation operations"
+    default: 30000
+  marathon.task_launch_timeout:
+    description: "Time, in milliseconds, to wait for a task to enter the TASK_RUNNING state before killing it"
+    default: 60000
+  marathon.task_rate_limit:
+    description: "This is the time window within which instances may be launched for a given app"
+    default: 60000
+  marathon.zk_state:
+    description: "Path in ZooKeeper for storing Marathon state"
+    default: "marathon"
+  marathon.zk_timeout:
+    description: "The timeout for ZooKeeper in milliseconds"
+    default: 10000
+  mesos.zk_state:
+    description: "Path in ZooKeeper for storing Apache Mesos state"
+    default: "mesos"
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181

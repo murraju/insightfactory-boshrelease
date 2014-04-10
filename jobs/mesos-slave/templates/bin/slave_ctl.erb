@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'mesos-slave'
+export MESOS_SLAVE_PID_FILE=$MESOS_SLAVE_PID_DIR/mesos-slave.pid
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+case $1 in
+
+  start)
+    pid_guard $MESOS_SLAVE_PID_FILE $JOB_NAME
+    echo $$ > $MESOS_SLAVE_PID_FILE
+
+    # Increase the default number of open file descriptors
+    ulimit -n 8192
+
+    # Create Apache Mesos Slave user & group
+    create_group $MESOS_SLAVE_GROUP
+    create_user $MESOS_SLAVE_USER $MESOS_SLAVE_GROUP
+
+    # Remove slave info
+    rm -f $MESOS_SLAVE_TMP_DIR/meta/slaves/latest
+
+    # Calculate consumable resources if not set by user
+    if [[ -z $MESOS_SLAVE_RESOURCES ]]; then
+      CPUS=`grep processor /proc/cpuinfo | wc -l`
+      MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`
+      MEM=$[(MEM_KB - 1024 * 1024) / 1024]
+      RESOURCES="--resources=cpus:$CPUS;mem:$MEM"
+    fi
+
+    # Set public Mesos hostname
+    if hostname=$(public_hostname); then
+      MESOS_SLAVE_HOSTNAME=$hostname
+    else
+      MESOS_SLAVE_HOSTNAME=`hostname`
+    fi
+
+    # Start Apache Mesos Slave service
+    exec chpst -u $MESOS_SLAVE_USER:$MESOS_SLAVE_GROUP mesos-slave \
+           --attributes="$MESOS_SLAVE_ATTRIBUTES" \
+           --cgroups_enable_cfs=$MESOS_SLAVE_CGROUPS_ENABLE_CFS \
+           --cgroups_hierarchy="$MESOS_SLAVE_CGROUPS_HIERARCHY" \
+           --cgroups_root="$MESOS_SLAVE_CGROUPS_ROOT" \
+           --cgroups_subsystems="$MESOS_SLAVE_CGROUPS_SUBSYSTEMS" \
+           --checkpoint=$MESOS_SLAVE_CHECKPOINT \
+           --default_role="$MESOS_SLAVE_DEFAULT_ROLE" \
+           --disk_watch_interval="$MESOS_SLAVE_DISK_WATCH_INTERVAL" \
+           --executor_registration_timeout="$MESOS_SLAVE_EXECUTOR_REGISTRATION_TIMEOUT" \
+           --executor_shutdown_grace_period="$MESOS_SLAVE_EXECUTOR_SHUTDOWN_GRACE_PERIOD" \
+           --frameworks_home=$MESOS_SLAVE_STORE_DIR \
+           --gc_delay="$MESOS_SLAVE_GC_DELAY" \
+           --hostname="$MESOS_SLAVE_HOSTNAME" \
+           --ip="$MESOS_SLAVE_IP_ADDRESS" \
+           --isolation="$MESOS_SLAVE_ISOLATION" \
+           --log_dir=$MESOS_SLAVE_LOG_DIR \
+           --logbufsecs="$MESOS_SLAVE_LOGBUFSECS" \
+           --master=file://$MESOS_SLAVE_CONF_DIR/zoo_mesos.cfg \
+           --port="$MESOS_SLAVE_PORT" \
+           --recover="$MESOS_SLAVE_RECOVER" \
+           --recovery_timeout="$MESOS_SLAVE_RECOVERY_TIMEOUT" \
+           --resource_monitoring_interval="$MESOS_SLAVE_RESOURCE_MONITORING_INTERVAL" \
+           $RESOURCES \
+           --strict=$MESOS_SLAVE_STRICT \
+           --work_dir=$MESOS_SLAVE_TMP_DIR \
+           >>$MESOS_SLAVE_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+           2>>$MESOS_SLAVE_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    ;;
+
+  stop)
+    # Stop Apache Mesos Slave service
+    kill_and_wait $MESOS_SLAVE_PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

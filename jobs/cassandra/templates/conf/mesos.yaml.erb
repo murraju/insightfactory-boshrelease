@@ -1,0 +1,33 @@
+# Cassandra on Mesos download location. Typically not required to be changed.
+mesos.executor.uri: '<%= p('cassandra.mesos.executor_uri') %>'
+
+# Where the Mesos master is located
+<%
+  mesos_servers = []
+  p('zookeeper.servers').each do |server|
+    mesos_servers << "#{server}:#{p('zookeeper.client_port')}/#{p('mesos.zk_state')}"
+  end
+%>
+mesos.master.url: 'zk://<%= mesos_servers.join(',') %>'
+
+# Which Zookeeper to use to store our state e.g. 'zkHost:port,zkHost:port'
+<%
+  zoo_servers = []
+  p('zookeeper.servers').each do |server|
+    zoo_servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+state.zk: '<%= zoo_servers.join(',') %>'
+
+# Where we can find the Mesos library
+java.library.path: '/var/vcap/packages/mesos/lib/libmesos.so'
+
+# No of HW nodes we want it to run on
+# Driver will block until we have enough nodes
+# (We can't start multiple Cassandra nodes of the same cluster on the same HW node due to port conflicts)
+cassandra.noOfHwNodes: <%= p('cassandra.hw_nodes') %>
+
+# Mesos resource requests
+resource.cpus: <%= p('cassandra.mesos.resource_cpus') %>
+resource.mem: <%= p('cassandra.mesos.resource_mem') %>
+resource.disk: <%= p('cassandra.mesos.resource_disk') %>

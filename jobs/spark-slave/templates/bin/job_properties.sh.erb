@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+#
+# Spark Slave Properties
+#
+
+JOB_NAME=spark-slave
+
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+
+export SPARK_HOME=/var/vcap/packages/spark
+export SPARK_LOCAL_IP=<%= spec.networks.default.ip %>
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH
+
+SPARK_WORK_DIR=$SPARK_HOME/work
+SPARK_PACKAGE_DATA=/var/vcap/data/packages/spark
+SPARK_MASTER_PORT=<%= p("spark.master.port") %>

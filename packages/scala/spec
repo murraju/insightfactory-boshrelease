@@ -1,0 +1,5 @@
+---
+name: scala
+dependencies: {}
+files:
+  - scala/scala-2.10.3.tgz

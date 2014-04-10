@@ -1,0 +1,5 @@
+check process mapreduce-jobhistory
+  with pidfile /var/vcap/sys/run/mapreduce-jobhistory/mapreduce-jobhistory.pid
+  start program "/var/vcap/jobs/mapreduce-jobhistory/bin/monit_debugger mapreduce-jobhistory_ctl '/var/vcap/jobs/mapreduce-jobhistory/bin/mapreduce-jobhistory_ctl start'"
+  stop program "/var/vcap/jobs/mapreduce-jobhistory/bin/monit_debugger mapreduce-jobhistory_ctl '/var/vcap/jobs/mapreduce-jobhistory/bin/mapreduce-jobhistory_ctl stop'"
+  group vcap

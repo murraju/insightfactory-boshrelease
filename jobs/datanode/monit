@@ -1,0 +1,5 @@
+check process datanode
+  with pidfile /var/vcap/sys/run/datanode/datanode.pid
+  start program "/var/vcap/jobs/datanode/bin/monit_debugger datanode_ctl '/var/vcap/jobs/datanode/bin/datanode_ctl start'"
+  stop program "/var/vcap/jobs/datanode/bin/monit_debugger datanode_ctl '/var/vcap/jobs/datanode/bin/datanode_ctl stop'"
+  group vcap

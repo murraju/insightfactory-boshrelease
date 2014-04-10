@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the spark-slave_ctl script
+source /var/vcap/jobs/spark-slave/helpers/ctl_setup.sh 'spark-slave'
+
+mkdir -p $LOG_DIR
+mkdir -p $RUN_DIR
+mkdir -p $SPARK_WORK_DIR
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+
+
+case $1 in
+
+  start)
+
+    chown --recursive vcap:vcap $SPARK_HOME
+    chown --recursive vcap:vcap $LOG_DIR
+    chown --recursive vcap:vcap $SPARK_WORK_DIR
+    chown --recursive vcap:vcap $SPARK_PACKAGE_DATA
+
+    exec chpst -u vcap:vcap $SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker \
+         spark://<%= p("spark.masters") %> \
+         1>>$LOG_DIR/$JOB_NAME.stdout.log \
+         2>>$LOG_DIR/$JOB_NAME.stderr.log &
+
+
+    # store pid in $PIDFILE
+    echo $! > $PIDFILE
+    ;;
+
+  stop)
+    kill `cat $PIDFILE`
+
+    ;;
+  *)
+    echo "Usage: spark-slave_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0

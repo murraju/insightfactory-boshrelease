@@ -1,0 +1,42 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=`grep -c ^processor /proc/cpuinfo`
+
+# We grab the latest versions that are in the directory
+RUBY_VERSION=`ls -r ruby/ruby-*.tar.gz | sed 's/ruby\/ruby-\(.*\)\.tar\.gz/\1/' | head -1`
+RUBYGEMS_VERSION=`ls -r ruby/rubygems-*.tgz | sed 's/ruby\/rubygems-\(.*\)\.tgz/\1/' | head -1`
+BUNDLER_VERSION=`ls -r ruby/bundler-*.gem | sed 's/ruby\/bundler-\(.*\)\.gem/\1/' | head -1`
+
+# Extract Ruby package
+echo "Extracting Ruby ${RUBY_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/ruby/ruby-${RUBY_VERSION}.tar.gz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Ruby ${RUBY_VERSION}"
+  exit 1
+fi
+
+# Extract Rubygems package
+echo "Extracting Rubygems ${RUBYGEMS_VERSION}..."
+tar xzvf ${BOSH_COMPILE_TARGET}/ruby/rubygems-${RUBYGEMS_VERSION}.tgz
+if [[ $? != 0 ]] ; then
+  echo "Failed extracting Rubygems ${RUBYGEMS_VERSION}"
+  exit 1
+fi
+
+# Build Ruby package
+echo "Building Ruby ${RUBY_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/ruby-${RUBY_VERSION}
+./configure --prefix=${BOSH_INSTALL_TARGET} --disable-install-doc
+make -j${CPUS}
+make install
+
+# Install Rubygems package
+echo "Installing Rubygems ${RUBYGEMS_VERSION}..."
+cd ${BOSH_COMPILE_TARGET}/rubygems-${RUBYGEMS_VERSION}
+${BOSH_INSTALL_TARGET}/bin/ruby setup.rb
+
+# Install Bundler package
+echo "Installing Bundler ${BUNDLER_VERSION}..."
+${BOSH_INSTALL_TARGET}/bin/gem install ${BOSH_COMPILE_TARGET}/ruby/bundler-${BUNDLER_VERSION}.gem --local --no-ri --no-rdoc

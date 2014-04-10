@@ -1,0 +1,11 @@
+---
+meta:
+  environment: spark-openstack-nova
+  security_groups:
+    - hadoop
+director_uuid: 91b651cf-ed60-4fb3-863a-b9040cdf067d
+releases:
+  - name: spark
+    version: latest
+properties:
+  spark: {}

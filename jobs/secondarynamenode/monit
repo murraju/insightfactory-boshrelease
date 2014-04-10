@@ -1,0 +1,5 @@
+check process secondarynamenode
+  with pidfile /var/vcap/sys/run/secondarynamenode/secondarynamenode.pid
+  start program "/var/vcap/jobs/secondarynamenode/bin/monit_debugger secondarynamenode_ctl '/var/vcap/jobs/secondarynamenode/bin/secondarynamenode_ctl start'"
+  stop program "/var/vcap/jobs/secondarynamenode/bin/monit_debugger secondarynamenode_ctl '/var/vcap/jobs/secondarynamenode/bin/secondarynamenode_ctl stop'"
+  group vcap

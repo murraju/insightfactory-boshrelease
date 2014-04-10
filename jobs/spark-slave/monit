@@ -1,0 +1,5 @@
+check process spark-slave
+  with pidfile /var/vcap/sys/run/spark-slave/spark-slave.pid
+  start program "/var/vcap/jobs/spark-slave/bin/monit_debugger spark-slave_ctl '/var/vcap/jobs/spark-slave/bin/spark-slave_ctl start'"
+  stop program "/var/vcap/jobs/spark-slave/bin/monit_debugger spark-slave_ctl '/var/vcap/jobs/spark-slave/bin/spark-slave_ctl stop'"
+  group vcap

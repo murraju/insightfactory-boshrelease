@@ -1,0 +1,7 @@
+---
+name: mesos
+dependencies:
+  - java
+  - sasl
+files:
+  - mesos/mesos-0.17.0.tar.gz
