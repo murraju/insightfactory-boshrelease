@@ -7,17 +7,17 @@ Adds the following capabilities:
 ## Apache Spark
 
 1. A Standalone HA Spark Cluster (HA using ZooKeeper) using Cloud Storage - S3 in this case.
-2. Run Spark with Hadoop HDFS (Apache Hadoop 2.3.0).
-3. Run Spark on a Mesos Cluster with HDFS (Apache Hadoop 2.3.0).
-4. Run Spark on YARN (Apache Hadoop 2.3.0).
+2. Run Spark with Hadoop HDFS (Apache Hadoop 2.4.0).
+3. Run Spark on a Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
+4. Run Spark on YARN (Apache Hadoop 2.4.0).
 
 ## Mesos
 
-Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.3.0).
+Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
 
 ## Hadoop
 
-Standalone Hadoop Cluster with YARN (Apache Hadoop 2.3.0) - no Namenode HA.
+Standalone Hadoop Cluster with YARN (Apache Hadoop 2.4.0) - no Namenode HA.
 
 ## Clients
 
@@ -52,14 +52,13 @@ blobstore:
   s3:
     access_key_id:     ACCESS
     secret_access_key: PRIVATE
-    bucket_name: BUCKET
 ```
 
 ```
-bosh create release --force
+bosh create release
 # To test
 git commit -m "updated insightfactory"
-bosh create release --final --force
+bosh create release --final
 git commit -m "creating vN release"
 git tag vN
 git push origin master --tags

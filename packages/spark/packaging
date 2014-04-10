@@ -17,6 +17,6 @@ export JAVA_HOME=$(readlink -nf /var/vcap/packages/java/jdk)
 #cd spark-0.9.0-incubating-bin-cdh4
 #cp -a * $BOSH_INSTALL_TARGET
 
-tar xfv spark/spark-0.9.1-hadoop_2.3.0-bin.tar.gz
+tar xfv spark/spark-0.9.1-hadoop_2.4.0-bin.tar.gz
 cd spark-0.9.1
 cp -a * $BOSH_INSTALL_TARGET

@@ -3,4 +3,4 @@ name: hadoop
 dependencies:
 - java
 files:
-- hadoop/hadoop-2.3.0.tar.gz
+- hadoop/hadoop-2.4.0.tar.gz

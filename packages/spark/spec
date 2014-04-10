@@ -2,4 +2,4 @@
 name: spark
 dependencies: []
 files:
-- spark/spark-0.9.1-hadoop_2.3.0-bin.tar.gz
+- spark/spark-0.9.1-hadoop_2.4.0-bin.tar.gz
