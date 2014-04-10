@@ -11,7 +11,7 @@ Adds the following capabilities:
 3. Run Spark on a Mesos Cluster with HDFS (Apache Hadoop 2.3.0).
 4. Run Spark on YARN (Apache Hadoop 2.3.0).
 
-## Mesos 
+## Mesos
 
 Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.3.0).
 
@@ -52,13 +52,14 @@ blobstore:
   s3:
     access_key_id:     ACCESS
     secret_access_key: PRIVATE
+    bucket_name: BUCKET
 ```
 
 ```
-bosh create release
+bosh create release --force
 # To test
 git commit -m "updated insightfactory"
-bosh create release --final
+bosh create release --final --force
 git commit -m "creating vN release"
 git tag vN
 git push origin master --tags
