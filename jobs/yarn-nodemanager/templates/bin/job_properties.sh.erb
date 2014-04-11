@@ -11,6 +11,8 @@ PIDFILE=$RUN_DIR/$JOB_NAME.pid
 
 export HADOOP_HOME=/var/vcap/packages/hadoop
 export HADOOP_CONF_DIR=/var/vcap/jobs/yarn-nodemanager/config
+export HADOOP_COMMON_LIB_NATIVE_DIR={$HADOOP_HOME}/lib/native
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib
 export HADOOP_LOG_DIR=$LOG_DIR
 export HADOOP_PID_DIR=$RUN_DIR
 export YARN_LOG_DIR=$LOG_DIR
