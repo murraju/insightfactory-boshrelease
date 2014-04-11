@@ -52,6 +52,7 @@ blobstore:
   s3:
     access_key_id:     ACCESS
     secret_access_key: PRIVATE
+    bucke_name: BUCKET
 ```
 
 ```
