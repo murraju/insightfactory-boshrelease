@@ -2,5 +2,6 @@
 name: hadoop
 dependencies:
 - java
+- snappy
 files:
 - hadoop/hadoop-2.4.0.tar.gz
