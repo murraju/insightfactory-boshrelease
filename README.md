@@ -2,7 +2,7 @@
 
 This is a [Bosh][1] release for building infrastructures for Data Science. This bosh release builds on the work by [Ferran Rodenas][2]  and [Cloud Foundry's Platform Engineering group][3] - [bosh release for mesos][5]
 
-What's supported on Mesos:
+What's already supported on Mesos from the mesos-boshrelease:
 
 * [Airbnb Chronos](http://airbnb.github.io/chronos/): A distributed and fault-tolerant scheduler
 * [Mesosphere Marathon](https://github.com/mesosphere/marathon): An Apache Mesos framework for long-running services
@@ -11,7 +11,7 @@ What's supported on Mesos:
 
 
 
-This release Adds the following capabilities:
+This release adds the following capabilities:
 
 ## Apache Spark
 
