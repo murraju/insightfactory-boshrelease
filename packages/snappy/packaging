@@ -11,8 +11,8 @@ export HOME=/var/vcap
 
 
 tar xfv snappy/snappy-1.1.2.tar.gz
-cd ._snappy-1.1.2
+cd snappy-1.1.2
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make -j${CPUS} && make install
 # Alternatively, to copy archive contents:
-# cp -a ._snappy-1.1.2/* $BOSH_INSTALL_TARGET
+# cp -a snappy-1.1.2/* $BOSH_INSTALL_TARGET
