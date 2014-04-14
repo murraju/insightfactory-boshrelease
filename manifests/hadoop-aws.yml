@@ -6,7 +6,7 @@
 <% deployment_name = "hadoop-aws" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
-<% release_name = "insightfactory" %>
+<% release_name = "insightfactory-boshrelease" %>
 <% director_uuid = "87e046f4-527d-487f-b41e-b4b49bfe1554" %>
 ---
 

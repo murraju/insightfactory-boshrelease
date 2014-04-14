@@ -11,7 +11,7 @@
 <% deployment_name = "mesos-ha-hdfs-aws" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
-<% release_name = "insightfactory" %>
+<% release_name = "insightfactory-boshrelease" %>
 <% director_uuid = "6c72a227-45c9-4df6-8973-7172b954812a" %>
 ---
 name: <%= deployment_name %>
