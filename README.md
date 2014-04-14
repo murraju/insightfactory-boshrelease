@@ -47,7 +47,7 @@ To build:
 7. Run `bosh vms` to list VMs and IPs.
 8. Run `bosh ssh client/0`
 9. Run `sudo /var/vcap/jobs/client/bin/setup.sh`
-10. ssh -i <bosh pem>.pem vcap@(client public IP)
+10. ssh -i (bosh pem).pem vcap@(client public IP)
 
 
 
