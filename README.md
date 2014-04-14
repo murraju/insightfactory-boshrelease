@@ -2,7 +2,7 @@
 
 This is a [Bosh][1] release for building infrastructures for Data Science. This bosh release builds on the work by [Ferran Rodenas][2]  and [Cloud Foundry's Platform Engineering group][3] - [bosh release for mesos][5]
 
-What's already supported on Mesos from the mesos-boshrelease:
+What's already supported from the [mesos-boshrelease][5]:
 
 * [Airbnb Chronos](http://airbnb.github.io/chronos/): A distributed and fault-tolerant scheduler
 * [Mesosphere Marathon](https://github.com/mesosphere/marathon): An Apache Mesos framework for long-running services
@@ -47,7 +47,7 @@ To build:
 7. Run `bosh vms` to list VMs and IPs.
 8. Run `bosh ssh client/0`
 9. Run `sudo /var/vcap/jobs/client/bin/setup.sh`
-10. ssh to vcap@(client public IP)
+10. ssh -i <bosh pem>.pem vcap@(client public IP)
 
 
 
@@ -98,7 +98,7 @@ Monitoring:
 
 ## Disclaimer
 
-This is a development release and a work in progress. Please log issues.The release has been tested against AWS EC2 and OpenStack BOSH CPIs (Cloud Provider Interface).
+This is a development release and a work in progress. Please log issues. This release has been tested against AWS EC2 and OpenStack BOSH CPIs (Cloud Provider Interface).
 
 ## Copyright and Credits
 
