@@ -1,0 +1,18 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+ # Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+
+
+
+tar xfv hadoopmr/hadoop-1.2.1.tar.gz
+cd hadoop-1.2.1
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make -j${CPUS} && make install
+# Alternatively, to copy archive contents:
+# cp -a hadoop-1.2.1/* $BOSH_INSTALL_TARGET

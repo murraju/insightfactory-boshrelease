@@ -1,0 +1,5 @@
+---
+name: hadoopmr
+dependencies: []
+files:
+- hadoopmr/hadoop-1.2.1.tar.gz

@@ -1,0 +1,5 @@
+check process jobtracker
+  with pidfile /var/vcap/sys/run/jobtracker/jobtracker.pid
+  start program "/var/vcap/jobs/jobtracker/bin/monit_debugger jobtracker_ctl '/var/vcap/jobs/jobtracker/bin/jobtracker_ctl start'"
+  stop program "/var/vcap/jobs/jobtracker/bin/monit_debugger jobtracker_ctl '/var/vcap/jobs/jobtracker/bin/jobtracker_ctl stop'"
+  group vcap
