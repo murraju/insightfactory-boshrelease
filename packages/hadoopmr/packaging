@@ -9,10 +9,6 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 export HOME=/var/vcap
 
 
-
+PATH=/var/vcap/packages/java/bin:$PATH
 tar xfv hadoopmr/hadoop-1.2.1.tar.gz
-cd hadoop-1.2.1
-./configure --prefix=${BOSH_INSTALL_TARGET}
-make -j${CPUS} && make install
-# Alternatively, to copy archive contents:
-# cp -a hadoop-1.2.1/* $BOSH_INSTALL_TARGET
+cp -a hadoop-1.2.1/* $BOSH_INSTALL_TARGET

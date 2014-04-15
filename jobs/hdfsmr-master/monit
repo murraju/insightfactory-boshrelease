@@ -1,5 +1,0 @@
-check process hdfsmr-master
-  with pidfile /var/vcap/sys/run/hdfsmr-master/hdfsmr-master.pid
-  start program "/var/vcap/jobs/hdfsmr-master/bin/monit_debugger hdfsmr-master_ctl '/var/vcap/jobs/hdfsmr-master/bin/hdfsmr-master_ctl start'"
-  stop program "/var/vcap/jobs/hdfsmr-master/bin/monit_debugger hdfsmr-master_ctl '/var/vcap/jobs/hdfsmr-master/bin/hdfsmr-master_ctl stop'"
-  group vcap

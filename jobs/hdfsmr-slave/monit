@@ -1,5 +1,0 @@
-check process hdfsmr-slave
-  with pidfile /var/vcap/sys/run/hdfsmr-slave/hdfsmr-slave.pid
-  start program "/var/vcap/jobs/hdfsmr-slave/bin/monit_debugger hdfsmr-slave_ctl '/var/vcap/jobs/hdfsmr-slave/bin/hdfsmr-slave_ctl start'"
-  stop program "/var/vcap/jobs/hdfsmr-slave/bin/monit_debugger hdfsmr-slave_ctl '/var/vcap/jobs/hdfsmr-slave/bin/hdfsmr-slave_ctl stop'"
-  group vcap
