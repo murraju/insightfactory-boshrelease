@@ -1,0 +1,5 @@
+check process secondarynamenodemr
+  with pidfile /var/vcap/sys/run/secondarynamenodemr/secondarynamenodemr.pid
+  start program "/var/vcap/jobs/secondarynamenodemr/bin/monit_debugger secondarynamenodemr_ctl '/var/vcap/jobs/secondarynamenodemr/bin/secondarynamenodemr_ctl start'"
+  stop program "/var/vcap/jobs/secondarynamenodemr/bin/monit_debugger secondarynamenodemr_ctl '/var/vcap/jobs/secondarynamenodemr/bin/secondarynamenodemr_ctl stop'"
+  group vcap
