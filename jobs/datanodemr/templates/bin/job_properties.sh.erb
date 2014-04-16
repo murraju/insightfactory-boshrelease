@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 
 #
-# Hadoop Namenode MapReduce Properties
+# Hadoop Datanode for Hadoop MapReduce Properties
 #
 
-JOB_NAME=namenodemr
+JOB_NAME=datanodemr
 LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 PIDFILE=$RUN_DIR/$JOB_NAME.pid
 
-
 export HADOOP_HOME=/var/vcap/packages/hadoop
-export HADOOP_CONF_DIR=/var/vcap/jobs/namenodemr/config
+export HADOOP_CONF_DIR=/var/vcap/jobs/datanodemr/config
 export HADOOP_COMMON_LIB_NATIVE_DIR={$HADOOP_HOME}/lib/native
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
-export HADOOP_NAMENODE_ROOT=<%= p("hadoop.namenode.dfs_name_dir_root") %>
-export HADOOP_NAMENODE_DIR=$HADOOP_NAMENODE_ROOT<%= p("hadoop.namenode.dfs_name_dir") %>
+export HADOOP_DATANODE_ROOT=<%= p("hadoop.namenode.dfs_name_dir_root") %>
+export HADOOP_DATANODE_DIR=$HADOOP_DATANODE_ROOT<%= p("hadoop.namenode.dfs_name_dir") %>
 export HADOOP_LOG_DIR=$LOG_DIR
 export HADOOP_PID_DIR=$RUN_DIR
 export JAVA_HOME=/var/vcap/packages/java/jdk

@@ -4,6 +4,7 @@ packages:
 - hadoopmr
 - java
 templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
   bin/datanodemr_ctl: bin/datanodemr_ctl
   bin/monit_debugger: bin/monit_debugger
   data/properties.sh.erb: data/properties.sh
