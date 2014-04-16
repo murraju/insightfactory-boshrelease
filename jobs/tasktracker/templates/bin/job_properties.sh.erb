@@ -9,7 +9,7 @@ LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 PIDFILE=$RUN_DIR/$JOB_NAME.pid
 
-export HADOOP_HOME=/var/vcap/packages/hadoop
+export HADOOP_HOME=/var/vcap/packages/hadoopmr
 export HADOOP_CONF_DIR=/var/vcap/jobs/tasktracker/config
 export HADOOP_COMMON_LIB_NATIVE_DIR={$HADOOP_HOME}/lib/native
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"

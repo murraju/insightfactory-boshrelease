@@ -7,7 +7,7 @@
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "87e046f4-527d-487f-b41e-b4b49bfe1554" %>
+<% director_uuid = "175c009f-f41b-4318-bc61-6e508cc08862" %>
 ---
 
 compilation:
@@ -27,7 +27,7 @@ jobs:
     default: [dns, gateway]
     static_ips: null
   resource_pool: hdfs-master
-  template: namenode
+  template: namenodemr
   instances: 1
 
 - name: mapred-master
@@ -45,7 +45,7 @@ jobs:
     default: [dns, gateway]
     static_ips: null
   resource_pool: hdfs-master
-  template: secondarynamenode
+  template: secondarynamenodemr
   instances: 1
 
 - name: slave

@@ -15,7 +15,7 @@ case $1 in
 
   start)
 
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/mapred --config $HADOOP_CONF_DIR tasktracker \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR tasktracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 

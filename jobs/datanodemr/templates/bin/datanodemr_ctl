@@ -25,7 +25,7 @@ case $1 in
 
 
 
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR datanode \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR datanode \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
