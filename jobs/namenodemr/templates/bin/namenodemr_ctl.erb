@@ -9,6 +9,7 @@ source /var/vcap/jobs/namenodemr/helpers/ctl_setup.sh 'namenodemr'
 mkdir -p $HADOOP_NAMENODE_ROOT
 mkdir -p $LOG_DIR
 mkdir -p $RUN_DIR
+mkdir -p $TMP_DIR
 
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
@@ -21,6 +22,7 @@ case $1 in
     chown --recursive vcap:vcap $HADOOP_CONF_DIR
     chown --recursive vcap:vcap $HADOOP_NAMENODE_ROOT
     chown --recursive vcap:vcap $LOG_DIR
+    chown --recursive vcap:vcap $TMP_DIR
 
     if [ ! -d "$HADOOP_NAMENODE_DIR" ]; then
 

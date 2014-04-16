@@ -6,7 +6,6 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the secondarynamenode_ctl script
 source /var/vcap/jobs/secondarynamenode/helpers/ctl_setup.sh 'secondarynamenode'
 
-
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 

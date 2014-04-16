@@ -7,6 +7,8 @@ set -u # report the usage of uninitialized variables
 source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 
 
+mkdir -p TMP_DIR
+
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
@@ -14,6 +16,8 @@ hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/)
 case $1 in
 
   start)
+
+    chown --recursive vcap:vcap $TMP_DIR
 
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
