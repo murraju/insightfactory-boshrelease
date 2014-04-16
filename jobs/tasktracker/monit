@@ -1,5 +1,5 @@
-check process yarn-nodemanager
-  with pidfile /var/vcap/sys/run/yarn-nodemanager/yarn-nodemanager.pid
-  start program "/var/vcap/jobs/yarn-nodemanager/bin/monit_debugger yarn-nodemanager_ctl '/var/vcap/jobs/yarn-nodemanager/bin/yarn-nodemanager_ctl start'"
-  stop program "/var/vcap/jobs/yarn-nodemanager/bin/monit_debugger yarn-nodemanager_ctl '/var/vcap/jobs/yarn-nodemanager/bin/yarn-nodemanager_ctl stop'"
+check process tasktracker
+  with pidfile /var/vcap/sys/run/tasktracker/tasktracker.pid
+  start program "/var/vcap/jobs/tasktracker/bin/monit_debugger tasktracker_ctl '/var/vcap/jobs/tasktracker/bin/tasktracker_ctl start'"
+  stop program "/var/vcap/jobs/tasktracker/bin/monit_debugger tasktracker_ctl '/var/vcap/jobs/tasktracker/bin/tasktracker_ctl stop'"
   group vcap
