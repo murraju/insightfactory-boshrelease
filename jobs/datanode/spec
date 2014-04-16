@@ -1,7 +1,7 @@
 ---
-name: datanodemr
+name: datanode
 packages:
-- hadoopmr
+- hadoop
 - java
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
