@@ -19,25 +19,23 @@
 
 <configuration>
   <property>
-    <name>mapred.job.tracker</name>
-    <value><%= p("hadoop.mapreduce.job.tracker") %></value>
+    <name>fs.default.name</name>
+    <value>hdfs://<%= p("hadoop.namenode.host") %>:<%= p("hadoop.namenode.port")  %></value>
   </property>
 
   <property>
-    <name>mapred.child.java.opts</name>
-    <value><%= p("hadoop.mapreduce.child.java.opts") %></value>
-    <description>No description</description>
+     <name>hadoop.tmp.dir</name>
+     <value><%= p("hadoop.namenode.hadoop_tmp_dir") %>/${user.name}</value>
   </property>
-   <property>
-      <name>mapred.map.child.java.opts</name>
-         <value><%= p("hadoop.mapreduce.map.child.java.opts") %></value>
-          <description>No description</description>
-   </property>
 
- <property>
-    <name>mapred.reduce.child.java.opts</name>
-       <value><%= p("hadoop.mapreduce.reduce.child.java.opts") %></value>
-       <description>No description</description>
+  <!-- OOZIE proxy user setting -->
+  <property>
+    <name>hadoop.proxyuser.oozie.hosts</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.oozie.groups</name>
+    <value>*</value>
   </property>
 
 </configuration>

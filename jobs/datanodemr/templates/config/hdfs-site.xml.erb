@@ -19,25 +19,24 @@
 
 <configuration>
   <property>
-    <name>mapred.job.tracker</name>
-    <value><%= p("hadoop.mapreduce.job.tracker") %></value>
+    <name>dfs.replication</name>
+    <value><%= p("hadoop.namenode.num_dfs_replicas") %></value>
   </property>
-
   <property>
-    <name>mapred.child.java.opts</name>
-    <value><%= p("hadoop.mapreduce.child.java.opts") %></value>
-    <description>No description</description>
+     <name>dfs.permissions</name>
+     <value>false</value>
   </property>
-   <property>
-      <name>mapred.map.child.java.opts</name>
-         <value><%= p("hadoop.mapreduce.map.child.java.opts") %></value>
-          <description>No description</description>
-   </property>
-
- <property>
-    <name>mapred.reduce.child.java.opts</name>
-       <value><%= p("hadoop.mapreduce.reduce.child.java.opts") %></value>
-       <description>No description</description>
+  <property>
+     <name>dfs.safemode.min.datanodes</name>
+     <value><%= p("hadoop.namenode.safemode_min_datanodes") %></value>
   </property>
-
+  <property>
+     <!-- specify this so that running 'hadoop namenode -format' formats the right dir -->
+     <name>dfs.name.dir</name>
+     <value><%= p("hadoop.namenode.dfs_name_dir_root") %><%= p("hadoop.namenode.dfs_name_dir") %></value>
+  </property>
+  <property>
+      <name>dfs.data.dir</name>
+      <value><%= p("hadoop.namenode.dfs_name_dir_root") %><%= p("hadoop.datanode.dfs_data_dir") %></value>
+  </property>
 </configuration>
