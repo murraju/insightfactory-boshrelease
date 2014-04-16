@@ -56,7 +56,7 @@ jobs:
   resource_pool: slave
   template:
     - tasktracker
-    - datanode
+    - datanodemr
   instances: <%= num_slaves %>
 
 - name: client
