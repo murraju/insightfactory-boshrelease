@@ -1,7 +1,7 @@
 ---
 name: secondarynamenodemr
 packages:
-- hadoop
+- hadoopmr
 - java
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
