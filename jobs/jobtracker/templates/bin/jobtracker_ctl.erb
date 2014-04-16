@@ -14,10 +14,6 @@ case $1 in
 
   start)
 
-    chown --recursive vcap:vcap $TMP_DIR
-
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -mkdir $HADOOP_TMP_DIR
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 $HADOOP_TMP_DIR
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
