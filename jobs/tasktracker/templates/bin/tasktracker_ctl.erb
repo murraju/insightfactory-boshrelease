@@ -3,15 +3,19 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the yarn-nodemanager_ctl script
-source /var/vcap/jobs/yarn-nodemanager/helpers/ctl_setup.sh 'yarn-nodemanager'
+# Setup env vars and folders for the tasktracker_ctl script
+source /var/vcap/jobs/tasktracker/helpers/ctl_setup.sh 'tasktracker'
+
+
+# Set the hostname
+hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
 
 case $1 in
 
   start)
 
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR nodemanager \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/mapred --config $HADOOP_CONF_DIR tasktracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
@@ -41,7 +45,7 @@ case $1 in
 
 
   *)
-    echo "Usage: yarn-nodemanager_ctl {start|stop}"
+    echo "Usage: tasktracker_ctl {start|stop}"
 
     ;;
 

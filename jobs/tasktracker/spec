@@ -1,11 +1,11 @@
 ---
-name: yarn-nodemanager
+name: tasktracker
 packages:
-- hadoop
+- hadoopmr
 - java
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
-  bin/yarn-nodemanager_ctl.erb: bin/yarn-nodemanager_ctl
+  bin/tasktracker_ctl.erb: bin/tasktracker_ctl
   bin/monit_debugger: bin/monit_debugger
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
@@ -41,57 +41,15 @@ properties:
   hadoop.datanode.dfs_data_dir:
     description: dfs data directory
     default: /cache/hdfs/dfs/data
-  hadoop.yarn.nodemanager.logs:
-    description: YARN nodemanager logs directory
-    default: /var/vcap/data/hadoop/logs
-  hadoop.yarn.nodemanager.local_dirs:
-    description: YARN nodemanager localdirectory directory
-    default: /var/vcap/data/hadoop/yarn/local
-  hadoop.yarn.application.classpath:
-    description: YARN class paths
-    default: "$HADOOP_CONF_DIR,/var/vcap/packages/hadoop/share/hadoop/common/*,/var/vcap/packages/hadoop/share/hadoop/common/lib/*,/var/vcap/packages/hadoop/share/hadoop/mapreduce/*,/var/vcap/packages/hadoop/share/hadoop/mapreduce/lib/*,/var/vcap/packages/hadoop/share/hadoop/yarn/*,/var/vcap/packages/hadoop/share/hadoop/yarn/lib/*,/var/vcap/packages/hadoop/share/hadoop/hdfs/*,/var/vcap/packages/hadoop/share/hadoop/hdfs/*"
-  hadoop.yarn.resourcemanager.resourcetracker.address:
-    description: YARN resource manager host
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.yarn.resourcemanager.admin.address:
-    description: YARN resource manager admin host
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.yarn.resourcemanager.hostname:
-    description: YARN resource manager hostname
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.yarn.resourcemanager.scheduler.address:
-    description: YARN resource manager scheduler host
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.yarn.nodemanager.remote_app_log_dir_suffix:
-    description: YARN nodemanager remote app log suffix
-    default: logs
-  hadoop.yarn.nodemanager.remote_app_log_dir:
-    description: YARN nodemanager remote app log dirs
-    default: /var/vcap/data/hadoop/logs
-  hadoop.yarn.nodemanager.logdirs:
-    description: YARN nodemanager log dirs
-    default: /var/vcap/data/hadoop/logs
-  hadoop.yarn.log.server.url:
-    description: YARN log server URL
-    default: http://0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh:19888/jobhistory/logs
-  hadoop.yarn.resourcemanager.webapp.address:
-    description: YARN Resource Manager Web Host
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.yarn.resourcemanager.address:
-    description: YARN Resource Manager Address
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.mapreduce.jobhistory.donedir:
-    description: MapReduce Job History Done Directory
-    default: /var/vcap/data/hadoop/mapreduce
-  hadoop.mapreduce.application.classpath:
-    description: MapReduce Application Class Path
-    default: /var/vcap/packages/hadoop/share/hadoop/mapreduce,/var/vcap/packages/hadoop/share/hadoop/mapreduce/lib
-  hadoop.mapreduce.jobhistory.intermediatedonedir:
-    description: MapReduce Job History Intermediate Done Directory
-    default: /var/vcap/data/hadoop/mapreduce/tmp
-  hadoop.mapreduce.jobhistory.webapp.address:
-    description: MapReduce Job History WebAddress
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
-  hadoop.mapreduce.jobhistory.address:
-    description: MapReduce Job History Address
-    default: 0.yarn-resourcemanager.default.hdp2-openstack-nova.microbosh
+  hadoop.mapreduce.job.tracker:
+    description: MapReduce Job Tracker
+    default: ""
+  hadoop.mapreduce.child.java.opts:
+    description: MapReduce Child Java Opts
+    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
+  hadoop.mapreduce.map.child.java.opts:
+    description: MapReduce Map Child Java Opts
+    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
+  hadoop.mapreduce.reduce.child.java.opts:
+    description: MapReduce Child Java Opts
+    default: "-server -Xmx1024m -Djava.net.preferIPv4Stack=true"

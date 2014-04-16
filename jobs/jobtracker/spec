@@ -1,11 +1,11 @@
 ---
-name: yarn-resourcemanager
+name: jobtracker
 packages:
-- hadoop
+- hadoopmr
 - java
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
-  bin/yarn-resourcemanager_ctl.erb: bin/yarn-resourcemanager_ctl
+  bin/jobtracker_ctl.erb: bin/jobtracker_ctl
   bin/monit_debugger: bin/monit_debugger
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh

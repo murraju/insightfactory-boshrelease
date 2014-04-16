@@ -3,8 +3,8 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the yarn-resourcemanager_ctl script
-source /var/vcap/jobs/yarn-resourcemanager/helpers/ctl_setup.sh 'yarn-resourcemanager'
+# Setup env vars and folders for the jobtracker_ctl script
+source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 
 
 # Set the hostname
@@ -15,7 +15,7 @@ case $1 in
 
   start)
 
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR resourcemanager \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/mapred --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
@@ -45,7 +45,7 @@ case $1 in
 
 
   *)
-    echo "Usage: yarn-resourcemanager_ctl {start|stop}"
+    echo "Usage: jobtracker_ctl {start|stop}"
 
     ;;
 
