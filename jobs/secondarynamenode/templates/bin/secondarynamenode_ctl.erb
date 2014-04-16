@@ -6,6 +6,10 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the secondarynamenode_ctl script
 source /var/vcap/jobs/secondarynamenode/helpers/ctl_setup.sh 'secondarynamenode'
 
+mkdir -p $HADOOP_DATANODE_ROOT
+mkdir -p $LOG_DIR
+mkdir -p $RUN_DIR
+
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 

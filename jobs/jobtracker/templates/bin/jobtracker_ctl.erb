@@ -6,9 +6,6 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the jobtracker_ctl script
 source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 
-
-mkdir -p TMP_DIR
-
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
@@ -19,6 +16,8 @@ case $1 in
 
     chown --recursive vcap:vcap $TMP_DIR
 
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -mkdir $HADOOP_TMP_DIR
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 $HADOOP_TMP_DIR
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
