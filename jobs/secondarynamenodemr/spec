@@ -30,7 +30,7 @@ properties:
     default: /cache/hadoop/dfs/name
   hadoop.namenode.hadoop_tmp_dir:
     description: hdfs user tmp directory
-    default: /var/vcap/data/hadoop/tmp
+    default: /tmp
   hadoop.namenode.dfs_name_dir_root:
     description: dfs root
     default: /var/vcap/data/hadoop
