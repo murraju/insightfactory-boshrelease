@@ -13,8 +13,6 @@ templates:
   config/hadoop-env.sh.erb: config/hadoop-env.sh
   config/hdfs-site.xml.erb: config/hdfs-site.xml
   config/core-site.xml.erb: config/core-site.xml
-  config/yarn-env.sh.erb: config/yarn-env.sh
-  config/yarn-site.xml.erb: config/yarn-site.xml
   config/hadoop-metrics.properties: config/hadoop-metrics.properties
   config/hadoop-metrics2.properties: config/hadoop-metrics2.properties
   config/capacity-scheduler.xml.erb: config/capacity-scheduler.xml
