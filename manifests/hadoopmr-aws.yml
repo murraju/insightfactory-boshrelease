@@ -1,0 +1,147 @@
+<% num_mapred_masters = 1 %>
+<% num_hdfs_masters = 2 %>
+<% num_slaves = 5 %>
+<% num_clients = 1 %>
+<% client_public_ip =  %>
+<% deployment_name = "hadoopmr-aws" %>
+<% os = "ubuntu" %>
+<% tld = "microbosh" %>
+<% release_name = "insightfactory-boshrelease" %>
+<% director_uuid = "87e046f4-527d-487f-b41e-b4b49bfe1554" %>
+---
+
+compilation:
+  cloud_properties:
+    instance_type: m1.xlarge
+  network: default
+  reuse_compilation_vms: true
+  workers: 6
+name:  <%= deployment_name %>
+director_uuid: <%= director_uuid %>
+
+jobs:
+
+- name: hdfs-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: namenode
+  instances: 1
+
+- name: mapred-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: mapred-master
+  template: jobtracker
+  instances: <%= num_mapred_masters %>
+
+- name: hdfs-secondary-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: secondarynamenode
+  instances: 1
+
+- name: slave
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: slave
+  template:
+    - tasktracker
+    - datanode
+  instances: <%= num_slaves %>
+
+- name: client
+  networks:
+  - name: default
+    default: [dns, gateway]
+  - name: elastic
+    static_ips:
+      - <%= client_public_ip %>
+  resource_pool: client
+  template: client
+  instances: <%= num_clients %>
+
+meta:
+  environment: <%= deployment_name %>
+  stemcell:
+    name: bosh-aws-xen-<%= os %>
+    version: latest
+
+networks:
+- cloud_properties: {}
+  name: elastic
+  type: vip
+- cloud_properties:
+    security_groups:
+    - hadoop
+  name: default
+  type: dynamic
+
+
+releases:
+- name: <%= release_name %>
+  version: latest
+
+resource_pools:
+
+  - name: hdfs-master
+    network: default
+    size: <%= num_hdfs_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: mapred-master
+    network: default
+    size: <%= num_mapred_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: slave
+    network: default
+    size: <%= num_slaves %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m2.2xlarge
+
+  - name: client
+    network: default
+    size: <%= num_clients %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
+
+properties:
+  hadoop:
+    namenode:
+      host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
+      port: 8020
+    mapreduce:
+      job:
+        tracker: "0.mapred-master.default.<%= deployment_name %>.<%= tld %>"
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
+
