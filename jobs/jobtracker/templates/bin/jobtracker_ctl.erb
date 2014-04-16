@@ -13,7 +13,7 @@ hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/)
 case $1 in
 
   start)
-    exec $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
