@@ -1,7 +1,6 @@
 <% num_mapred_masters = 1 %>
-<% num_mapred_slaves = 3 %>
 <% num_hdfs_masters = 2 %>
-<% num_hdfs_slaves = 5 %>
+<% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
 <% deployment_name = "hadoopmr-aws" %>
@@ -40,14 +39,16 @@ jobs:
   template: secondarynamenodemr
   instances: 1
 
-- name: hdfs-slave
+- name: slave
   networks:
   - name: default
     default: [dns, gateway]
     static_ips: null
-  resource_pool: hdfs-slave
-  template: datanodemr
-  instances: <%= num_hdfs_slaves %>
+  resource_pool: slave
+  templates:
+    - datanodemr
+    - tasktracker
+  instances: <%= num_slaves %>
 
 - name: mapred-master
   networks:
@@ -57,15 +58,6 @@ jobs:
   resource_pool: mapred-master
   template: jobtracker
   instances: <%= num_mapred_masters %>
-
-- name: mapred-slave
-  networks:
-  - name: default
-    default: [dns, gateway]
-    static_ips: null
-  resource_pool: mapred-slave
-  template: tasktracker
-  instances: <%= num_mapred_slaves %>
 
 - name: client
   networks:
@@ -119,18 +111,9 @@ resource_pools:
     cloud_properties:
       instance_type: m1.xlarge
 
-  - name: hdfs-slave
+  - name: slave
     network: default
-    size: <%= num_hdfs_slaves %>
-    stemcell:
-      name: bosh-aws-xen-<%= os %>
-      version: latest
-    cloud_properties:
-      instance_type: m2.2xlarge
-
-  - name: mapred-slave
-    network: default
-    size: <%= num_mapred_slaves %>
+    size: <%= num_slaves %>
     stemcell:
       name: bosh-aws-xen-<%= os %>
       version: latest
