@@ -25,12 +25,11 @@ case $1 in
 
     if [ ! -d "$HADOOP_NAMENODE_DIR" ]; then
 
+      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.namenode.hadoop_tmp_dir") %>
+      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.namenode.hadoop_tmp_dir") %>
       exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop namenode -format \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
-
-      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.namenode.hadoop_tmp_dir") %>
-      exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.namenode.hadoop_tmp_dir") %>
 
     fi
 
