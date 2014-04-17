@@ -30,15 +30,6 @@ jobs:
   template: namenodemr
   instances: 1
 
-- name: mapred-master
-  networks:
-  - name: default
-    default: [dns, gateway]
-    static_ips: null
-  resource_pool: mapred-master
-  template: jobtracker
-  instances: <%= num_mapred_masters %>
-
 - name: hdfs-secondary-master
   networks:
   - name: default
@@ -58,6 +49,17 @@ jobs:
     - tasktracker
     - datanodemr
   instances: <%= num_slaves %>
+
+- name: mapred-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: mapred-master
+  template: jobtracker
+  instances: <%= num_mapred_masters %>
+
+
 
 - name: client
   networks:
