@@ -21,3 +21,6 @@ export HADOOP_HDFS_HOME=$HADOOP_HOME
 export HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec
 export JAVA_HOME=/var/vcap/packages/java/jdk
 export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+
+sudo -u vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.mapreduce.local.dir") %>
+sudo -u vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>

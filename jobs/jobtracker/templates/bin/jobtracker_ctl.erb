@@ -10,13 +10,13 @@ source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
 
-sudo -u vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.mapreduce.local.dir") %>
-sudo -u vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>
-
 case $1 in
 
   start)
 
+
+    exec chpst -u vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.mapreduce.local.dir") %>
+    exec chpst -u vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
