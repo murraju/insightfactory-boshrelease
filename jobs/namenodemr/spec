@@ -37,18 +37,3 @@ properties:
   hadoop.datanode.dfs_data_dir:
     description: dfs data directory
     default: /cache/hdfs/dfs/data
-  hadoop.mapreduce.job.tracker:
-    description: MapReduce Job Tracker
-    default: ""
-  hadoop.mapreduce.local.dir:
-    description: MapReduce Job Tracker
-    default: /var/vcap/data/hadoop/tmp
-  hadoop.mapreduce.child.java.opts:
-    description: MapReduce Child Java Opts
-    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
-  hadoop.mapreduce.map.child.java.opts:
-    description: MapReduce Map Child Java Opts
-    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
-  hadoop.mapreduce.reduce.child.java.opts:
-    description: MapReduce Child Java Opts
-    default: "-server -Xmx1024m -Djava.net.preferIPv4Stack=true"
