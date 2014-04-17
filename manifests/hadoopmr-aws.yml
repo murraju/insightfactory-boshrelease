@@ -47,7 +47,7 @@ jobs:
     static_ips: null
   resource_pool: hdfs-slave
   template: datanodemr
-  instances: <%= hdfs_num_slaves %>
+  instances: <%= num_hdfs_slaves %>
 
 - name: mapred-master
   networks:
@@ -65,7 +65,7 @@ jobs:
     static_ips: null
   resource_pool: mapred-slave
   template: tasktracker
-  instances: <%= mapred_num_slaves %>
+  instances: <%= num_mapred_slaves %>
 
 - name: client
   networks:
