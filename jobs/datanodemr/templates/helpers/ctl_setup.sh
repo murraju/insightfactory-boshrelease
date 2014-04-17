@@ -69,6 +69,12 @@ then
   export JAVA_HOME="/var/vcap/packages/java7"
 fi
 
+# Load job properties
+if [ -f $JOB_DIR/bin/job_properties.sh ]; then
+  source $JOB_DIR/bin/job_properties.sh
+fi
+
+
 # setup CLASSPATH for all jars/ folders within packages
 export CLASSPATH=${CLASSPATH:-''} # default to empty
 for java_jar in $(ls -d /var/vcap/packages/*/*/*.jar)
