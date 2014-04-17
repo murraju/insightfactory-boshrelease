@@ -9,6 +9,8 @@ source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
+exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chown vcap <%= p("hadoop.mapreduce.local.dir") %>
+exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop fs -chmod -R 777 <%= p("hadoop.mapreduce.local.dir") %>
 
 case $1 in
 
