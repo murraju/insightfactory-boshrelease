@@ -45,7 +45,7 @@ jobs:
     default: [dns, gateway]
     static_ips: null
   resource_pool: slave
-  templates:
+  template:
     - datanodemr
     - tasktracker
   instances: <%= num_slaves %>
