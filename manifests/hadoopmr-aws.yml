@@ -121,7 +121,7 @@ resource_pools:
 
   - name: hdfs-slave
     network: default
-    size: <%= hdfs_num_slaves %>
+    size: <%= num_hdfs_slaves %>
     stemcell:
       name: bosh-aws-xen-<%= os %>
       version: latest
@@ -130,7 +130,7 @@ resource_pools:
 
   - name: mapred-slave
     network: default
-    size: <%= mapred_num_slaves %>
+    size: <%= num_mapred_slaves %>
     stemcell:
       name: bosh-aws-xen-<%= os %>
       version: latest
