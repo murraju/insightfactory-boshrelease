@@ -45,7 +45,7 @@ jobs:
   - name: default
     default: [dns, gateway]
     static_ips: null
-  resource_pool: slave
+  resource_pool: hdfs-slave
   template: datanodemr
   instances: <%= num_hdfs_slaves %>
 
