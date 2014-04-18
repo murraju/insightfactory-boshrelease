@@ -19,5 +19,6 @@ export HADOOP_MAPRED_HOME=$HADOOP_HOME
 export HADOOP_COMMON_HOME=$HADOOP_HOME
 export HADOOP_HDFS_HOME=$HADOOP_HOME
 export HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec
+export MAPRED_TEMP=<%= p("hadoop.mapreduce.local.dir") %>
 export JAVA_HOME=/var/vcap/packages/java/jdk
 export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
