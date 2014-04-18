@@ -1,4 +1,5 @@
 <% num_mapred_masters = 1 %>
+<% num_mapred_slaves = 3 %>
 <% num_hdfs_masters = 2 %>
 <% num_hdfs_slaves = 5 %>
 <% num_clients = 1 %>
@@ -57,6 +58,15 @@ jobs:
   template: jobtracker
   instances: <%= num_mapred_masters %>
 
+- name: mapred-slave
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: mapred-slave
+  template: tasktracker
+  instances: <%= num_mapred_slaves %>
+
 - name: client
   networks:
   - name: default
@@ -112,6 +122,15 @@ resource_pools:
   - name: hdfs-slave
     network: default
     size: <%= num_hdfs_slaves %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m2.2xlarge
+
+  - name: mapred-slave
+    network: default
+    size: <%= num_mapred_slaves %>
     stemcell:
       name: bosh-aws-xen-<%= os %>
       version: latest
