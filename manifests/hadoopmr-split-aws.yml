@@ -4,7 +4,7 @@
 <% num_hdfs_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
-<% deployment_name = "hadoopmr-aws" %>
+<% deployment_name = "hadoopmr-split-aws" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
