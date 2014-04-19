@@ -11,6 +11,6 @@ export HOME=/var/vcap
 
 PATH=/var/vcap/packages/hadoop/bin:$PATH
 
-tar xfv pig/pig-0.12.0.2.0.6.1-102.tar.gz
+tar xfv pig/pig-0.12.1.tar.gz
 
-cp -a pig-0.12.0.2.0.6.1-102/* $BOSH_INSTALL_TARGET
+cp -a pig-0.12.1/* $BOSH_INSTALL_TARGET

@@ -1,12 +1,11 @@
 ---
-name: client
+name: clientmr
 packages:
 - git
 - java
 - scala
 - sbt
 - spark
-- hadoopmr
 - python
 - sasl
 - mesos

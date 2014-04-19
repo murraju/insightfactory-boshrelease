@@ -6,8 +6,6 @@ packages:
 - scala
 - sbt
 - spark
-- hadoop
-- hadoopmr
 - python
 - sasl
 - mesos
