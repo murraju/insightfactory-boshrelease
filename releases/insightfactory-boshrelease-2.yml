@@ -282,7 +282,7 @@ jobs:
     YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
   sha1: !binary |-
     YTE3YWFjZTRjM2Y5MGQ2YmJkMzc3ZDE0ZWY2Yjk5YWNjOWE3ODQyYw==
-commit_hash: 4950ac60
+commit_hash: 16a1958e
 uncommitted_changes: true
 name: insightfactory-boshrelease
 version: 2
