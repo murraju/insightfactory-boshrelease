@@ -89,7 +89,6 @@ packages:
   fingerprint: !binary |-
     YTZhYjY4OGY4OTg3YmYyZGNmZmU5YjczY2M0ZjJjOTlhZDgwMmRhNg==
   dependencies: []
-<<<<<<< HEAD
 - name: python
   version: 1
   sha1: !binary |-
@@ -97,8 +96,6 @@ packages:
   fingerprint: !binary |-
     YmZjMWIzNGI3YjI3OGMzN2UzMzFkYmVjMDQ1OTAzOTkzNjkyZWU5NA==
   dependencies: []
-=======
->>>>>>> master
 - name: marathon
   version: 1
   sha1: !binary |-
@@ -181,15 +178,9 @@ jobs:
 - name: client
   version: 1
   fingerprint: !binary |-
-<<<<<<< HEAD
     NjU1Y2M3N2ZjY2M1NjAyZmM4YzBjOGQxOGRjM2U2MjIyMWYzMGRiNw==
   sha1: !binary |-
     MGE0ZTZmMzc5NTlkZGU5NzA2ZGNhMmU4N2RlZDUwODY4MWI3ZTFiNQ==
-=======
-    MjlmODM0MTgyYmIwMzJmZmY3NzE3OTk4ZDhkZTU2YWQ3NmY4YTIyOA==
-  sha1: !binary |-
-    OGQzMWUwM2I5NTA4MTZmNWUwMTQ3MDc0Zjg1YTkxZmVjMjI0NmIyOA==
->>>>>>> master
 - name: secondarynamenode
   version: 1
   fingerprint: !binary |-
@@ -298,11 +289,7 @@ jobs:
     YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
   sha1: !binary |-
     OTVmMGU3M2M2NzJjZGU1MmY2MjIxZDU5NWFmMDlkMGI4ZTExNDBhMg==
-<<<<<<< HEAD
-commit_hash: c8474626
-=======
-commit_hash: 1a887487
->>>>>>> master
-uncommitted_changes: true
+commit_hash: 2a8c4c81
+uncommitted_changes: false
 name: insightfactory-boshrelease
-version: 2
+version: 3
