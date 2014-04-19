@@ -11,6 +11,6 @@ export HOME=/var/vcap
 
 PATH=/var/vcap/packages/hadoop/bin:$PATH
 
-tar xfv hive/hive-0.12.0.2.0.6.1-102.tar.gz
+tar xfv hive/hive-0.12.0.tar.gz
 
-cp -a hive-0.12.0.2.0.6.1-102/* $BOSH_INSTALL_TARGET
+cp -a hive-0.12.0/* $BOSH_INSTALL_TARGET
