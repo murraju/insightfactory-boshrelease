@@ -7,7 +7,7 @@
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "175c009f-f41b-4318-bc61-6e508cc08862" %>
+<% director_uuid = "2f87dc37-3784-43f9-8bd5-b6d6289f3c65" %>
 ---
 
 compilation:
