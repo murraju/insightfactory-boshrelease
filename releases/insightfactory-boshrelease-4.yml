@@ -1,0 +1,295 @@
+---
+packages:
+- name: sasl
+  version: 1
+  sha1: !binary |-
+    MTRiNzU0MzhhYTBmNzg0MzgwMDI0MWI4NTJkNTllYWNiOTg1ZWZhZQ==
+  fingerprint: !binary |-
+    MGJmNGE3ZjhjNzE0NWRiMmExNDNhMmY0YzE3MzA4M2I5NzNjZWY0Ng==
+  dependencies: []
+- name: scala
+  version: 1
+  sha1: !binary |-
+    MWE2YmE4ZGQyZmZiNDFiZDYzMDE4ODA0MDgzY2Y3Yzg1ZDEwYmExMg==
+  fingerprint: !binary |-
+    ZjA5OTNlODM4MGI4NjI3ZTUyMzYwMjg3ZGQ1MjFmNTNhYmUwNzM2Zg==
+  dependencies: []
+- name: chronos
+  version: 1
+  sha1: !binary |-
+    ZmIxMTE3NDliOWFlNTQ2NmZjM2U1NmU5ZTI5NzQ0M2QyZWRkNjlhOA==
+  fingerprint: !binary |-
+    NzFkOTExYTlmNjMyYzQ3OTYyZDQ3MmYwYzAzYWIwN2JlYzRjMDUwMw==
+  dependencies: []
+- name: hadoopmr
+  version: 1
+  sha1: !binary |-
+    M2RlZjBkOTFiMTRiYTcwMWRmOTgxMjVjNGVhZjU5MGZjYjg1MWViZQ==
+  fingerprint: !binary |-
+    ZGZiMDhmYWI0YzM3ZTY1N2EzOWVmMjk1ZTM4OTcwOGE3Y2M3OTU4NQ==
+  dependencies:
+  - java
+  - snappy
+- name: nginx
+  version: 1
+  sha1: !binary |-
+    ZTNhMDk2NDZhMTYzOTBmZGIwZDkwNmYxMWUyNjAzYzNiNWM2NTYxMA==
+  fingerprint: !binary |-
+    ZjFiNWU4OTBmMTFmNTgwZDFkOWIyNTFiOTY0M2Y0M2IwMTU5M2QzOQ==
+  dependencies: []
+- name: zookeeper
+  version: 1
+  sha1: !binary |-
+    OGQyYzlkNTU3YmFiZmJhNDRhOWVmODRjYWVkMGEwYjg1ZmYzNzI2NA==
+  fingerprint: !binary |-
+    MDI3YTk5ZGZmNzg4Nzg5ODE5ZDJmY2E4N2YwZGMwNjE2ODdhYTEyOQ==
+  dependencies: []
+- name: mesos
+  version: 2
+  sha1: !binary |-
+    NDcwZjZmNDRmMTIzYTQ3NDI2NDRmMzM4MjNkODJkMDY5ZmJlNDZiOA==
+  fingerprint: !binary |-
+    ZmYyNzE4MTRmMDc2YWM2OWMzNWMwYTk0NWEyYWZiNGY0YzA4YzFmZg==
+  dependencies:
+  - java
+  - sasl
+- name: pig
+  version: 1
+  sha1: !binary |-
+    MDllYmM5YzhmZTE2MjJlODdiNzcyNzdmZjk3OTBmMmQzNTNiZmJlMQ==
+  fingerprint: !binary |-
+    NzYxOWU0NzQzMDg5NmY2MDcyYWU5MDZkY2M1MDNlMzRhNjc5OTAwYg==
+  dependencies:
+  - hadoop
+- name: jenkins
+  version: 1
+  sha1: !binary |-
+    ZWU5OTRlNjlmMmM1N2YyZGViODYyYTAyNDIyNTRiMjgwZTdiMjMxNw==
+  fingerprint: !binary |-
+    YzAyYWUxNWFlOTBmOGZhMjE4NDliM2M2ODcwMTI2ZjEwMWQxYmUwMw==
+  dependencies: []
+- name: cassandra
+  version: 1
+  sha1: !binary |-
+    MGUxYTI5MDg3ZDM0MTgwNzYyN2ZkNTNhMWVlMmUyOWMyNTJiNTFiYQ==
+  fingerprint: !binary |-
+    ZmY1N2M0NzExYTVjMGRhZjkzNTY1MjJiMGY1ZjRhMTMyYjM3ODM1Ng==
+  dependencies: []
+- name: ruby
+  version: 1
+  sha1: !binary |-
+    N2JhMjU0NTI5OGFmNGM4ZjA0NDJmNzc0ZjAxZGU3YTUzYWViMzkyNg==
+  fingerprint: !binary |-
+    MTI3NGQ3MWQzYzExMTkyMWNiN2VlODA3Njg4NzUwYmZhYjUyNzdjNw==
+  dependencies: []
+- name: spark
+  version: 1
+  sha1: !binary |-
+    NDQwZWRmMjg0NTFkMzRlN2M1M2RkNDViYWEwMGUzNTkzM2RkODdkNw==
+  fingerprint: !binary |-
+    YTZhYjY4OGY4OTg3YmYyZGNmZmU5YjczY2M0ZjJjOTlhZDgwMmRhNg==
+  dependencies: []
+- name: python
+  version: 1
+  sha1: !binary |-
+    ZWZiMmZiM2ExZjkzMzY5MWEwYjhkYmZlZDU5ZTgyNmYyYmI2NWRmMw==
+  fingerprint: !binary |-
+    YmZjMWIzNGI3YjI3OGMzN2UzMzFkYmVjMDQ1OTAzOTkzNjkyZWU5NA==
+  dependencies: []
+- name: marathon
+  version: 1
+  sha1: !binary |-
+    OGRlYzZkNjJjMTcxZmE1ZTA0NDUzYmViYzNhNTk5NjU5MDQ2MzQwYw==
+  fingerprint: !binary |-
+    ZmI0Yzc3ZmFjODEwNzUxNGZmOWQ1NjZhMzVjY2M3ODg1ZmI3ZWVkMw==
+  dependencies: []
+- name: node
+  version: 1
+  sha1: !binary |-
+    NTlhNDFmZDRjZThkNGJhZDEwOTU1ZmFkNzNkMjRmYTZmOThmNDc3Mw==
+  fingerprint: !binary |-
+    MzIwNGZjNjVlM2VkNDE2OWQ2YTgzNTFkYWI2MzJjMjYyMDRlZWUzYQ==
+  dependencies: []
+- name: java
+  version: 1
+  sha1: !binary |-
+    ODMxZDQ0NzAzZjljNGJmNmIxYzhhYzAxODQxN2M4OTU1ZDNkZmQ3OQ==
+  fingerprint: !binary |-
+    YjMxNGQxZmFlY2M4Y2RiZmViMzQ1Yzg1Njg2OGE4NzM4MGUwMGMxZg==
+  dependencies: []
+- name: hadoop
+  version: 1
+  sha1: !binary |-
+    OGRlNGI1ZDg4ZGZhMTViZmNkZWM5NmU5MzNhYWMzMzQ5ZjhmYzg5Ng==
+  fingerprint: !binary |-
+    N2M0MDBlZTliNjBlYzg2NWU1ZGY3ZWE0MmYyZDQ1YTY1ZjY2ZmYxMA==
+  dependencies:
+  - java
+  - snappy
+- name: bosh-helpers
+  version: 1
+  sha1: !binary |-
+    YzI4ZTMxY2Y1OTc2MDE5M2E0MGEyMGVmYmY4NTJlZDdkNjdjZmY3Mg==
+  fingerprint: !binary |-
+    Mjg0ZDAyZTcwOTYzZTA4OWI1MmUyZDNlZDY4M2E3Yzg0M2VkMDk0Yg==
+  dependencies: []
+- name: git
+  version: 1
+  sha1: !binary |-
+    OWNkYWZhODUwZjdlMjY0MGQ0NTUwYTQ1ZmZmYTY3YjFlOTc0MmY1ZQ==
+  fingerprint: !binary |-
+    NGVjZjQwYWVmYzFkNTg1ZTk4ODhlNmM3YWIxMGVhYWQ0MTYwNThmYw==
+  dependencies: []
+- name: sbt
+  version: 1
+  sha1: !binary |-
+    MWI5Y2I5MGUwOWQzY2Y2MWUxNTZlYzIwNGY0MDI2N2I5ZjRjNzAzNA==
+  fingerprint: !binary |-
+    Nzc2MjhkNmQ1ZDFhZWIxYmQ1MzIxN2M2NmVmZjEwYmUxZmQ2ZWU3OA==
+  dependencies: []
+- name: hive
+  version: 1
+  sha1: !binary |-
+    YTgxMGU4ZTVlNDNmNmQ5MWM0MjgxYmI4ZTY0Y2U4MWQxMmUzMzE3MA==
+  fingerprint: !binary |-
+    YmRmNzczOGMwMDljMGZlODI4MTFiYjQ0MDIwMWMwYzJjNWEzYzUwYw==
+  dependencies:
+  - hadoop
+- name: snappy
+  version: 1
+  sha1: !binary |-
+    ZWU5YmY5NzBiMWY3NTMzNWNiZGY5YjA3NmY3MzhmNzliMWU2MWU0OA==
+  fingerprint: !binary |-
+    NzM1NDFiODJmYmU0NDZiODc1YjE1ZDg4NDQ3YjVjNTU2NGZjNjhjOQ==
+  dependencies: []
+jobs:
+- name: yarn-resourcemanager
+  version: 1
+  fingerprint: !binary |-
+    Y2U2NWJkZmM3NjRhNDM0OWYzYzkzZDg1MmQ4NWViYWMyOWNmNGIwYg==
+  sha1: !binary |-
+    NDQ1ZmQyM2UzYjM2NTg5NjYyYzQ5NjEwZGJmMjZmMGRiZWNkODRmZg==
+- name: spark-master
+  version: 1
+  fingerprint: !binary |-
+    NzEyYTc0ZjhkNDhmOTYzMTg2YTNlMjVlZGU1ZDM2NTNjNDE2OWY2YQ==
+  sha1: !binary |-
+    ZDg5ZmY2NGFkNTQ1MGIwMWY1YjJhYTg5N2Y2OGQzYTQzNjhhNjg2OA==
+- name: client
+  version: 1
+  fingerprint: !binary |-
+    NjU1Y2M3N2ZjY2M1NjAyZmM4YzBjOGQxOGRjM2U2MjIyMWYzMGRiNw==
+  sha1: !binary |-
+    Nzk2NDc2MDFkMTBiMTJmNWU4Y2I1YzA5ZDJiMzczYTY5NzZlOWJkNg==
+- name: secondarynamenode
+  version: 1
+  fingerprint: !binary |-
+    ZWY5MTVjZGI2OWY5YjdiMGI5MWE5OTQxNjEzMTA2YmM4NDU3NmQxMQ==
+  sha1: !binary |-
+    OWI0N2MxMTZmN2FjNzgxNGQ3MjA2MWU1ZmM3OTVlMjY2MjQwZTYwNQ==
+- name: yarn-nodemanager
+  version: 1
+  fingerprint: !binary |-
+    ZGY5Mzk1Y2FkYzliNDBhNzhhMjg4OTE1MmM1OTI0NTVjMzNjMDY3OA==
+  sha1: !binary |-
+    ZTVkZTNjNzZmZWE0Y2U5YTc1ZWQ4OWU2YWY4MzdlYzc2YTJkNDZjMQ==
+- name: mesos-slave
+  version: 1
+  fingerprint: !binary |-
+    MTczZDlhYjhhMGFlY2JkNTAxMWI0NGZlMWRiNzY5NzM4NjI3ODkyNg==
+  sha1: !binary |-
+    MTg5YTNjYTEyYzBlNGIwNTcxOWY1MjY2YjhjN2Q1MDRmNzJjODdhNw==
+- name: chronos
+  version: 1
+  fingerprint: !binary |-
+    ODY4NzlmOTZjYzdiMmQ3NmIwNTE3NjM5YjE2OTJkN2RjYTlmYTA2Yg==
+  sha1: !binary |-
+    OTcwOTI1MDAwZmVmNjc2MGE0MWUxZThmMTNlMDkxOGYwNWMxMjE1NA==
+- name: mesos-master
+  version: 1
+  fingerprint: !binary |-
+    NDNlYTcxNDNhNDIyNjQzMWFlMDUzNzllNDU2MTQ0MGIxMmU0OWM2OA==
+  sha1: !binary |-
+    M2IzNjBjZWQxYmU3YWRhZmMyNDE5NzgxOTNkNGVmYzYxMGQyMjVjOQ==
+- name: secondarynamenodemr
+  version: 1
+  fingerprint: !binary |-
+    YmVjY2I0NDk1ZWExZmYwZmQ3ZmI2YTgyNjAzNmQ5NGMxYjJkODFmMw==
+  sha1: !binary |-
+    MTFiYjhjNTdiODU1NmFjYjhhZTRkMjYzYmI2ODE3YjViYjE1M2U2ZA==
+- name: zookeeper
+  version: 1
+  fingerprint: !binary |-
+    MThmNDdmNThkZGY1M2JmNmQwNWI2ZmFjNWIxYjYyNWZkMjA2NzkxZQ==
+  sha1: !binary |-
+    NWJkMWUwYzZlMTE3OWVjYjIzZTdmYmI5ZDY5ODUwYWVjOTM4YzYwNg==
+- name: jenkins
+  version: 1
+  fingerprint: !binary |-
+    MDkwNDQ5NDc5YmQyN2U1MjUwNGQzZDJkZTNiYzJhNjA5OTljMDAyOA==
+  sha1: !binary |-
+    NjY0Yjk5YjM2Y2U4ZmM0OGRkZTMwMWI1OWJiMjQ0YjgzMTc5OGZhZg==
+- name: cassandra
+  version: 1
+  fingerprint: !binary |-
+    YmY4ZWI0ZDhhY2I2NDFjNjQ0OTAwZjgwOTc4N2M4OWNhZTc3YTJlMQ==
+  sha1: !binary |-
+    MzE0MDJiNGIzMTAxNWEzMGExZGY2NGJlZTg4NmEzMWNiODk1MjZhYg==
+- name: marathon
+  version: 1
+  fingerprint: !binary |-
+    ODk1MDI5NWNhYjQ3MTVmYWNhNjYyYzUyZGY1YmE1ZmM1OWMzNDEyMQ==
+  sha1: !binary |-
+    OGQ4OTE1NGQwZDJmZGM4OGFlNTcyOGMzMTc3MmQ3OGZkMWJlYmQ0OQ==
+- name: namenodemr
+  version: 1
+  fingerprint: !binary |-
+    OTY3ZmUxNTQ5MTMxMzNiNjM4OTE4NWMyYTg3ZGU2MDViNzZhYTUyMw==
+  sha1: !binary |-
+    NWYxYTIzYWY5ZmY1NzM5YTU0ZmJjNTg5M2E3N2YzYzZkNmQ5ZDdkNA==
+- name: tasktracker
+  version: 1
+  fingerprint: !binary |-
+    NmNmNDgwODM0ZWY1ZDA4MjM5MzZjNDQ3MzZhMTBjMjNmZTUzMWYxMA==
+  sha1: !binary |-
+    MWExOGUwM2JmYTQ0MzIxODdmOTJlOGVkZTQzYzcwMDc1OTAzNDU1Mw==
+- name: spark-slave
+  version: 1
+  fingerprint: !binary |-
+    MTYyOTRjOWU2NTIzY2U1MWQ3YmZhMGNjNmIzNTMzNTU4NTVlYTg4ZQ==
+  sha1: !binary |-
+    YTNiNWE5YTg3NDBmYWIxMTM3ZWI1Yjk2MjljOTA3ZjMyNzZlOWVjMg==
+- name: namenode
+  version: 1
+  fingerprint: !binary |-
+    Y2NlM2QwN2FlMGRhZGJhY2YwNWNkNzQxM2ZiY2ZjNTZhZDY5NTRjYQ==
+  sha1: !binary |-
+    MWEwMzRmYzdkZGVjNzk1MmMzNTg5YjUxOTQ1ZjE0NzlmNGY4MGE1OQ==
+- name: jobtracker
+  version: 1
+  fingerprint: !binary |-
+    ODcyOGMyM2I2ODA4YzM3ODQyZDk3ZDVhZWU3NzcyNjIyMzA3OWU3OQ==
+  sha1: !binary |-
+    YjExNzg3YmViZmUwYjk4NjNjZGFkNmFmY2NlYmQ1Yzc0ZGQ1ZjZlYw==
+- name: datanodemr
+  version: 1
+  fingerprint: !binary |-
+    ZmJiYTgwNjcxZDY5NDQ3NWIxMmQxZWRmZWQ2MmVhYThhNTY0ZGVmOA==
+  sha1: !binary |-
+    Nzc4OWM3NmUwNjdlNzQ2OTQ0MGY0YTg1YzYxMWU0ZTFmNjVkNjQ0MA==
+- name: mapreduce-jobhistory
+  version: 1
+  fingerprint: !binary |-
+    YWFjMGI4ZTRmN2VlOTMyMDQ5YjIwM2YwYThkYjVkOTU2OWU0MDMxNQ==
+  sha1: !binary |-
+    MmUyNjRlODg5MzRlYTM2MmIxYmVlM2U3Y2Y5ZjM1MDRjMTg5ZjZjYg==
+- name: datanode
+  version: 1
+  fingerprint: !binary |-
+    YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
+  sha1: !binary |-
+    NDRmZTFkYTViMjdjODk2YjEzYzU2YjU1NjIyYWNhZDIxN2FjY2M1Yg==
+commit_hash: 6605bfb0
+uncommitted_changes: true
+name: insightfactory-boshrelease
+version: 4
