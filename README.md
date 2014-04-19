@@ -27,7 +27,7 @@ Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
 ## Hadoop
 
 1. Standalone Hadoop Cluster with YARN (Apache Hadoop 2.4.0) - no Namenode and YARN HA.
-2. Standalone Hadoop (classic) Cluster (Apache Hadoop 1.2.1)
+2. Standalone Hadoop (classic) MapReduce only Cluster (Apache Hadoop 1.2.1)
 
 ## Clients
 
