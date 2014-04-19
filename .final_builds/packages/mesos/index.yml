@@ -1,7 +1,7 @@
 ---
 builds:
   !binary "MjkzNTNjYmFhMjJlYWExYThmYmRjMGZmZTFkMjRmMzNlZjU3ZDgwYg==":
-    blobstore_id: 71f63248-b2c5-47e0-84f9-f0aaffca83d3
+    blobstore_id: 34a7157c-4266-43b7-afee-31686fa4ffb9
     version: 1
     sha1: !binary |-
       MDFhYTlmZTI0OGRhNmU5ZWFjZDlkNzkzZmE1NjZhZTI4ZGQyNDdlMw==
