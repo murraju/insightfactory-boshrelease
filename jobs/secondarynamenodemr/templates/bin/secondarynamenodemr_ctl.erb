@@ -3,8 +3,8 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the secondarynamenode_ctl script
-source /var/vcap/jobs/secondarynamenode/helpers/ctl_setup.sh 'secondarynamenode'
+# Setup env vars and folders for the secondarynamenodemr_ctl script
+source /var/vcap/jobs/secondarynamenodemr/helpers/ctl_setup.sh 'secondarynamenodemr'
 
 mkdir -p $HADOOP_DATANODE_ROOT
 mkdir -p $LOG_DIR
@@ -23,7 +23,7 @@ case $1 in
     chown --recursive vcap:vcap $HADOOP_DATANODE_ROOT
     chown --recursive vcap:vcap $LOG_DIR
 
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR secondarynamenode \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR secondarynamenode \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
@@ -53,7 +53,7 @@ case $1 in
 
 
   *)
-    echo "Usage: secondarynamenode_ctl {start|stop}"
+    echo "Usage: secondarynamenodemr_ctl {start|stop}"
 
     ;;
 

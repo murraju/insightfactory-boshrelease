@@ -3,12 +3,8 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the secondarynamenode_ctl script
-source /var/vcap/jobs/secondarynamenode/helpers/ctl_setup.sh 'secondarynamenode'
-
-mkdir -p $HADOOP_DATANODE_ROOT
-mkdir -p $LOG_DIR
-mkdir -p $RUN_DIR
+# Setup env vars and folders for the jobtracker_ctl script
+source /var/vcap/jobs/jobtracker/helpers/ctl_setup.sh 'jobtracker'
 
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
@@ -18,12 +14,7 @@ case $1 in
 
   start)
 
-    chown --recursive vcap:vcap $HADOOP_HOME
-    chown --recursive vcap:vcap $HADOOP_CONF_DIR
-    chown --recursive vcap:vcap $HADOOP_DATANODE_ROOT
-    chown --recursive vcap:vcap $LOG_DIR
-
-    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR secondarynamenode \
+    exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR jobtracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
@@ -53,7 +44,7 @@ case $1 in
 
 
   *)
-    echo "Usage: secondarynamenode_ctl {start|stop}"
+    echo "Usage: jobtracker_ctl {start|stop}"
 
     ;;
 

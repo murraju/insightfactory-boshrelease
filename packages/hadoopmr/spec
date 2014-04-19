@@ -1,0 +1,7 @@
+---
+name: hadoopmr
+dependencies:
+- java
+- snappy
+files:
+- hadoopmr/hadoop-1.2.1.tar.gz
