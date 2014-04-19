@@ -1,0 +1,5 @@
+check process namenodemr
+  with pidfile /var/vcap/sys/run/namenodemr/namenodemr.pid
+  start program "/var/vcap/jobs/namenodemr/bin/monit_debugger namenodemr_ctl '/var/vcap/jobs/namenodemr/bin/namenodemr_ctl start'"
+  stop program "/var/vcap/jobs/namenodemr/bin/monit_debugger namenodemr_ctl '/var/vcap/jobs/namenodemr/bin/namenodemr_ctl stop'"
+  group vcap

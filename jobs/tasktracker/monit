@@ -1,0 +1,5 @@
+check process tasktracker
+  with pidfile /var/vcap/sys/run/tasktracker/tasktracker.pid
+  start program "/var/vcap/jobs/tasktracker/bin/monit_debugger tasktracker_ctl '/var/vcap/jobs/tasktracker/bin/tasktracker_ctl start'"
+  stop program "/var/vcap/jobs/tasktracker/bin/monit_debugger tasktracker_ctl '/var/vcap/jobs/tasktracker/bin/tasktracker_ctl stop'"
+  group vcap

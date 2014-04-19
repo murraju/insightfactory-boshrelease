@@ -1,0 +1,59 @@
+---
+name: jobtracker
+packages:
+- hadoopmr
+- java
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/jobtracker_ctl.erb: bin/jobtracker_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/hadoop-env.sh.erb: config/hadoop-env.sh
+  config/hdfs-site.xml.erb: config/hdfs-site.xml
+  config/core-site.xml.erb: config/core-site.xml
+  config/hadoop-metrics.properties: config/hadoop-metrics.properties
+  config/hadoop-metrics2.properties: config/hadoop-metrics2.properties
+  config/capacity-scheduler.xml.erb: config/capacity-scheduler.xml
+  config/mapred-site.xml.erb: config/mapred-site.xml
+properties:
+  hadoop.namenode.host:
+    description: The Hostname or address of the Hadoop Namenode
+  hadoop.namenode.port:
+    description: The port to listen on
+    default: 8020
+  hadoop.namenode.safemode_min_datanodes:
+    description: Minimum number of data node
+    default: 3
+  hadoop.namenode.num_dfs_replicas:
+    description: Number of dfs replicas
+    default: 3
+  hadoop.namenode.dfs_name_dir:
+    description: dfs name directory
+    default: /cache/hadoop/dfs/name
+  hadoop.namenode.hadoop_tmp_dir:
+    description: hdfs user tmp directory
+    default: /var/vcap/data/hadoop/tmp
+  hadoop.namenode.dfs_name_dir_root:
+    description: dfs root
+    default: /var/vcap/data/hadoop
+  hadoop.datanode.dfs_data_dir:
+    description: dfs data directory
+    default: /cache/hdfs/dfs/data
+  hadoop.mapreduce.job.tracker:
+    description: MapReduce Job Tracker
+    default: ""
+  hadoop.mapreduce.local.dir:
+    description: MapReduce Job Tracker
+    default: /var/vcap/data/hadoop/tmp
+  hadoop.mapreduce.child.java.opts:
+    description: MapReduce Child Java Opts
+    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
+  hadoop.mapreduce.map.child.java.opts:
+    description: MapReduce Map Child Java Opts
+    default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
+  hadoop.mapreduce.reduce.child.java.opts:
+    description: MapReduce Child Java Opts
+    default: "-server -Xmx1024m -Djava.net.preferIPv4Stack=true"
+

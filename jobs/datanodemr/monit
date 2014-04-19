@@ -1,0 +1,5 @@
+check process datanodemr
+  with pidfile /var/vcap/sys/run/datanodemr/datanodemr.pid
+  start program "/var/vcap/jobs/datanodemr/bin/monit_debugger datanodemr_ctl '/var/vcap/jobs/datanodemr/bin/datanodemr_ctl start'"
+  stop program "/var/vcap/jobs/datanodemr/bin/monit_debugger datanodemr_ctl '/var/vcap/jobs/datanodemr/bin/datanodemr_ctl stop'"
+  group vcap

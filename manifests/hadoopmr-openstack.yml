@@ -1,13 +1,13 @@
-<% num_yarn_masters = 1 %>
+<% num_mapred_masters = 1 %>
 <% num_hdfs_masters = 2 %>
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
-<% deployment_name = "hadoop-aws" %>
+<% deployment_name = "hadoopmr-openstack" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "87e046f4-527d-487f-b41e-b4b49bfe1554" %>
+<% director_uuid = "175c009f-f41b-4318-bc61-6e508cc08862" %>
 ---
 
 compilation:
@@ -27,19 +27,8 @@ jobs:
     default: [dns, gateway]
     static_ips: null
   resource_pool: hdfs-master
-  template: namenode
+  template: namenodemr
   instances: 1
-
-- name: yarn-master
-  networks:
-  - name: default
-    default: [dns, gateway]
-    static_ips: null
-  resource_pool: yarn-master
-  template:
-    - yarn-resourcemanager
-    - mapreduce-jobhistory
-  instances: <%= num_yarn_masters %>
 
 - name: hdfs-secondary-master
   networks:
@@ -47,8 +36,17 @@ jobs:
     default: [dns, gateway]
     static_ips: null
   resource_pool: hdfs-master
-  template: secondarynamenode
+  template: secondarynamenodemr
   instances: 1
+
+- name: mapred-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: mapred-master
+  template: jobtracker
+  instances: <%= num_mapred_masters %>
 
 - name: slave
   networks:
@@ -57,8 +55,8 @@ jobs:
     static_ips: null
   resource_pool: slave
   template:
-    - yarn-nodemanager
-    - datanode
+    - datanodemr
+    - tasktracker
   instances: <%= num_slaves %>
 
 - name: client
@@ -75,7 +73,7 @@ jobs:
 meta:
   environment: <%= deployment_name %>
   stemcell:
-    name: bosh-aws-xen-<%= os %>
+    name: bosh-openstack-kvm-<%= os %>
     version: latest
 
 networks:
@@ -99,16 +97,16 @@ resource_pools:
     network: default
     size: <%= num_hdfs_masters %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.xlarge
 
-  - name: yarn-master
+  - name: mapred-master
     network: default
-    size: <%= num_yarn_masters %>
+    size: <%= num_mapred_masters %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.xlarge
@@ -117,7 +115,7 @@ resource_pools:
     network: default
     size: <%= num_slaves %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m2.2xlarge
@@ -126,7 +124,7 @@ resource_pools:
     network: default
     size: <%= num_clients %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.large
@@ -137,29 +135,13 @@ properties:
     namenode:
       host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
       port: 8020
-    yarn:
-      resourcemanager:
-        resourcetracker:
-          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-        admin:
-          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-        hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-        scheduler:
-          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-        webapp:
-          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      mapreduce:
-        jobhistory:
-          webapp:
-            address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      log:
-        server:
-          url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
+    mapreduce:
+      job:
+        tracker: "0.mapred-master.default.<%= deployment_name %>.<%= tld %>"
 
 update:
   canaries: 1
   canary_watch_time: 1000-30000
   max_in_flight: 50
   update_watch_time: 1000-30000
+
