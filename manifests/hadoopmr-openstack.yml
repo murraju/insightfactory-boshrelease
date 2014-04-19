@@ -67,7 +67,7 @@ jobs:
     static_ips:
       - <%= client_public_ip %>
   resource_pool: client
-  template: client
+  template: clientmr
   instances: <%= num_clients %>
 
 meta:
