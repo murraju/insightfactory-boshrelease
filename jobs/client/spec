@@ -7,6 +7,8 @@ packages:
 - sbt
 - spark
 - hadoop
+- hadoopmr
+- python
 - sasl
 - mesos
 - pig
