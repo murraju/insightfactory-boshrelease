@@ -46,7 +46,7 @@ properties:
     default: ""
   hadoop.mapreduce.local.dir:
     description: MapReduce Job Tracker
-    default: /var/vcap/data/hadoop/tmp/mapred
+    default: /var/vcap/data/hadoop/tmp
   hadoop.mapreduce.child.java.opts:
     description: MapReduce Child Java Opts
     default: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
