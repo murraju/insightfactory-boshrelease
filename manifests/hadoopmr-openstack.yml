@@ -3,7 +3,7 @@
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
-<% deployment_name = "hadoopmr-aws" %>
+<% deployment_name = "hadoopmr-openstack" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
@@ -73,7 +73,7 @@ jobs:
 meta:
   environment: <%= deployment_name %>
   stemcell:
-    name: bosh-aws-xen-<%= os %>
+    name: bosh-openstack-kvm-<%= os %>
     version: latest
 
 networks:
@@ -97,7 +97,7 @@ resource_pools:
     network: default
     size: <%= num_hdfs_masters %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.xlarge
@@ -106,7 +106,7 @@ resource_pools:
     network: default
     size: <%= num_mapred_masters %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.xlarge
@@ -115,7 +115,7 @@ resource_pools:
     network: default
     size: <%= num_slaves %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m2.2xlarge
@@ -124,7 +124,7 @@ resource_pools:
     network: default
     size: <%= num_clients %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
       instance_type: m1.large
