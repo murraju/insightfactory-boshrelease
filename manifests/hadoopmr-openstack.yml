@@ -118,7 +118,7 @@ resource_pools:
       name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m2.2xlarge
+      instance_type: m2.xlarge
 
   - name: client
     network: default
