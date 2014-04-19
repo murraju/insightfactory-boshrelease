@@ -1,6 +1,6 @@
 <% num_zookeepers = 3 %>
 <% num_masters = 2 %>
-<% num_slaves = 3 %>
+<% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
 <% deployment_name = "spark-ha-openstack" %>
@@ -49,11 +49,11 @@ jobs:
 
 - name: client
   networks:
-    - name: default
-      default: [dns, gateway]
-    - name: floating
-      static_ips:
-        - <%= client_public_ip %>
+  - name: default
+    default: [dns, gateway]
+  - name: elastic
+    static_ips:
+      - <%= client_public_ip %>
   resource_pool: client
   template: client
   instances: <%= num_clients %>
@@ -66,7 +66,7 @@ meta:
 
 networks:
 - cloud_properties: {}
-  name: floating
+  name: elastic
   type: vip
 - cloud_properties:
     security_groups:
@@ -105,7 +105,7 @@ resource_pools:
       name: bosh-openstack-kvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m2.xlarge
+      instance_type: m2.2xlarge
 
   - name: client
     network: default
@@ -115,6 +115,7 @@ resource_pools:
       version: latest
     cloud_properties:
       instance_type: m1.large
+
 
 properties:
   zookeeper:
