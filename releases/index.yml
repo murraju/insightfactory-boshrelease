@@ -2,7 +2,12 @@
 builds:
   !binary "NTEwNWNkZDMxOGEwZjg1MGM3NjUyZThhMzNjNzRlOTc5YTNlOTg3Yg==":
     version: 1
+<<<<<<< HEAD
   !binary "M2FiZDQxNzIyZmNlMWE5ZmFmY2MzY2QzYjUzY2ExNDY1MzY4OTJmYQ==":
     version: 2
   !binary "ZWY5NjY3Mzc0NjNlMzNmNDc0YzhlYjFiNjBlODg5NTg3M2U3NWY1ZQ==":
     version: 3
+=======
+  !binary "NmFmMThmMzZhMTBmNWI1ZmIwODhhMGVjYjcxZjcxOTcyOWQ2Y2JhNg==":
+    version: 2
+>>>>>>> master
