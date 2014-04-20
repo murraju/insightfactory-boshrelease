@@ -6,6 +6,7 @@ packages:
 - scala
 - sbt
 - spark
+- hadoopmr
 - python
 - sasl
 - mesos
@@ -17,6 +18,8 @@ templates:
   config/hadoop-env.sh.erb: config/hadoop-env.sh
   config/hdfs-site.xml.erb: config/hdfs-site.xml
   config/core-site.xml.erb: config/core-site.xml
+  config/hive-env.sh.erb: config/hive-env.sh
+  config/hive-site.xml.erb: config/hive-site.xml
   config/hadoop-metrics.properties: config/hadoop-metrics.properties
   config/hadoop-metrics2.properties: config/hadoop-metrics2.properties
   config/capacity-scheduler.xml.erb: config/capacity-scheduler.xml
