@@ -15,6 +15,9 @@ case $1 in
 
   start)
 
+    #chown --recursive vcap:vcap $MAPRED_TEMP
+    chmod --recursive 777 $MAPRED_TEMP
+
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR tasktracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
         2>>$LOG_DIR/$JOB_NAME.stderr.log &
