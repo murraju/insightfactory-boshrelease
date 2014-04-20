@@ -10,6 +10,9 @@ source /var/vcap/jobs/tasktracker/helpers/ctl_setup.sh 'tasktracker'
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
+mkdir -p $MAPRED_TEMP
+chmod -R 777 $MAPRED_TEMP
+
 
 case $1 in
 
