@@ -268,11 +268,11 @@ jobs:
   sha1: !binary |-
     MWEwMzRmYzdkZGVjNzk1MmMzNTg5YjUxOTQ1ZjE0NzlmNGY4MGE1OQ==
 - name: clientmr
-  version: 1
+  version: 2
   fingerprint: !binary |-
-    ZTJkNzFmNWNkMjc4NTY2YzA1MzNhNzg1NDU2ZTM2ZWE2MGU3MDllYg==
+    ZGNhNmI5YTI2ODJiMTY5MmRlZDQ1YzcyZTgyNTM1NmIwMDY1MGM3NA==
   sha1: !binary |-
-    NjRlNWE4MzgwNzRiOTU5OWZkYjdkNmNmMjhlNDk3NmUyZGFjNDQwOA==
+    ZjMzOThlZWEzNmMwNjY1MTE0NjdhZWI1NzNmYzY5Y2JlOTJkM2E1YQ==
 - name: jobtracker
   version: 1
   fingerprint: !binary |-
@@ -297,7 +297,7 @@ jobs:
     YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
   sha1: !binary |-
     NDRmZTFkYTViMjdjODk2YjEzYzU2YjU1NjIyYWNhZDIxN2FjY2M1Yg==
-commit_hash: 58d19266
+commit_hash: c1afc2e1
 uncommitted_changes: true
 name: insightfactory-boshrelease
 version: 5
