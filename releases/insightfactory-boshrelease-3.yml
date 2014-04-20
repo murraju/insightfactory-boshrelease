@@ -250,11 +250,11 @@ jobs:
   sha1: !binary |-
     NWYxYTIzYWY5ZmY1NzM5YTU0ZmJjNTg5M2E3N2YzYzZkNmQ5ZDdkNA==
 - name: tasktracker
-  version: 1
+  version: 2
   fingerprint: !binary |-
-    NmNmNDgwODM0ZWY1ZDA4MjM5MzZjNDQ3MzZhMTBjMjNmZTUzMWYxMA==
+    MGE3MjE5YTgwZGU4NTU4YjNjY2E4OWZkNTNkYTViYjI2MjMwYmM0Mw==
   sha1: !binary |-
-    MWExOGUwM2JmYTQ0MzIxODdmOTJlOGVkZTQzYzcwMDc1OTAzNDU1Mw==
+    MzFhY2RiMDBlZjg1MjZjODI3MmM3YjAzNDlkYTRmNWY0MTQ2YWM4Nw==
 - name: spark-slave
   version: 1
   fingerprint: !binary |-
@@ -268,17 +268,17 @@ jobs:
   sha1: !binary |-
     MWEwMzRmYzdkZGVjNzk1MmMzNTg5YjUxOTQ1ZjE0NzlmNGY4MGE1OQ==
 - name: clientmr
-  version: 4
+  version: 5
   fingerprint: !binary |-
-    MWI2MjgxMDk0ZmJmMGU1OWIxY2MzNDU2OTY2ZmEwNDU5ZTY2ZTVkYw==
+    NGFjNTIzMGQ0ZjQzYjZmOTk1OGJiY2ZkMzcyZTczMTA0OTViMDNjNw==
   sha1: !binary |-
-    OGNmMmRjZDAxYzM3YWRlMzEzMzUwMjc2Zjk0ZjA4NzMxY2U1MGYwYQ==
+    NjMzZDViYWVkMGYwNTMzZDQ2MTMzMjZlNzMwZGRmZjkyYjdjOWU0Yw==
 - name: jobtracker
-  version: 1
+  version: 2
   fingerprint: !binary |-
-    ODcyOGMyM2I2ODA4YzM3ODQyZDk3ZDVhZWU3NzcyNjIyMzA3OWU3OQ==
+    NDU3MTJhYzI3ZTZiYzIzM2ViNjllZjIxNmU0MDIxODY0ZDJhM2Y0MA==
   sha1: !binary |-
-    YjExNzg3YmViZmUwYjk4NjNjZGFkNmFmY2NlYmQ1Yzc0ZGQ1ZjZlYw==
+    MTM3MmNjMDY5YjQ0NzhlM2VjNTZlN2VkZGI2MjEwZTg0ZTg4MmVhZg==
 - name: datanodemr
   version: 1
   fingerprint: !binary |-
@@ -297,7 +297,7 @@ jobs:
     YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
   sha1: !binary |-
     NDRmZTFkYTViMjdjODk2YjEzYzU2YjU1NjIyYWNhZDIxN2FjY2M1Yg==
-commit_hash: 6368134d
+commit_hash: 766f038c
 uncommitted_changes: true
 name: insightfactory-boshrelease
 version: 3
