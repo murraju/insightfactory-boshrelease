@@ -10,15 +10,13 @@ source /var/vcap/jobs/tasktracker/helpers/ctl_setup.sh 'tasktracker'
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
+mkdir -p $MAPRED_TEMP
+chmod -R 777 $MAPRED_TEMP
+
 
 case $1 in
 
   start)
-
-
-    mkdir -p $MAPRED_TEMP
-    chown --recursive vcap:vcap $MAPRED_TEMP
-    chmod --recursive a+rwx $MAPRED_TEMP
 
     exec chpst -u vcap:vcap $HADOOP_HOME/bin/hadoop --config $HADOOP_CONF_DIR tasktracker \
         1>>$LOG_DIR/$JOB_NAME.stdout.log \
