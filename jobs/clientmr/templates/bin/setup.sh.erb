@@ -185,7 +185,7 @@ esac
 setup_environment(){
   # Set the hostname
   hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
-  source /var/vcap/jobs/client/bin/job_properties.sh
+  source /var/vcap/jobs/clientmr/bin/job_properties.sh
   echo "source /var/vcap/jobs/client/bin/job_properties.sh" > /home/vcap/.bash_profile
   mkdir -p /var/vcap/data/hadoop/tmp/vcap
   chown -R vcap:vcap /var/vcap/data/hadoop/tmp/vcap
