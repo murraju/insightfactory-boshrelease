@@ -47,7 +47,9 @@ properties:
     description: "Port at which the clients will connect to Apache Zookeeper"
     default: 2181
   hadoop.namenode.host:
-    description: The Hostname or address of the Hadoop Namenode
+    description: The Hostname or address of the Hadoop
+  hadoop.secondarynamenode.host:
+    description: The Hostname or address of the Hadoop
   hadoop.namenode.port:
     description: The port to listen on
     default: 8020

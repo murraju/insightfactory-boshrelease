@@ -16,6 +16,8 @@ templates:
 properties:
   hadoop.namenode.host:
     description: The Hostname or address of the Hadoop Namenode
+  hadoop.secondarynamenode.host:
+    description: The Hostname or address of the Hadoo
   hadoop.namenode.port:
     description: The port to listen on
     default: 8020
