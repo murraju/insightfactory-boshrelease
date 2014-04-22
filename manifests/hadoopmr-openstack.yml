@@ -30,7 +30,7 @@ jobs:
   template: namenodemr
   instances: 1
 
-- name: hdfs-secondary-master
+- name: hdfs-smaster
   networks:
   - name: default
     default: [dns, gateway]
@@ -135,6 +135,8 @@ properties:
     namenode:
       host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
       port: 8020
+    secondarynamenode:
+      host: "0.hdfs-smaster.default.<%= deployment_name %>.<%= tld %>"
     mapreduce:
       job:
         tracker: "0.mapred-master.default.<%= deployment_name %>.<%= tld %>"

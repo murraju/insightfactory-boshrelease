@@ -11,7 +11,7 @@ export HADOOP_HOME=/var/vcap/packages/hadoopmr
 export HADOOP_CONF_DIR=/var/vcap/jobs/clientmr/config
 export HADOOP_COMMON_LIB_NATIVE_DIR={$HADOOP_HOME}/lib/native
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
-export PIG_OPTS='-Dpython.cachedir=/var/vcap/data/tmp'
+export PIG_OPTS='-Dpython.cachedir=/var/vcap/data/hadoop/tmp'
 export SCALA_HOME=/var/vcap/packages/scala
 export JAVA_HOME=/var/vcap/packages/java/jdk
 export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$SCALA_HOME/bin:$HADOOP_HOME/bin:/var/vcap/packages/git/bin:/var/vcap/packages/sbt/bin:/var/vcap/packages/pig/bin:/var/vcap/packages/hive/bin:/var/vcap/packages/python/bin:$PATH

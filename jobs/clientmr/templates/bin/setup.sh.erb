@@ -189,6 +189,7 @@ setup_environment(){
   echo "source /var/vcap/jobs/clientmr/bin/job_properties.sh" > /home/vcap/.bash_profile
   mkdir -p /var/vcap/data/hadoop/tmp/vcap
   chown -R vcap:vcap /var/vcap/data/hadoop/tmp/vcap
+  chmod -R 777 /var/vcap/data/hadoop/tmp
   echo 'Cloning repos'
   mkdir -p /home/vcap/ds
   cd /home/vcap/ds

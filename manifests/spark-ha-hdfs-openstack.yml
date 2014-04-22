@@ -57,7 +57,7 @@ jobs:
   template: secondarynamenode
   instances: 1
 
-- name: spark-slave
+- name: slave
   networks:
   - name: default
     default: [dns, gateway]
