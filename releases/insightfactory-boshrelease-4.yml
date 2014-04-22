@@ -214,11 +214,11 @@ jobs:
   sha1: !binary |-
     M2IzNjBjZWQxYmU3YWRhZmMyNDE5NzgxOTNkNGVmYzYxMGQyMjVjOQ==
 - name: secondarynamenodemr
-  version: 2
+  version: 3
   fingerprint: !binary |-
-    MTJjODMzYTE4ZDliNGQ4ODkzNGFjMmZhMjE1YzRhYmVlZGJiODhlZQ==
+    YjlkZGM1ZjVjNjYwOTViZmZhM2U0NjAzZWM5MzRlNzlkZDhkZDdkNA==
   sha1: !binary |-
-    NzljYzA4OGQ4NTUwZDk5MmVkMDgyY2EzNmJmODg1MWExMzQ0ZGMyOQ==
+    YzJhOGFhYjFiNzU1Zjc5ZTFhNDkwZDY3MWZkZjBmNjFiZTI2ODYwMg==
 - name: zookeeper
   version: 1
   fingerprint: !binary |-
@@ -244,17 +244,17 @@ jobs:
   sha1: !binary |-
     OGQ4OTE1NGQwZDJmZGM4OGFlNTcyOGMzMTc3MmQ3OGZkMWJlYmQ0OQ==
 - name: namenodemr
-  version: 2
-  fingerprint: !binary |-
-    YjZhMjRiNTRiNzIxYTY3M2YyMmRmMDFmMGY5MDlkMzdkMzMzNTQ3Zg==
-  sha1: !binary |-
-    NTBmMGE5ZTRhNTkzOTM2OTk4ZGYxM2E3NzQyMjNlNDQxOTY3M2ExMQ==
-- name: tasktracker
   version: 3
   fingerprint: !binary |-
-    ODc4YzgwNzUxZjQ5YzJkYzIyNzFiZTNhYTEyNDljYjQ1ZmZjODRhNQ==
+    Njc5OTk4ZWMzNjMzODA2MDA2NjFiYmIzNTFmZTI4MDVhNzQ5MmRiYQ==
   sha1: !binary |-
-    MzBhMjRiNThkZWRjMzU5Njc5NjkyZTUwNGVlMThhYmYwY2VmYTc2OA==
+    OTI1YWVlNzlhODdlMGMzOTk4N2MzMjcxMTlmZmQ5NDgyODIxMjM0MQ==
+- name: tasktracker
+  version: 4
+  fingerprint: !binary |-
+    MTlhMTg3NWZjNmJlMDBmNTg5Y2NmNmZlZjc1ZjdiMmU5YWI1YzM2Nw==
+  sha1: !binary |-
+    MDBmYjkzNTE2NTdhNzg0NTBkZWJiNGRkZWFkZWM1MGIxZDQ4NjA2NQ==
 - name: spark-slave
   version: 1
   fingerprint: !binary |-
@@ -268,23 +268,23 @@ jobs:
   sha1: !binary |-
     MWEwMzRmYzdkZGVjNzk1MmMzNTg5YjUxOTQ1ZjE0NzlmNGY4MGE1OQ==
 - name: clientmr
-  version: 6
+  version: 7
   fingerprint: !binary |-
-    ZjcxNDk0ZmI4YzRhMTQyYWU4NDU4MDMwODI5MjQzMmYxNTA3OTQ0YQ==
+    YTU2ODM4ZmFhM2U0ZTJiNGFmMWI3ODg1ODcxMjA0NzBiNTE3ZGYzOA==
   sha1: !binary |-
-    MThhZDM4YTg5NDM3NWE0MDcyMjhkNmNkYTE2YzgwMzVjNTkxNTI4Mg==
+    N2ZhMzU1NGE4YmVkMjAzNTUzMDc4ZTIyMzdmMmZkNjY5ZjNkOTY0ZA==
 - name: jobtracker
+  version: 4
+  fingerprint: !binary |-
+    ZjVjMmQ0ODE2NWQzMTk1MmJlNGUzYjdjMzI4YzFjMDU5ODI1OWE2Zg==
+  sha1: !binary |-
+    MmJlOTAwMDE0NjAwYmVkNzQ1OGU3MGZmYzY1YjYwYjYzNjk4YzFmZA==
+- name: datanodemr
   version: 3
   fingerprint: !binary |-
-    NWI2M2JjMDUzNGZhZTJkZWM4NWMyOTNkMmQ4ZjRjOTQwOTg2OTUyMw==
+    MDgzODhlZmYwNDdjYzE4NDJmNDczNzBlY2NkMzQwZDZkYmJmM2QwNA==
   sha1: !binary |-
-    MjQ0Y2I5MjM3MDYyMmQxYjM1NzYwN2VhN2IxOTVmZWFlYzEyNmY5Yw==
-- name: datanodemr
-  version: 2
-  fingerprint: !binary |-
-    N2E4Mzk2ZmIwMzQ1MTRmMjQyYWNjYjBkYWM3ZmJiZDZlMWU3MTI2NQ==
-  sha1: !binary |-
-    OTEyM2Q4YmVlNDQwNzM1MWZhZjY1MjNhZDVhYzc4M2E2ODcyNDhkZQ==
+    N2ExZTIwYzA3ZGFlYzE5YjAxODY3ZWEwNzNlMTYxOWRmZjJmMjIxNg==
 - name: mapreduce-jobhistory
   version: 1
   fingerprint: !binary |-
@@ -297,7 +297,7 @@ jobs:
     YzMwZTUwZTliMWFjMmQzNGQzZTM0ZjlkOGU4ODFmZTk5ODAwMjE4YQ==
   sha1: !binary |-
     NDRmZTFkYTViMjdjODk2YjEzYzU2YjU1NjIyYWNhZDIxN2FjY2M1Yg==
-commit_hash: 834bb6a4
+commit_hash: 3b6e2460
 uncommitted_changes: true
 name: insightfactory-boshrelease
 version: 4
