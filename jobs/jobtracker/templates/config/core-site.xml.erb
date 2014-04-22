@@ -387,7 +387,7 @@ DEFAULT
 
   <property>
     <name>dfs.http.address</name>
-    <value>hltd399.hydc.sbc.com:50070</value>
+    <value><%= p("hadoop.namenode.host") %>:50070</value>
     <description>
         The name of the default file system.  Either the
         literal string "local" or a host:port for NDFS.
@@ -513,7 +513,7 @@ DEFAULT
   <property>
     <!-- cluster variant -->
     <name>dfs.secondary.http.address</name>
-    <value>hltd400.hydc.sbc.com:50090</value>
+    <value><%= p("hadoop.secondarynamenode.host") %>:50090</value>
     <description>Address of secondary namenode web server</description>
   </property>
 
@@ -583,7 +583,7 @@ DEFAULT
 
   <property>
     <name>dfs.https.address</name>
-    <value>hltd399.hydc.sbc.com:50470</value>
+    <value><%= p("hadoop.namenode.host") %>:50470</value>
     <description>The https address where namenode binds</description>
   </property>
 
