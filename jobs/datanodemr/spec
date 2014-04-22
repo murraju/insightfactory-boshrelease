@@ -37,3 +37,5 @@ properties:
   hadoop.datanode.dfs_data_dir:
     description: dfs data directory
     default: /cache/hdfs/dfs/data
+  hadoop.secondarynamenode.host:
+    description: The Hostname or address of the Secondary Namenode
