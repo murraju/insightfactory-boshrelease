@@ -56,4 +56,6 @@ properties:
   hadoop.mapreduce.reduce.child.java.opts:
     description: MapReduce Child Java Opts
     default: "-server -Xmx1024m -Djava.net.preferIPv4Stack=true"
+  hadoop.secondarynamenode.host:
+    description: The Hostname or address of the Secondary Namenode
 
