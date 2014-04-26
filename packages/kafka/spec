@@ -1,0 +1,8 @@
+---
+name: kafka
+dependencies:
+- java
+- scala
+- zookeeper
+files:
+- kafka/kafka-0.8.1-src.tgz
