@@ -10,6 +10,6 @@ export HOME=/var/vcap
 
 
 
-tar xfv kafka/kafka-0.8.1-src.tgz
+tar xfv kafka/kafka_2.9.2-0.8.1.tgz
 
-cp -a kafka-0.8.1-src/* $BOSH_INSTALL_TARGET
+cp -a kafka_2.9.2-0.8.1/* $BOSH_INSTALL_TARGET
