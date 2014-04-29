@@ -1,4 +1,4 @@
-<% num_zookeepers = 2 %>
+<% num_zookeepers = 3 %>
 <% num_kafka_brokers = 1 %>
 <% deployment_name = "kafka-aws" %>
 <% kafka_broker_ip = %>

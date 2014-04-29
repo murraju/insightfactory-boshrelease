@@ -15,7 +15,7 @@ export ZOOKEEPER_TEMP_DIR=$TMP_DIR
 export KAFKA_HOME=/var/vcap/packages/kafka
 
 # Directory to store the Apache Kafka configuration files
-export KAFKA_CONF_DIR=$JOB_DIR/config
+export KAFKA_CONF_DIR=/var/vcap/jobs/$JOB_NAME/config
 
 # Directory to store the Apache Kafka log files
 export KAFKA_LOG_DIR=$LOG_DIR
