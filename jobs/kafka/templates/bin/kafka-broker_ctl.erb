@@ -24,7 +24,8 @@ case $1 in
 
   stop)
     # Stop Apache Kafka service
-    exec kafka-server-stop.sh
+    # exec kafka-server-stop.sh
+    kill `cat $KAFKAPIDFILE`
     ;;
 
   *)
