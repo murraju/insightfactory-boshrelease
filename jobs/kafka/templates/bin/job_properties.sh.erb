@@ -11,6 +11,9 @@ RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 # Directory to store the Apache ZooKeeper Snapshot filess
 export ZOOKEEPER_TEMP_DIR=$TMP_DIR
 
+# Kafka Home
+export KAFKA_HOME=/var/vcap/packages/kafka
+
 # Directory to store the Apache Kafka configuration files
 export KAFKA_CONF_DIR=$JOB_DIR/config
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
 
 # Setup common env vars and folders
 source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'kafka'
@@ -9,7 +10,6 @@ export KAFKAPIDFILE=$KAFKA_PID_DIR/kafka.pid
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
-base_dir=$(dirname $0)
 export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_CONF_DIR/log4j.properties"
 export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
 EXTRA_ARGS="-daemon -name kafkaServer -loggc"
@@ -21,13 +21,14 @@ case $1 in
 
 
     # Start Apache Kafka service
-    #exec chpst -u vcap:vcap \
+    # exec chpst -u vcap:vcap \
     #     kafka-server-start.sh $KAFKA_CONF_DIR/server.properties \
-    #     >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+    #     1>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
     #     2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
 
-    exec chpst -u vcap:vcap $base_dir/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka $@ $KAFKA_CONF_DIR/server.properties \
-          >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+    exec chpst -u vcap:vcap $KAFKA_HOME/bin/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka $@ \
+          $KAFKA_CONF_DIR/server.properties \
+          1>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
           2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
 
     # store pid in $KAFKAPIDFILE
