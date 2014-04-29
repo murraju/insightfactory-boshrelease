@@ -29,16 +29,19 @@ case $1 in
     exec chpst -u vcap:vcap $base_dir/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka $@ $KAFKA_CONF_DIR/server.properties \
           >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
           2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
+
+    # store pid in $KAFKAPIDFILE
+    echo $! > $KAFKAPIDFILE
     ;;
 
   stop)
     # Stop Apache Kafka service
-    ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
+    `ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT`
     ;;
 
   *)
     echo "Usage: $0 {start|stop}"
-    exit 1
+
     ;;
 
 esac
