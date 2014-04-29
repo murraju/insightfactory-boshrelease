@@ -34,8 +34,8 @@ jobs:
   - name: elastic
     static_ips:
       - <%= kafka_broker_ip %>
-  resource_pool: kafka-broker
-  template: kafka-broker
+  resource_pool: kafka
+  template: kafka
   instances: <%= num_kafka_brokers  %>
 
 meta:
@@ -69,7 +69,7 @@ resource_pools:
     cloud_properties:
       instance_type: m1.medium
 
-  - name: kafka-broker
+  - name: kafka
     network: default
     size: <%= num_kafka_brokers %>
     stemcell:
