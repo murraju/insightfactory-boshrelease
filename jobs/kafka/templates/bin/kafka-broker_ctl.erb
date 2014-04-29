@@ -10,9 +10,9 @@ export KAFKAPIDFILE=$KAFKA_PID_DIR/kafka.pid
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
 base_dir=$(dirname $0)
-export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$base_dir/../config/log4j.properties"
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_CONF_DIR/log4j.properties"
 export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G
-EXTRA_ARGS="-name kafkaServer -loggc"
+EXTRA_ARGS="-daemon -name kafkaServer -loggc"
 
 case $1 in
 
