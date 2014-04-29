@@ -33,7 +33,6 @@ case $1 in
 
   stop)
     # Stop Apache Kafka service
-    #kill `cat $KAFKAPIDFILE`
     ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
     ;;
 
