@@ -26,8 +26,7 @@ case $1 in
     #     1>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
     #     2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
 
-    exec chpst -u vcap:vcap $KAFKA_HOME/bin/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka $@ \
-          $KAFKA_CONF_DIR/server.properties \
+    exec chpst -u vcap:vcap $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_CONF_DIR/server.properties \
           1>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
           2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
 

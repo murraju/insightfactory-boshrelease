@@ -31,3 +31,6 @@ for package_bin_dir in $(ls -d /var/vcap/packages/*/libs)
 do
   export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
 done
+
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH
