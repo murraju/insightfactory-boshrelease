@@ -19,7 +19,7 @@ case $1 in
     exec chpst -u vcap:vcap \
          kafka-server-start.sh $KAFKA_CONF_DIR=server.properties \
          >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
-         2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log
+         2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
     ;;
 
   stop)
