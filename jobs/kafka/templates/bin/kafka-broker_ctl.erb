@@ -9,6 +9,11 @@ export KAFKAPIDFILE=$KAFKA_PID_DIR/kafka.pid
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
+base_dir=$(dirname $0)
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$base_dir/../config/log4j.properties"
+export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G
+EXTRA_ARGS="-name kafkaServer -loggc"
+
 case $1 in
 
   start)
@@ -16,16 +21,20 @@ case $1 in
 
 
     # Start Apache Kafka service
-    exec chpst -u vcap:vcap \
-         kafka-server-start.sh $KAFKA_CONF_DIR/server.properties \
-         >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
-         2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
+    #exec chpst -u vcap:vcap \
+    #     kafka-server-start.sh $KAFKA_CONF_DIR/server.properties \
+    #     >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+    #     2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
+
+    exec chpst -u vcap:vcap $base_dir/kafka-run-class.sh $EXTRA_ARGS kafka.Kafka $@ $KAFKA_CONF_DIR/server.properties \
+          >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+          2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log &
     ;;
 
   stop)
     # Stop Apache Kafka service
-    # exec kafka-server-stop.sh
-    kill `cat $KAFKAPIDFILE`
+    #kill `cat $KAFKAPIDFILE`
+    ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
     ;;
 
   *)
