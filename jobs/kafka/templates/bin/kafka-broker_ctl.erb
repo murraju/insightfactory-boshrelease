@@ -12,7 +12,7 @@ hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/)
 case $1 in
 
   start)
-    pid_guard $KAFKAPIDFILE $JOB_NAME
+    #pid_guard $KAFKAPIDFILE $JOB_NAME
 
 
     # Start Apache Kafka service
