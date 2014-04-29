@@ -93,5 +93,5 @@ properties:
     description: "Kafka log directory"
     default: /var/vcap/data/kafka-logs
   kafka.tmp.dir:
-    description: "Kafka tmp directory"
-    default: /var/vcap/data/tmp
+    description: "Kafka Zookeeper Snapshot directory"
+    default: /tmp/zookeeper
