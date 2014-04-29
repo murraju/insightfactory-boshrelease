@@ -1,5 +1,5 @@
 ---
-name: kafka-broker
+name: kafka
 
 packages:
   - bosh-helpers

@@ -3,7 +3,7 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 
 # Setup common env vars and folders
-source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'kafka-broker'
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'kafka'
 export KAFKAPIDFILE=$KAFKA_PID_DIR/kafka-broker.pid
 
 # Set the hostname

@@ -3,13 +3,10 @@
 #
 # Apache Kafka Broker properties
 #
-JOB_NAME=kafka-broker
+JOB_NAME=kafka
 LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 
-
-# Kafka Home Directory
-# export KAFKA_HOME=/var/vcap/packages/kafka
 
 # Directory to store the Apache ZooKeeper temp filess
 export ZOOKEEPER_TEMP_DIR=$TMP_DIR
