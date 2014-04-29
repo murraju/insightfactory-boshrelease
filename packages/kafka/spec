@@ -5,4 +5,4 @@ dependencies:
 - scala
 - zookeeper
 files:
-- kafka/kafka_2.9.2-0.8.1.tgz
+- kafka/kafka_2.10-0.8.1.tgz
