@@ -10,6 +10,7 @@ packages:
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
   bin/kafka-broker_ctl.erb: bin/kafka-broker_ctl
+  bin/monit_debugger: bin/monit_debugger
   config/consumer.properties.erb: config/consumer.properties
   config/log4j.properties.erb: config/log4j.properties
   config/producer.properties.erb: config/producer.properties
