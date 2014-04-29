@@ -14,6 +14,13 @@
 # limitations under the License.
 # see kafka.consumer.ConsumerConfig for more details
 
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+
 # Zookeeper connection string
 # comma separated host:port pairs, each corresponding to a zk
 # server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002"

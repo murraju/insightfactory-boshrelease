@@ -7,12 +7,6 @@ JOB_NAME=kafka-broker
 LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 
-<%
-  servers = []
-  p('zookeeper.servers').each do |server|
-    servers << "#{server}:#{p('zookeeper.client_port')}"
-  end
-%>
 
 # Directory to store the Apache ZooKeeper temp filess
 export ZOOKEEPER_TEMP_DIR=$TMP_DIR
