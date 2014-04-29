@@ -11,7 +11,7 @@ hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/)
 
 base_dir=$(dirname $0)
 export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_CONF_DIR/log4j.properties"
-export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G
+export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
 EXTRA_ARGS="-daemon -name kafkaServer -loggc"
 
 case $1 in
@@ -36,7 +36,7 @@ case $1 in
 
   stop)
     # Stop Apache Kafka service
-    `ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT`
+    ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
     ;;
 
   *)
