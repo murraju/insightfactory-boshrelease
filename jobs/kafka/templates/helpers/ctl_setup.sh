@@ -36,7 +36,7 @@ do
 done
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-''} # default to empty
-for package_bin_dir in $(ls -d /var/vcap/packages/*/lib)
+for package_bin_dir in $(ls -d /var/vcap/packages/*/libs)
 do
   export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
 done
@@ -67,6 +67,11 @@ fi
 if [[ -d /var/vcap/packages/java7 ]]
 then
   export JAVA_HOME="/var/vcap/packages/java7"
+fi
+
+# Load job properties
+if [ -f $JOB_DIR/bin/job_properties.sh ]; then
+  source $JOB_DIR/bin/job_properties.sh
 fi
 
 # setup CLASSPATH for all jars/ folders within packages

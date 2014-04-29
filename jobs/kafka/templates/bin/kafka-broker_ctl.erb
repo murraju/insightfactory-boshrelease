@@ -4,7 +4,7 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
 # Setup common env vars and folders
-source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'kafka'
+source /var/vcap/packages/helpers/ctl_setup.sh 'kafka'
 export KAFKAPIDFILE=$KAFKA_PID_DIR/kafka.pid
 
 # Set the hostname
@@ -41,7 +41,7 @@ case $1 in
     ;;
 
   *)
-    echo "Usage: kafka-broker_ctl {start|stop}"
+    echo "Usage: $0 {start|stop}"
 
     ;;
 
