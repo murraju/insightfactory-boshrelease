@@ -26,3 +26,8 @@ export KAFKA_PID_DIR=$RUN_DIR
 # Directory to store the Apache Kafka temp filess
 export KAFKA_TEMP_DIR=<%= p('kafka.tmp.dir') %>
 
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-''} # default to empty
+for package_bin_dir in $(ls -d /var/vcap/packages/*/libs)
+do
+  export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
+done

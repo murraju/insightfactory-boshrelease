@@ -36,7 +36,7 @@ do
 done
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-''} # default to empty
-for package_bin_dir in $(ls -d /var/vcap/packages/*/libs)
+for package_bin_dir in $(ls -d /var/vcap/packages/*/lib)
 do
   export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
 done
