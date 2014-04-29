@@ -17,14 +17,14 @@ case $1 in
 
     # Start Apache Kafka service
     exec chpst -u vcap:vcap \
-         $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_CONF_DIR=server.properties \
+         kafka-server-start.sh $KAFKA_CONF_DIR=server.properties \
          >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
          2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log
     ;;
 
   stop)
     # Stop Apache Kafka service
-    exec $KAFKA_HOME/bin/kafka-server-stop.sh
+    exec kafka-server-stop.sh
     ;;
 
   *)

@@ -6,6 +6,7 @@ packages:
   - java
   - scala
   - zookeeper
+  - kafka
 
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
