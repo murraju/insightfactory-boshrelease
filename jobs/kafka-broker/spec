@@ -16,6 +16,10 @@ templates:
   config/test-log4j.properties.erb: config/test-log4j.properties
   config/tools-log4j.properties.erb: config/tools-log4j.properties
   config/zookeeper.properties.erb: config/zookeeper.properties
+  config/server.properties.erb: config/server.properties.erb
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 properties:
   zookeeper.user:
