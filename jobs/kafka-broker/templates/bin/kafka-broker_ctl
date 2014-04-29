@@ -14,25 +14,17 @@ case $1 in
   start)
     pid_guard $KAFKAPIDFILE $JOB_NAME
 
-    # Create Apache Kafka user & group
-    create_group $ZOOKEEPER_GROUP
-    create_user $ZOOKEEPER_USER $ZOOKEEPER_GROUP
-
-    # Create Apache Kafka data directory
-    mkdir -p $ZOOKEEPER_DATA_DIR
-    cp $ZOOKEEPER_CONF_DIR/myid $ZOOKEEPER_DATA_DIR/
-    chown -R $ZOOKEEPER_USER:$ZOOKEEPER_GROUP $ZOOKEEPER_DATA_DIR/
 
     # Start Apache Kafka service
-    exec chpst -u $ZOOKEEPER_USER:$ZOOKEEPER_GROUP \
-         zkServer.sh start \
-         >>$ZOOKEEPER_LOG_DIR/$OUTPUT_LABEL.stdout.log \
-         2>>$ZOOKEEPER_LOG_DIR/$OUTPUT_LABEL.stderr.log
+    exec chpst -u vcap:vcap \
+         bin/kafka-server-start.sh $KAFKA_CONF_DIR=server.properties \
+         >>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stdout.log \
+         2>>$KAFKA_LOG_DIR/$OUTPUT_LABEL.stderr.log
     ;;
 
   stop)
     # Stop Apache Kafka service
-    exec zkServer.sh stop
+    exec bin/kafka-server-stop.sh
     ;;
 
   *)

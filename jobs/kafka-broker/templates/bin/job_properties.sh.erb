@@ -3,28 +3,29 @@
 #
 # Apache Kafka Broker properties
 #
+JOB_NAME=kafka-broker
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 
-# Directory to store the Apache ZooKeeper configuration files
-export ZOOKEEPER_CONF_DIR=$JOB_DIR/config
-export ZOOCFGDIR=$ZOOKEEPER_CONF_DIR
-
-# Directory to store the Apache ZooKeeper log files
-export ZOOKEEPER_LOG_DIR=$LOG_DIR
-export ZOO_LOG_DIR=$ZOOKEEPER_LOG_DIR
-export ZOO_LOG4J_PROP="INFO,CONSOLE,ROLLINGFILE"
-
-# Directory to store the Apache ZooKeeper process IDs
-export ZOOKEEPER_PID_DIR=$RUN_DIR
-
-# Directory to store the Apache ZooKeeper data files
-export ZOOKEEPER_STORE_DIR=$STORE_DIR
-export ZOOKEEPER_DATA_DIR=$ZOOKEEPER_STORE_DIR
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
 
 # Directory to store the Apache ZooKeeper temp filess
 export ZOOKEEPER_TEMP_DIR=$TMP_DIR
 
-# User which will own the Apache ZooKeeper services
-export ZOOKEEPER_USER="<%= p('zookeeper.user') %>"
+# Directory to store the Apache Kafka configuration files
+export KAFKA_CONF_DIR=$JOB_DIR/config
 
-# Group which will own the Apache ZooKeeper services
-export ZOOKEEPER_GROUP="<%= p('zookeeper.group') %>"
+# Directory to store the Apache Kafka log files
+export KAFKA_LOG_DIR=$LOG_DIR
+
+# Directory to store the Apache Kafka process IDs
+export KAFKA_PID_DIR=$RUN_DIR
+
+# Directory to store the Apache Kafka temp filess
+export KAFKA_TEMP_DIR=<%= p('kafka.tmp.dir') %>
+

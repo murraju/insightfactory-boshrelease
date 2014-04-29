@@ -18,7 +18,7 @@
 
 # list of brokers used for bootstrapping knowledge about the rest of the cluster
 # format: host1:port1,host2:port2 ...
-metadata.broker.list=localhost:9092
+metadata.broker.list=<%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>:9092
 
 # name of the partitioner class for partitioning events; default partition spreads data randomly
 #partitioner.class=
@@ -37,10 +37,10 @@ serializer.class=kafka.serializer.DefaultEncoder
 #compressed.topics=
 
 ############################# Async Producer #############################
-# maximum time, in milliseconds, for buffering data on the producer queue 
+# maximum time, in milliseconds, for buffering data on the producer queue
 #queue.buffering.max.ms=
 
-# the maximum size of the blocking queue for buffering on the producer 
+# the maximum size of the blocking queue for buffering on the producer
 #queue.buffering.max.messages=
 
 # Timeout for event enqueue:
@@ -49,5 +49,5 @@ serializer.class=kafka.serializer.DefaultEncoder
 # +ve: enqueue will block up to this many milliseconds if the queue is full
 #queue.enqueue.timeout.ms=
 
-# the number of messages batched at the producer 
+# the number of messages batched at the producer
 #batch.num.messages=

@@ -83,3 +83,9 @@ properties:
   zookeeper.tick_time:
     description: "The length of a single tick, which is the basic time unit used by ZooKeeper, as measured in milliseconds"
     default: 2000
+  kafka.log.dirs:
+    description: "Kafka log directory"
+    default: /var/vcap/data/kafka-logs
+  kafka.tmp.dir:
+    description: "Kafka tmp directory"
+    default: /var/vcap/data/tmp
