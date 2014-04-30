@@ -16,6 +16,11 @@
 
 ############################# Producer Basics #############################
 
+<% p('kafka.brokers').each_with_index do |broker, index| %>
+broker.<%= index + 1 %>=<%= broker %>:<%= p('kafka.broker.port') %>
+<% end %>
+
+
 <%
   brokers = []
   p('kafka.brokers').each do |broker|
