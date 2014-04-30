@@ -1,4 +1,5 @@
 <% num_zookeepers = 3 %>
+<% num_kafka_brokers = 2 %>
 <% num_hdfs_masters = 2 %>
 <% num_masters = 2 %>
 <% num_slaves = 5 %>
@@ -29,6 +30,16 @@ jobs:
   resource_pool: zookeeper
   template: zookeeper
   instances: <%= num_zookeepers %>
+
+- name: kafka
+  networks:
+  - name: default
+    default: [dns, gateway]
+  - name: elastic
+    static_ips: null
+  resource_pool: kafka
+  template: kafka
+  instances: <%= num_kafka_brokers  %>
 
 - name: spark-master
   networks:
@@ -110,6 +121,15 @@ resource_pools:
     cloud_properties:
       instance_type: m1.medium
 
+  - name: kafka
+    network: default
+    size: <%= num_kafka_brokers %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
   - name: master
     network: default
     size: <%= num_masters %>
@@ -152,6 +172,11 @@ properties:
     servers:
       <% num_zookeepers.times do |i| %>
       <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
+  kafka:
+    brokers:
+      <% num_kafka_brokers.times do |i| %>
+      <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
   spark:
     masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
