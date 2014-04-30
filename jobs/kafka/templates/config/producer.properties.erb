@@ -16,9 +16,19 @@
 
 ############################# Producer Basics #############################
 
+<%
+  brokers = []
+  p('kafka.brokers').each do |broker|
+    brokers << "#{broker}:#{p('kafka.broker.port')}"
+  end
+%>
+
+
 # list of brokers used for bootstrapping knowledge about the rest of the cluster
 # format: host1:port1,host2:port2 ...
-metadata.broker.list=<%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>:9092
+# metadata.broker.list=<%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>:9092
+
+metadata.broker.list=
 
 # name of the partitioner class for partitioning events; default partition spreads data randomly
 #partitioner.class=

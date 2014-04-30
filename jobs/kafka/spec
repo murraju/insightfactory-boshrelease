@@ -95,3 +95,8 @@ properties:
   kafka.tmp.dir:
     description: "Kafka Zookeeper Snapshot directory"
     default: /tmp/zookeeper
+  kafka.broker.port:
+    description: "Broker listening port"
+    default: 9092
+  kafka.brokers:
+    description: "List of Kafka Brokers"
