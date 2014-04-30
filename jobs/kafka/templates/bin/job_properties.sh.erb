@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+#
+# Apache Kafka Broker properties
+#
+JOB_NAME=kafka
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+
+
+# Directory to store the Apache ZooKeeper Snapshot filess
+export ZOOKEEPER_TEMP_DIR=$TMP_DIR
+
+# Kafka Home
+export KAFKA_HOME=/var/vcap/packages/kafka
+
+# Directory to store the Apache Kafka configuration files
+export KAFKA_CONF_DIR=/var/vcap/jobs/$JOB_NAME/config
+
+# Directory to store the Apache Kafka log files
+export KAFKA_LOG_DIR=$LOG_DIR
+
+# Directory to store the Apache Kafka process IDs
+export KAFKA_PID_DIR=$RUN_DIR
+
+# Directory to store the Apache Kafka temp filess
+export KAFKA_TEMP_DIR=<%= p('kafka.tmp.dir') %>
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-''} # default to empty
+for package_bin_dir in $(ls -d /var/vcap/packages/*/libs)
+do
+  export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
+done
+
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$KAFKA_HOME/bin:$PATH
+
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_CONF_DIR/log4j.properties"
+export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
+EXTRA_ARGS="-daemon -name kafkaServer -loggc"

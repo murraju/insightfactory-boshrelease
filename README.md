@@ -29,6 +29,10 @@ Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
 1. Standalone Hadoop Cluster with YARN (Apache Hadoop 2.4.0) - no Namenode and YARN HA.
 2. Standalone Hadoop (classic) MapReduce only Cluster (Apache Hadoop 1.2.1)
 
+## Kafka
+
+Kafka clusters for building Data Pipelines and Stream Processing (Spark)
+
 ## Clients
 
 A Client VM for accessing cluster resources. The Client contains Spark, Scalding, Cascalog repos as well as pig and hive.
