@@ -35,7 +35,6 @@ jobs:
   networks:
   - name: default
     default: [dns, gateway]
-  - name: elastic
     static_ips: null
   resource_pool: kafka
   template: kafka
