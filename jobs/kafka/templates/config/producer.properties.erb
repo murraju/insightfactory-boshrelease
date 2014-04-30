@@ -28,7 +28,7 @@
 # format: host1:port1,host2:port2 ...
 # metadata.broker.list=<%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>:9092
 
-metadata.broker.list=
+metadata.broker.list=<%= brokers.join(',') %>
 
 # name of the partitioner class for partitioning events; default partition spreads data randomly
 #partitioner.class=
