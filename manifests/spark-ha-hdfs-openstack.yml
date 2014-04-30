@@ -121,6 +121,15 @@ resource_pools:
     cloud_properties:
       instance_type: m1.medium
 
+  - name: kafka
+    network: default
+    size: <%= num_kafka_brokers %>
+    stemcell:
+      name: bosh-openstack-kvm-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
   - name: master
     network: default
     size: <%= num_masters %>
