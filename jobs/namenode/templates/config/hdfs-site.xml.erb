@@ -39,4 +39,18 @@
       <name>dfs.data.dir</name>
       <value><%= p("hadoop.namenode.dfs_name_dir_root") %><%= p("hadoop.datanode.dfs_data_dir") %></value>
   </property>
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>dfs.support.append</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>dfs.support.broken.append</name>
+    <value>true</value>
+  </property>
 </configuration>
