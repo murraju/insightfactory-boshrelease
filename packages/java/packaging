@@ -6,13 +6,13 @@ set -u # report the usage of uninitialized variables
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
-tar zxvf ${BOSH_COMPILE_TARGET}/java/jdk-7u51-linux-x64.gz
+tar zxvf ${BOSH_COMPILE_TARGET}/java/jdk-7u55-linux-x64.gz
 if [[ $? != 0 ]] ; then
   echo "Cannot unpack JDK"
   exit 1
 fi
 
-mv jdk1.7.0_51 jdk
+mv jdk1.7.0_55 jdk
 ln -s jdk/jre
 
 cp -a * ${BOSH_INSTALL_TARGET}
