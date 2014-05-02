@@ -11,19 +11,19 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
   config/spark-env.sh.erb: config/spark-env.sh
 properties:
-  spark.master.host:
+  storm.master.host:
     description: The Hostname or address of the Storm master
     default: 0.storm-nimbus.default.spark-aws-ec2.bosh
-  spark.masters:
+  storm.masters:
     description: List of all Storm Masters
     default: 0.storm-nimbus.default.spark-aws-ec2.bosh:7077
-  spark.master.port:
+  storm.master.port:
     description: The port to listen on
     default: 7077
-  spark.deploy.zookeeper.dir:
+  storm.deploy.zookeeper.dir:
     description: The directory in ZooKeeper to store recovery state
     default: /spark
-  spark.cluster.name:
+  storm.cluster.name:
     description: The name of the cluster as shown in the Storm admin ui
     default: bosh-storm-cluster
   zookeeper.servers:
