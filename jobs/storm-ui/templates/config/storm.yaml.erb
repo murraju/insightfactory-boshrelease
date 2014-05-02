@@ -15,15 +15,16 @@
 # limitations under the License.
 
 ########### These MUST be filled in for a storm configuration
-# storm.zookeeper.servers:
-#     - "server1"
-#     - "server2"
-# 
-# nimbus.host: "nimbus"
-# 
-# 
+storm.zookeeper.servers:
+  <% num_zookeepers.times do |i| %>
+  <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+  <% end %>
+
+nimbus.host: <%= p("nimbus.host") %>
+#
+#
 # ##### These may optionally be filled in:
-#    
+#
 ## List of custom serializations
 # topology.kryo.register:
 #     - org.mycompany.MyType

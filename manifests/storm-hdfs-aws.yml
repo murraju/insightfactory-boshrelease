@@ -1,11 +1,11 @@
 <% num_zookeepers = 3 %>
 <% num_kafka_brokers = 2 %>
 <% num_hdfs_masters = 2 %>
-<% num_masters = 2 %>
+<% num_masters = 1 %>
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
-<% deployment_name = "spark-ha-hdfs-aws" %>
+<% deployment_name = "storm-hdfs-aws" %>
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
@@ -40,13 +40,15 @@ jobs:
   template: kafka
   instances: <%= num_kafka_brokers  %>
 
-- name: spark-master
+- name: storm-master
   networks:
   - name: default
     default: [dns, gateway]
     static_ips: null
   resource_pool: master
-  template: spark-master
+  template:
+    - storm-nimbus
+    - storm-ui
   instances: <%= num_masters %>
 
 - name: hdfs-master
@@ -67,14 +69,14 @@ jobs:
   template: secondarynamenode
   instances: 1
 
-- name: spark-slave
+- name: storm-slave
   networks:
   - name: default
     default: [dns, gateway]
     static_ips: null
   resource_pool: slave
   template:
-    - spark-slave
+    - storm-supervisor
     - datanode
   instances: <%= num_slaves %>
 
@@ -177,8 +179,8 @@ properties:
       <% num_kafka_brokers.times do |i| %>
       <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
-  spark:
-    masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
+  nimbus:
+    host: "0.storm-master.default.<%= deployment_name %>.<%= tld %>"
   hadoop:
     namenode:
       host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
