@@ -9,6 +9,7 @@ source /var/vcap/jobs/storm-nimbus/helpers/ctl_setup.sh 'storm-nimbus'
 mkdir -p $LOG_DIR
 mkdir -p $RUN_DIR
 mkdir -p $ZOOKEEPER_DIR
+mkdir -p $STORM_LOG_DIR
 
 # Set the hostname
 hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
@@ -21,6 +22,7 @@ case $1 in
     chown --recursive vcap:vcap $STORM_HOME
     chown --recursive vcap:vcap $LOG_DIR
     chown --recursive vcap:vcap $ZOOKEEPER_DIR
+    chown --recursive vcap:vcap $STORM_LOG_DIR
 
     exec chpst -u vcap:vcap $STORM_HOME/bin/storm nimbus
          1>>$LOG_DIR/$JOB_NAME.stdout.log \
