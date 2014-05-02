@@ -19,6 +19,7 @@ PIDFILE=$RUN_DIR/$JOB_NAME.pid
 export ZOOKEEPER_DIR=<%= p("storm.deploy.zookeeper.dir") %>
 
 export STORM_HOME=/var/vcap/packages/storm
+export STORM_CONF_FILE=/var/vcap/packages/storm/conf/storm.yaml
 export STORM_MASTER_WEBUI_PORT=8080
 export JAVA_HOME=/var/vcap/packages/java/jdk
 export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:$PATH

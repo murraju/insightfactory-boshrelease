@@ -31,7 +31,22 @@ case $1 in
     ;;
 
   stop)
-    kill `cat $PIDFILE`
+    #kill `cat $PIDFILE`
+
+    if [ -f $PIDFILE ]; then
+      TARGET_PID=`cat $PIDFILE`
+      if kill -0 $TARGET_PID > /dev/null 2>&1; then
+        kill $TARGET_PID
+        if kill -0 $TARGET_PID > /dev/null 2>&1; then
+          echo "$JOB_NAME did not stop gracefully: killing with kill -9"
+          kill -9 $TARGET_PID
+        fi
+      else
+        echo no $JOB_NAME to stop
+      fi
+    else
+      echo no $JOB_NAME to stop
+    fi
 
     ;;
   *)

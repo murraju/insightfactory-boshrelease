@@ -24,6 +24,14 @@ case $1 in
     chown --recursive vcap:vcap $ZOOKEEPER_DIR
     chown --recursive vcap:vcap $STORM_LOG_DIR
 
+
+    if [ ! -d "$STORM_USER_CONFIG_DIR" ]; then
+
+        mkdir -p $STORM_USER_CONFIG_DIR
+        ln -sf /var/vcap/jobs/$JOB_NAME/conf/storm.yaml $STORM_USER_CONFIG_DIR/storm.yaml
+        chown --recursive vcap:vcap $STORM_USER_CONFIG_DIR
+    fi
+
     exec chpst -u vcap:vcap $STORM_HOME/bin/storm nimbus
          1>>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log &
@@ -35,7 +43,22 @@ case $1 in
     ;;
 
   stop)
-    kill `cat $PIDFILE`
+    #kill `cat $PIDFILE`
+
+    if [ -f $PIDFILE ]; then
+      TARGET_PID=`cat $PIDFILE`
+      if kill -0 $TARGET_PID > /dev/null 2>&1; then
+        kill $TARGET_PID
+        if kill -0 $TARGET_PID > /dev/null 2>&1; then
+          echo "$JOB_NAME did not stop gracefully: killing with kill -9"
+          kill -9 $TARGET_PID
+        fi
+      else
+        echo no $JOB_NAME to stop
+      fi
+    else
+      echo no $JOB_NAME to stop
+    fi
 
     ;;
   *)
