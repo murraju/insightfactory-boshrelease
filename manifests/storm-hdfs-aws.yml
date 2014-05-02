@@ -1,0 +1,213 @@
+<% num_zookeepers = 3 %>
+<% num_kafka_brokers = 2 %>
+<% num_hdfs_masters = 2 %>
+<% num_masters = 2 %>
+<% num_slaves = 5 %>
+<% num_clients = 1 %>
+<% client_public_ip =  %>
+<% deployment_name = "spark-ha-hdfs-aws" %>
+<% os = "ubuntu" %>
+<% tld = "microbosh" %>
+<% release_name = "insightfactory-boshrelease" %>
+<% director_uuid = "6c72a227-45c9-4df6-8973-7172b954812a" %>
+---
+
+compilation:
+  cloud_properties:
+    instance_type: m1.xlarge
+  network: default
+  reuse_compilation_vms: true
+  workers: 6
+name:  <%= deployment_name %>
+director_uuid: <%= director_uuid %>
+
+jobs:
+- name: zookeeper
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: zookeeper
+  template: zookeeper
+  instances: <%= num_zookeepers %>
+
+- name: kafka
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: kafka
+  template: kafka
+  instances: <%= num_kafka_brokers  %>
+
+- name: spark-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: master
+  template: spark-master
+  instances: <%= num_masters %>
+
+- name: hdfs-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: namenode
+  instances: 1
+
+- name: hdfs-smaster
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: secondarynamenode
+  instances: 1
+
+- name: spark-slave
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: slave
+  template:
+    - spark-slave
+    - datanode
+  instances: <%= num_slaves %>
+
+- name: client
+  networks:
+  - name: default
+    default: [dns, gateway]
+  - name: elastic
+    static_ips:
+      - <%= client_public_ip %>
+  resource_pool: client
+  template: client
+  instances: <%= num_clients %>
+
+meta:
+  environment: <%= deployment_name %>
+  stemcell:
+    name: bosh-aws-xen-<%= os %>
+    version: latest
+
+networks:
+- cloud_properties: {}
+  name: elastic
+  type: vip
+- cloud_properties:
+    security_groups:
+    - hadoop
+  name: default
+  type: dynamic
+
+
+releases:
+- name: <%= release_name %>
+  version: latest
+
+resource_pools:
+  - name: zookeeper
+    network: default
+    size: <%= num_zookeepers %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.medium
+
+  - name: kafka
+    network: default
+    size: <%= num_kafka_brokers %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
+  - name: master
+    network: default
+    size: <%= num_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: hdfs-master
+    network: default
+    size: <%= num_hdfs_masters %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.xlarge
+
+  - name: slave
+    network: default
+    size: <%= num_slaves %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m2.2xlarge
+
+  - name: client
+    network: default
+    size: <%= num_clients %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.large
+
+
+properties:
+  zookeeper:
+    servers:
+      <% num_zookeepers.times do |i| %>
+      <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
+  kafka:
+    brokers:
+      <% num_kafka_brokers.times do |i| %>
+      <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
+  spark:
+    masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
+  hadoop:
+    namenode:
+      host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
+      port: 8020
+    yarn:
+      resourcemanager:
+        resourcetracker:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        admin:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        scheduler:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        webapp:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      mapreduce:
+        jobhistory:
+          webapp:
+            address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      log:
+        server:
+          url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
+
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
+
