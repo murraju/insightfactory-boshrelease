@@ -15,10 +15,18 @@
 # limitations under the License.
 
 ########### These MUST be filled in for a storm configuration
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+
 storm.zookeeper.servers:
-  <% zookeeper.servers do |server| %>
+  <% servers.each do |server| %>
   <%= "- #{server}" %>
   <% end %>
+
 
 nimbus.host: <%= p("nimbus.host") %>
 #
