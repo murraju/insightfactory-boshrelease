@@ -2,5 +2,6 @@
 name: storm
 dependencies:
  - java
+ - python
 files:
 - storm/apache-storm-0.9.1-incubating.tar.gz

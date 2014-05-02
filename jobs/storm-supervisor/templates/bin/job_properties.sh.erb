@@ -21,4 +21,4 @@ export ZOOKEEPER_DIR=<%= p("storm.deploy.zookeeper.dir") %>
 export STORM_HOME=/var/vcap/packages/storm
 export STORM_MASTER_WEBUI_PORT=8080
 export JAVA_HOME=/var/vcap/packages/java/jdk
-export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:$PATH
+export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:/var/vcap/packages/python/bin:$PATH
