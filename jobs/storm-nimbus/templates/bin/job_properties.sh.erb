@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+#
+# Spark Master Properties
+#
+
+JOB_NAME=storm-nimbus
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+
+export STORM_MASTER_IP=<%= spec.networks.default.ip %>
+export STORM_LOCAL_IP=<%= spec.networks.default.ip %>
+export ZOOKEEPER_DIR=<%= p("storm.deploy.zookeeper.dir") %>
+export STORM_DAEMON_JAVA_OPTS="-Dstorm.deploy.recoveryMode=ZOOKEEPER -Dstorm.deploy.zookeeper.url=<%= servers.join(',') %> -Dstorm.deploy.zookeeper.dir=<%= p("storm.deploy.zookeeper.dir") %>"
+
+export STORM_HOME=/var/vcap/packages/storm
+export STORM_MASTER_PORT=7077
+export STORM_MASTER_WEBUI_PORT=8080
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:$PATH
