@@ -179,8 +179,9 @@ properties:
       <% num_kafka_brokers.times do |i| %>
       <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
-  nimbus:
-    host: "0.storm-master.default.<%= deployment_name %>.<%= tld %>"
+  storm:
+    nimbus:
+      host: "0.storm-master.default.<%= deployment_name %>.<%= tld %>"
   hadoop:
     namenode:
       host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"

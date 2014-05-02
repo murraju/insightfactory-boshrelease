@@ -31,3 +31,5 @@ properties:
   zookeeper.client_port:
     description: "Port at which the clients will connect to Apache Zookeeper"
     default: 2181
+  storm.nimbus.host:
+    description: "Nimbus host"
