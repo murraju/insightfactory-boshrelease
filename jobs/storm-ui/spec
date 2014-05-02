@@ -2,6 +2,7 @@
 name: storm-ui
 packages:
 - storm
+- python
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
   bin/storm-ui_ctl.erb: bin/storm-ui_ctl
