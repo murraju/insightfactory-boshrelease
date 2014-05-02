@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Spark Master Properties
+# Storm Supervisor Properties
 #
 
 JOB_NAME=storm-supervisor
@@ -16,13 +16,9 @@ PIDFILE=$RUN_DIR/$JOB_NAME.pid
   end
 %>
 
-export STORM_MASTER_IP=<%= spec.networks.default.ip %>
-export STORM_LOCAL_IP=<%= spec.networks.default.ip %>
 export ZOOKEEPER_DIR=<%= p("storm.deploy.zookeeper.dir") %>
-export STORM_DAEMON_JAVA_OPTS="-Dstorm.deploy.recoveryMode=ZOOKEEPER -Dstorm.deploy.zookeeper.url=<%= servers.join(',') %> -Dstorm.deploy.zookeeper.dir=<%= p("storm.deploy.zookeeper.dir") %>"
 
 export STORM_HOME=/var/vcap/packages/storm
-export STORM_MASTER_PORT=7077
 export STORM_MASTER_WEBUI_PORT=8080
 export JAVA_HOME=/var/vcap/packages/java/jdk
 export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:$PATH

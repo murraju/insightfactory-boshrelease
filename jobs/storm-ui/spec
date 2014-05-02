@@ -1,10 +1,10 @@
 ---
-name: storm-nimbus
+name: storm-ui
 packages:
 - storm
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
-  bin/storm-nimbus_ctl.erb: bin/storm-nimbus_ctl
+  bin/storm-ui_ctl.erb: bin/storm-ui_ctl
   bin/monit_debugger: bin/monit_debugger
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh

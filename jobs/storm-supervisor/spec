@@ -9,7 +9,7 @@ templates:
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
-  config/storm-env.sh.erb: config/storm-env.sh
+  config/storm.yaml.erb: config/storm.yaml
 properties:
   storm.master.host:
     description: The Hostname or address of the Storm master
