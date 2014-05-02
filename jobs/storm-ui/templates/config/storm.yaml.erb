@@ -18,7 +18,7 @@
 <%
   servers = []
   p('zookeeper.servers').each do |server|
-    servers << "#{server}:#{p('zookeeper.client_port')}"
+    servers << "#{server}"
   end
 %>
 
