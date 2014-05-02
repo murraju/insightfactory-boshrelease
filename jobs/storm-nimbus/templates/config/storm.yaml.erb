@@ -16,8 +16,8 @@
 
 ########### These MUST be filled in for a storm configuration
 storm.zookeeper.servers:
-  <% num_zookeepers.times do |i| %>
-  <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+  <% zookeeper.servers do |server| %>
+  <%= "- #{server}" %>
   <% end %>
 
 nimbus.host: <%= p("nimbus.host") %>
