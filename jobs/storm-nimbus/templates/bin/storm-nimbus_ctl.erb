@@ -25,14 +25,8 @@ case $1 in
     chown --recursive vcap:vcap $STORM_LOG_DIR
 
     # The following is a workaround for not being able to point to a config directory when launching storm
-    if [ ! -d "$STORM_USER_CONFIG_DIR" ]; then
-
-        mkdir -p $STORM_USER_CONFIG_DIR
-        ln -sf /var/vcap/jobs/$JOB_NAME/config/storm.yaml $STORM_USER_CONFIG_DIR/storm.yaml
-        rm $STORM_HOME/conf/storm.yaml
-        ln -sf /var/vcap/jobs/$JOB_NAME/config/storm.yaml $STORM_HOME/conf/storm.yaml
-        chown --recursive vcap:vcap $STORM_USER_CONFIG_DIR
-    fi
+    rm $STORM_HOME/conf/storm.yaml
+    ln -sf /var/vcap/jobs/$JOB_NAME/config/storm.yaml $STORM_HOME/conf/storm.yaml
 
     exec chpst -u vcap:vcap $STORM_HOME/bin/storm nimbus \
          1>>$LOG_DIR/$JOB_NAME.stdout.log \
