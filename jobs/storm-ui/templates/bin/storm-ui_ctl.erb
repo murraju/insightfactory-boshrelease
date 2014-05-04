@@ -15,7 +15,7 @@ hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/)
 case $1 in
 
   start)
-    #pid_guard $PIDFILE $JOB_NAME
+    pid_guard $PIDFILE $JOB_NAME
 
     chown --recursive vcap:vcap $STORM_HOME
     chown --recursive vcap:vcap $LOG_DIR
