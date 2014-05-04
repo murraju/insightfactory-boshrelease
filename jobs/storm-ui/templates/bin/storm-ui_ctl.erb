@@ -20,7 +20,7 @@ case $1 in
     chown --recursive vcap:vcap $STORM_HOME
     chown --recursive vcap:vcap $LOG_DIR
 
-    exec chpst -u vcap:vcap $STORM_HOME/bin/storm ui
+    exec chpst -u vcap:vcap $STORM_HOME/bin/storm ui \
          1>>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log &
 

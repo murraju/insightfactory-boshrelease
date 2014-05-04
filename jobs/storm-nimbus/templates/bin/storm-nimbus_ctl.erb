@@ -32,7 +32,7 @@ case $1 in
         chown --recursive vcap:vcap $STORM_USER_CONFIG_DIR
     fi
 
-    exec chpst -u vcap:vcap $STORM_HOME/bin/storm nimbus
+    exec chpst -u vcap:vcap $STORM_HOME/bin/storm nimbus \
          1>>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log &
 
