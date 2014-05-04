@@ -24,7 +24,7 @@ case $1 in
     chown --recursive vcap:vcap $ZOOKEEPER_DIR
     chown --recursive vcap:vcap $STORM_LOG_DIR
 
-
+    # The following is a workaround for not being able to point to a config directory when launching storm
     if [ ! -d "$STORM_USER_CONFIG_DIR" ]; then
 
         mkdir -p $STORM_USER_CONFIG_DIR
