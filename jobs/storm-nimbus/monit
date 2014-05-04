@@ -1,0 +1,5 @@
+check process storm-nimbus
+  with pidfile /var/vcap/sys/run/storm-nimbus/storm-nimbus.pid
+  start program "/var/vcap/jobs/storm-nimbus/bin/monit_debugger storm-nimbus_ctl '/var/vcap/jobs/storm-nimbus/bin/storm-nimbus_ctl start'"
+  stop program "/var/vcap/jobs/storm-nimbus/bin/monit_debugger storm-nimbus_ctl '/var/vcap/jobs/storm-nimbus/bin/storm-nimbus_ctl stop'"
+  group vcap

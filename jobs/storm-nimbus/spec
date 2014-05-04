@@ -1,0 +1,36 @@
+---
+name: storm-nimbus
+packages:
+- storm
+- java
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/storm-nimbus_ctl.erb: bin/storm-nimbus_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/storm.yaml.erb: config/storm.yaml
+properties:
+  storm.master.host:
+    description: The Hostname or address of the Storm master
+    default: 0.storm-master.default.storm-aws-ec2.bosh
+  storm.masters:
+    description: List of all Storm Masters
+    default: 0.storm-master.default.storm-aws-ec2.bosh
+  storm.master.port:
+    description: The port to listen on
+    default: 7077
+  storm.deploy.zookeeper.dir:
+    description: The directory in ZooKeeper to store recovery state
+    default: /storm
+  storm.cluster.name:
+    description: The name of the cluster as shown in the Storm admin ui
+    default: bosh-storm-cluster
+  zookeeper.servers:
+    description: "List of all Apache Zookeeper server host IP/hostnames"
+  zookeeper.client_port:
+    description: "Port at which the clients will connect to Apache Zookeeper"
+    default: 2181
+  storm.nimbus.host:
+    description: "Nimbus host"

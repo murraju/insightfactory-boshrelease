@@ -1,0 +1,5 @@
+check process storm-ui
+  with pidfile /var/vcap/sys/run/storm-ui/storm-ui.pid
+  start program "/var/vcap/jobs/storm-ui/bin/monit_debugger storm-ui_ctl '/var/vcap/jobs/storm-ui/bin/storm-ui_ctl start'"
+  stop program "/var/vcap/jobs/storm-ui/bin/monit_debugger storm-ui_ctl '/var/vcap/jobs/storm-ui/bin/storm-ui_ctl stop'"
+  group vcap
