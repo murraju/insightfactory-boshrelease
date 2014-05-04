@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+#
+# Storm UI Properties
+#
+
+JOB_NAME=storm-ui
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+
+<%
+  servers = []
+  p('zookeeper.servers').each do |server|
+    servers << "#{server}:#{p('zookeeper.client_port')}"
+  end
+%>
+
+export ZOOKEEPER_DIR=<%= p("storm.deploy.zookeeper.dir") %>
+
+export STORM_HOME=/var/vcap/packages/storm
+export STORM_CONF_FILE=/var/vcap/jobs/$JOB_NAME/config/storm.yaml
+export STORM_MASTER_WEBUI_PORT=8080
+export JAVA_HOME=/var/vcap/packages/java/jdk
+export PATH=$JAVA_HOME/bin:$STORM_HOME/bin:$STORM_HOME/sbin:$PATH

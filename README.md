@@ -33,6 +33,10 @@ Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
 
 Kafka clusters for building Data Pipelines and Stream Processing (Spark)
 
+## Storm
+
+Storm clusters for Streaming Processing
+
 ## Clients
 
 A Client VM for accessing cluster resources. The Client contains Spark, Scalding, Cascalog repos as well as pig and hive.

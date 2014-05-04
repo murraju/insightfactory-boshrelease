@@ -1,0 +1,5 @@
+check process storm-supervisor
+  with pidfile /var/vcap/sys/run/storm-supervisor/storm-supervisor.pid
+  start program "/var/vcap/jobs/storm-supervisor/bin/monit_debugger storm-supervisor_ctl '/var/vcap/jobs/storm-supervisor/bin/storm-supervisor_ctl start'"
+  stop program "/var/vcap/jobs/storm-supervisor/bin/monit_debugger storm-supervisor_ctl '/var/vcap/jobs/storm-supervisor/bin/storm-supervisor_ctl stop'"
+  group vcap
