@@ -69,7 +69,7 @@ jobs:
   template: secondarynamenode
   instances: 1
 
-- name: storm-slave
+- name: slave
   networks:
   - name: default
     default: [dns, gateway]
