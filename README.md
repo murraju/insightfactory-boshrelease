@@ -31,7 +31,7 @@ Run Standalone HA Mesos Cluster with HDFS (Apache Hadoop 2.4.0).
 
 ## Kafka
 
-Kafka clusters for building Data Pipelines and Stream Processing (Spark)
+Kafka clusters to build Data Pipelines for Stream Processing (Spark Streaming, Storm)
 
 ## Storm
 
