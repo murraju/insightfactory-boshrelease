@@ -85,9 +85,9 @@ git push origin master --tags
 
 ## Road Map
 
-1. Apache Kafka
-2. Apache Storm
-3. Apache Accumulo
+1. Apache Kafka [complete]
+2. Apache Storm [complete]
+3. Apache Accumulo [inprogress]
 4. Apache HBase
 5. Apache Mahout
 6. Additional BDAS components
