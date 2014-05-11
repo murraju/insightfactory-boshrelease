@@ -199,6 +199,9 @@ properties:
       <% num_kafka_brokers.times do |i| %>
       <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
+  storm:
+    nimbus:
+      host: "0.storm-master.default.<%= deployment_name %>.<%= tld %>"
   spark:
     masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
   hadoop:
@@ -231,4 +234,3 @@ update:
   canary_watch_time: 1000-30000
   max_in_flight: 50
   update_watch_time: 1000-30000
-

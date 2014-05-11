@@ -10,7 +10,7 @@
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "6c72a227-45c9-4df6-8973-7172b954812a" %>
+<% director_uuid = "175c009f-f41b-4318-bc61-6e508cc08862" %>
 ---
 
 compilation:
@@ -199,6 +199,9 @@ properties:
       <% num_kafka_brokers.times do |i| %>
       <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
+  storm:
+    nimbus:
+      host: "0.storm-master.default.<%= deployment_name %>.<%= tld %>"
   spark:
     masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
   hadoop:
@@ -231,4 +234,3 @@ update:
   canary_watch_time: 1000-30000
   max_in_flight: 50
   update_watch_time: 1000-30000
-
