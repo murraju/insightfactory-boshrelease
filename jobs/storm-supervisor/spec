@@ -1,8 +1,9 @@
 ---
 name: storm-supervisor
 packages:
-- storm
+- python
 - java
+- storm
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
   bin/storm-supervisor_ctl.erb: bin/storm-supervisor_ctl
