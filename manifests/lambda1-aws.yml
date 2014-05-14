@@ -2,7 +2,7 @@
 <% num_kafka_brokers = 2 %>
 <% num_hdfs_masters = 2 %>
 <% num_spark_masters = 2 %>
-<% num_storm_masters = 2 %>
+<% num_storm_masters = 1 %>
 <% num_slaves = 3 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
@@ -10,7 +10,7 @@
 <% os = "ubuntu" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "175c009f-f41b-4318-bc61-6e508cc08862" %>
+<% director_uuid = "85668999-fc9a-4ad1-bd0b-331cebce33b6" %>
 ---
 
 compilation:
