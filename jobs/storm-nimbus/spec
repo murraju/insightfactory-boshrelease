@@ -1,8 +1,9 @@
 ---
 name: storm-nimbus
 packages:
-- storm
+- python
 - java
+- storm
 templates:
   bin/job_properties.sh.erb: bin/job_properties.sh
   bin/storm-nimbus_ctl.erb: bin/storm-nimbus_ctl
