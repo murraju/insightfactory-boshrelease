@@ -3,7 +3,7 @@
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
 <% client_public_ip =  %>
-<% deployment_name = "spark-ha-google" %>
+<% deployment_name = "spark-ha-hdfs-google" %>
 <% os = "centos" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
@@ -125,6 +125,30 @@ properties:
       <% end %>
   spark:
     masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
+hadoop:
+  namenode:
+    host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
+    port: 8020
+  yarn:
+    resourcemanager:
+      resourcetracker:
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      admin:
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      scheduler:
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      webapp:
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+    mapreduce:
+      jobhistory:
+        webapp:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+    log:
+      server:
+        url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
 
 update:
   canaries: 1
