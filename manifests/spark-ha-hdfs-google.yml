@@ -154,7 +154,7 @@ resource_pools:
       name: bosh-google-kvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: n1-highmem-6
+      instance_type: n1-highmem-8
 
   - name: client
     network: default
