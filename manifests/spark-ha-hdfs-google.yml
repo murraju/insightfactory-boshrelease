@@ -1,10 +1,12 @@
 <% num_zookeepers = 3 %>
+<% num_kafka_brokers = 2 %>
+<% num_hdfs_masters = 2 %>
 <% num_masters = 2 %>
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
-<% client_public_ip =  %>
+<% client_public_ip = "CHANGE-ME" %>
 <% deployment_name = "spark-ha-hdfs-google" %>
-<% os = "centos" %>
+<% os = "ubuntu-trusty" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
 <% director_uuid = "CHANGE-ME" %>
@@ -29,6 +31,15 @@ jobs:
   template: zookeeper
   instances: <%= num_zookeepers %>
 
+- name: kafka
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: kafka
+  template: kafka
+  instances: <%= num_kafka_brokers  %>
+
 - name: spark-master
   networks:
   - name: default
@@ -38,13 +49,33 @@ jobs:
   template: spark-master
   instances: <%= num_masters %>
 
+- name: hdfs-master
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: namenode
+  instances: 1
+
+- name: hdfs-smaster
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: hdfs-master
+  template: secondarynamenode
+  instances: 1
+
 - name: spark-slave
   networks:
   - name: default
     default: [dns, gateway]
     static_ips: null
   resource_pool: slave
-  template: spark-slave
+  template:
+    - spark-slave
+    - datanode
   instances: <%= num_slaves %>
 
 - name: client
@@ -89,6 +120,15 @@ resource_pools:
     cloud_properties:
       instance_type: n1-standard-1
 
+  - name: kafka
+    network: default
+    size: <%= num_kafka_brokers %>
+    stemcell:
+      name: bosh-google-kvm-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: n1-standard-2
+
   - name: master
     network: default
     size: <%= num_masters %>
@@ -96,7 +136,16 @@ resource_pools:
       name: bosh-google-kvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: n1-highmem-2
+      instance_type: n1-highmem-4
+
+  - name: hdfs-master
+    network: default
+    size: <%= num_hdfs_masters %>
+    stemcell:
+      name: bosh-google-kvm-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: n1-highmem-4
 
   - name: slave
     network: default
@@ -105,7 +154,7 @@ resource_pools:
       name: bosh-google-kvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: n1-highmem-4
+      instance_type: n1-highmem-6
 
   - name: client
     network: default
@@ -123,32 +172,38 @@ properties:
       <% num_zookeepers.times do |i| %>
       <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
       <% end %>
+  kafka:
+    brokers:
+      <% num_kafka_brokers.times do |i| %>
+      <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
   spark:
     masters: "0.spark-master.default.<%= deployment_name %>.<%= tld %>:7077,1.spark-master.default.<%= deployment_name %>.<%= tld %>:7077"
-hadoop:
-  namenode:
-    host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
-    port: 8020
-  yarn:
-    resourcemanager:
-      resourcetracker:
-        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      admin:
-        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      scheduler:
-        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      webapp:
-        address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-      address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-    mapreduce:
-      jobhistory:
+  hadoop:
+    namenode:
+      host: "0.hdfs-master.default.<%= deployment_name %>.<%= tld %>"
+      port: 8020
+    yarn:
+      resourcemanager:
+        resourcetracker:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        admin:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        hostname: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+        scheduler:
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
         webapp:
           address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
         address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
-    log:
-      server:
-        url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
+      mapreduce:
+        jobhistory:
+          webapp:
+            address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+          address: "0.yarn-master.default.<%= deployment_name %>.<%= tld %>"
+      log:
+        server:
+          url: "http://0.yarn-master.default.<%= deployment_name %>.<%= tld %>:19888/jobhistory/logs"
+
 
 update:
   canaries: 1
