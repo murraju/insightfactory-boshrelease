@@ -7,16 +7,10 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 # $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
-#SPARK_VERSION=0.9.0
-SPARK_VERSION=0.9.1
+SPARK_VERSION=1.0.3
 SPARK_NAME=SPARK-$SPARK_VERSION
 export JAVA_HOME=$(readlink -nf /var/vcap/packages/java/jdk)
 
-
-#tar xfv spark/spark-0.9.0-incubating-bin-cdh4.tgz
-#cd spark-0.9.0-incubating-bin-cdh4
-#cp -a * $BOSH_INSTALL_TARGET
-
-tar xfv spark/spark-0.9.1-hadoop_2.4.0-bin.tar.gz
-cd spark-0.9.1
+tar xfv spark/spark-1.0.3-SNAPSHOT-bin-2.4.0.tgz
+cd spark-1.0.3-SNAPSHOT-bin-2.4.0
 cp -a * $BOSH_INSTALL_TARGET
