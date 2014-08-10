@@ -2,17 +2,17 @@
 <% num_masters = 2 %>
 <% num_slaves = 5 %>
 <% num_clients = 1 %>
-<% vpc_subnet_id = VPC_Subnet_ID %>
+<% vpc_subnet_id = "CHANGE_ME" %>
 <% deployment_name = "spark-ha-aws-vpc" %>
 <% os = "ubuntu-trusty-go_agent" %>
 <% tld = "microbosh" %>
 <% release_name = "insightfactory-boshrelease" %>
-<% director_uuid = "fb1e4971-a406-4d02-8401-5b27c975f19b" %>
+<% director_uuid = "CHANGE_ME" %>
 ---
 
 compilation:
   cloud_properties:
-    instance_type: m3.xlarge
+    instance_type: m1.xlarge
   network: default
   reuse_compilation_vms: true
   workers: 6
@@ -63,15 +63,23 @@ meta:
     version: latest
 
 networks:
-- cloud_properties: {}
-  subnet: <%= vpc_subnet_id %>
-  type: manual
-- cloud_properties:
-    security_groups:
-    - hadoop
-  name: default
-  type: dynamic
-
+- name: default
+  subnets: 
+  - range: 10.11.2.0/24
+    name: default_unused
+    reserved: 
+    - 10.11.2.2 - 10.11.2.15
+    static:
+    - 10.11.2.100 - 10.11.2.125
+    gateway: 10.11.2.1
+    dns:
+    - 10.11.2.9
+    cloud_properties:
+      security_groups:
+      - bigdata
+      subnet: <%= vpc_subnet_id %>
+      type: dynamic
+  
 
 releases:
 - name: <%= release_name %>
@@ -85,7 +93,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m3.medium
+      instance_type: m1.medium
 
   - name: master
     network: default
@@ -94,7 +102,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m3.xlarge
+      instance_type: m1.xlarge
 
   - name: slave
     network: default
@@ -103,7 +111,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m3.2xlarge
+      instance_type: m1.2xlarge
 
   - name: client
     network: default
@@ -112,7 +120,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m3.large
+      instance_type: m1.large
 
 
 properties:
