@@ -2,4 +2,4 @@
 name: java
 dependencies: []
 files:
-  - java/jdk-7u55-linux-x64.gz
+  - java/jdk-7u67-linux-x64.gz
