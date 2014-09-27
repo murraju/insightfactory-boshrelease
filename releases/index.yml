@@ -1,16 +1,19 @@
 ---
 builds:
-  !binary "MjUxYWE3YmJhZjA5MTc5ZTZiZWM2Njc4OGJjMTkxMTc5NzE4NTY3NQ==":
+  251aa7bbaf09179e6bec66788bc1911797185675:
     version: 1
-  !binary "MGNkYzJlMzRlNGY3OGUwMDMyZDgzODk3YzU0NGQ2MGNiNjBkNTlhZg==":
+  0cdc2e34e4f78e0032d83897c544d60cb60d59af:
     version: 2
-  !binary "OWNkNzNlMzc0OGE4MTlkNmZlNjdhYWJhYzZhMjY3MmQ5ODA0MzcwNg==":
+  9cd73e3748a819d6fe67aabac6a2672d98043706:
     version: 3
-  !binary "N2E0YTcyZDFkNmU2M2RkN2EyMWVlZDJiYTM1MmQ2YWQxYmMxYmI2ZQ==":
+  7a4a72d1d6e63dd7a21eed2ba352d6ad1bc1bb6e:
     version: 4
-  !binary "ZDJmNmRmMjJiMmI4MGQ5MThiMzg2YWZjYzgwZTliNzQzNmVjYTE4Yw==":
+  d2f6df22b2b80d918b386afcc80e9b7436eca18c:
     version: 5
-  !binary "ZjNhZjViNDE5YTJjMTVjNDVjOWI0Y2FkYjEzZTNkYTAzZWMyYWIyOQ==":
+  f3af5b419a2c15c45c9b4cadb13e3da03ec2ab29:
     version: 6
-  !binary "OGJiMzE4ZjViNThkYWYxYWVmM2Q4Y2YwMTNlOTExZDkwYzMwOGMxZA==":
+  8bb318f5b58daf1aef3d8cf013e911d90c308c1d:
     version: '7'
+  af60e166-e508-47b5-9603-86b8359fa90f:
+    version: '8'
+format-version: '2'
