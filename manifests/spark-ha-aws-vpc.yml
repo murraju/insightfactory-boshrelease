@@ -64,10 +64,10 @@ meta:
 
 networks:
 - name: default
-  subnets: 
+  subnets:
   - range: 10.11.2.0/24
     name: default_unused
-    reserved: 
+    reserved:
     - 10.11.2.2 - 10.11.2.15
     static:
     - 10.11.2.100 - 10.11.2.125
@@ -79,7 +79,7 @@ networks:
       - bigdata
       subnet: <%= vpc_subnet_id %>
       type: dynamic
-  
+
 
 releases:
 - name: <%= release_name %>
@@ -93,7 +93,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m1.medium
+      instance_type: m3.medium
 
   - name: master
     network: default
@@ -102,7 +102,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m1.xlarge
+      instance_type: m3.xlarge
 
   - name: slave
     network: default
@@ -111,7 +111,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m1.2xlarge
+      instance_type: m3.2xlarge
 
   - name: client
     network: default
@@ -120,7 +120,7 @@ resource_pools:
       name: bosh-aws-xen-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m1.large
+      instance_type: m3.large
 
 
 properties:
@@ -137,4 +137,3 @@ update:
   canary_watch_time: 1000-30000
   max_in_flight: 50
   update_watch_time: 1000-30000
-
