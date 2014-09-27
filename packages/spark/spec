@@ -2,4 +2,4 @@
 name: spark
 dependencies: []
 files:
-- spark/spark-1.0.3-SNAPSHOT-bin-2.4.0.tgz
+- spark/spark-1.1.1-SNAPSHOT-bin-2.4.0.tgz
