@@ -12,7 +12,7 @@
 
 compilation:
   cloud_properties:
-    instance_type: m1.xlarge
+    instance_type: m3.xlarge
   network: default
   reuse_compilation_vms: true
   workers: 6
